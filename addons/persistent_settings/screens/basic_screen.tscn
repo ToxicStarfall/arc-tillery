@@ -1,0 +1,274 @@
+[gd_scene load_steps=7 format=3 uid="uid://dywms8oine7jk"]
+
+[ext_resource type="Texture2D" uid="uid://bbjmpw6s22c6w" path="res://addons/persistent_settings/assets/Folder.svg" id="1_3ynh0"]
+[ext_resource type="Texture2D" uid="uid://b38fuadlabxso" path="res://addons/persistent_settings/assets/Info.svg" id="2_nol76"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cx65v"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.25098, 0.266667, 0.298039, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_anpuh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gyvit"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0.25098, 0.266667, 0.298039, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_anpuh"]
+color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="BasicScreen" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VSplitContainer" type="VSplitContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="GeneralSettingsLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cx65v")
+bbcode_enabled = true
+text = "[b]General Settings[/b]"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="GeneralSettingsGroup" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup/HBoxContainer"]
+layout_mode = 2
+text = "Plugin data location:"
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ".../Users/Roaming/Godot/persistant_settings_plugin"
+placeholder_text = "Enter a save path"
+
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup/HBoxContainer"]
+layout_mode = 2
+text = "Reset"
+
+[node name="ViewFolderButton" type="Button" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup"]
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Open Persistent Settings's data fodler."
+text = "View Folder"
+icon = ExtResource("1_3ynh0")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup"]
+visible = false
+layout_mode = 2
+
+[node name="auto_import" type="CheckBox" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup/HBoxContainer2"]
+layout_mode = 2
+text = "Auto import settings"
+
+[node name="auto_import_option" type="OptionButton" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup/HBoxContainer2"]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = "None"
+popup/item_0/id = 0
+
+[node name="show_on_launch" type="CheckBox" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/MarginContainer/GeneralSettingsGroup"]
+layout_mode = 2
+tooltip_text = "Show this popup when launching the project."
+text = "Show on project launch"
+
+[node name="Presets" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cx65v")
+bbcode_enabled = true
+text = "[b]Presets[/b]"
+fit_content = true
+
+[node name="PresetsMargin" type="MarginContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PresetsSection" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/PresetsMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="auto_correct_invalid" type="CheckBox" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/PresetsMargin/PresetsSection"]
+layout_mode = 2
+tooltip_text = "Include per project specific data, such as the project's name, run configurations, or enabled plugins when importing and saving."
+text = "Include project metadata"
+
+[node name="ProjectSettingsLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cx65v")
+bbcode_enabled = true
+text = "[b]Project Settings[/b]"
+fit_content = true
+
+[node name="HelpButton" type="Button" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/ProjectSettingsLabel"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("2_nol76")
+
+[node name="ProjectSettingsMargin" type="MarginContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ProjectSettingsSection" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/ProjectSettingsMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="include_metadata" type="CheckBox" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/ProjectSettingsMargin/ProjectSettingsSection"]
+layout_mode = 2
+tooltip_text = "Include per project specific data, such as the project's name, run configurations, autoloads, and enabled plugins when importing and saving."
+text = "Include project metadata"
+
+[node name="CollapseButton" type="Button" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/ProjectSettingsMargin/ProjectSettingsSection"]
+visible = false
+layout_mode = 2
+text = "Configure"
+icon = SubResource("CompressedTexture2D_anpuh")
+alignment = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/ProjectSettingsMargin/ProjectSettingsSection"]
+visible = false
+layout_mode = 2
+
+[node name="FavoritePropertiesLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gyvit")
+bbcode_enabled = true
+text = "[b]Favorite Properties[/b]"
+fit_content = true
+
+[node name="FavoritePropertiesMargin" type="MarginContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="FavoritePropertiesSection" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/FavoritePropertiesMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NoSettingsLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/FavoritePropertiesMargin/FavoritePropertiesSection"]
+layout_mode = 2
+text = "No settings available."
+fit_content = true
+
+[node name="FavoriteNodesLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gyvit")
+bbcode_enabled = true
+text = "[b]Favorite Nodes[/b]"
+fit_content = true
+
+[node name="FavoriteNodesMargin" type="MarginContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="FavoriteNodesSection" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/FavoriteNodesMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NoSettingsLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/FavoriteNodesMargin/FavoriteNodesSection"]
+layout_mode = 2
+text = "No settings available."
+fit_content = true
+
+[node name="FavoriteFilesLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gyvit")
+bbcode_enabled = true
+text = "[b]Favorite Files[/b]"
+fit_content = true
+
+[node name="FavoriteFilesMargin" type="MarginContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="FavoriteFilesSection" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/FavoriteFilesMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NoSettingsLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer/FavoriteFilesMargin/FavoriteFilesSection"]
+layout_mode = 2
+text = "No settings available."
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_anpuh")
+
+[node name="ApplyButton" type="Button" parent="MarginContainer/ScrollContainer/VSplitContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Apply Changes"

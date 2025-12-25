@@ -1,0 +1,11 @@
+[gd_resource type="Theme" format=3 uid="uid://i3vbv3fax5ab"]
+
+[resource]
+default_font_size = 18
+BoxContainer/constants/separation = 8
+HBoxContainer/constants/separation = 8
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
+VBoxContainer/constants/separation = 8
