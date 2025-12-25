@@ -4,15 +4,11 @@ extends Node
 var UI: CanvasLayer
 var World: Node2D
 
-var ammo = 3
-var current_weapon
+var ammo := 3
+var current_weapon: Weapon
 
-var projectile_speed := 200.0
-#var gravity := Vector2(0.0, 10.0)
 var gravity := Vector2(0.0, 980.0)
 
-var vertical_angle = 45
-var horizontal_angle = 0
 
 
 func _ready() -> void:
@@ -25,12 +21,14 @@ func _ready() -> void:
 
 
 func _on_weapon_fired(projectile: Projectile):
-	#var projectile: RigidBody2D = preload("res://projectiles/projectile.tscn").instantiate() #Projectile.new()
-	#projectile.position = World.get_node("%ProjectilePoint").position
-	#var velocity = Vector2(50 * 100, -80 * 100)
-	#print(Vector2.from_angle(vertical_angle))
-	#var velocity = Vector2.from_angle(vertical_angle) * projectile_speed * 100
-
 	World.add_child(projectile)
-	#projectile.apply_central_force( velocity )
-	pass
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("zoom_in"):
+		var zoom: Vector2 = World.get_node("Camera2D").zoom
+		World.get_node("Camera2D").zoom = (zoom + (Vector2.ONE * 0.01)).minf(2.0)
+		#World.get_node("Camera2D").zoom += Vector2.ONE * 0.01).minf(2.0)
+	if event.is_action_pressed("zoom_out"):
+		var zoom: Vector2 = World.get_node("Camera2D").zoom
+		World.get_node("Camera2D").zoom = (zoom - (Vector2.ONE * 0.01)).maxf(0.01)

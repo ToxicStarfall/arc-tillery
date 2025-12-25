@@ -1,3 +1,4 @@
+class_name Weapon
 extends StaticBody2D
 
 
@@ -19,7 +20,7 @@ func fire():
 	#new_projectile.position = $ProjectilePoint.global_position
 	new_projectile.position = $ProjectilePoint.position
 	weapon_fired.emit( new_projectile )
-	var vel = Vector2()
+	var vel = Vector2.from_angle(current_angle * -1) * projectile_speed * 10
 	print(vel)
 	new_projectile.apply_central_force( vel * projectile_speed )
 	pass
