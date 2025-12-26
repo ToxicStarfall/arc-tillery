@@ -17,11 +17,11 @@ var current_angle = default_angle
 
 func fire():
 	var new_projectile: RigidBody2D = projectile.instantiate()
-	#new_projectile.position = $ProjectilePoint.global_position
 	new_projectile.position = $ProjectilePoint.position
 	weapon_fired.emit( new_projectile )
-	var vel = Vector2.from_angle(current_angle * -1) * projectile_speed * 10
-	print(vel)
+
+	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed * 10
+	#print(vel)
 	new_projectile.apply_central_force( vel * projectile_speed )
 	pass
 

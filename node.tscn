@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=14 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_112p8"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="1_sy5k4"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://theme.tres" id="2_j2q8x"]
+[ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://game_screen.gd" id="3_bss38"]
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://weapon.tscn" id="4_e2u21"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
@@ -14,6 +15,15 @@ border_width_bottom = 4
 corner_radius_bottom_right = 30
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2u21"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bss38"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
 
 [sub_resource type="Gradient" id="Gradient_j2q8x"]
@@ -22,8 +32,7 @@ colors = PackedColorArray(0.3468, 0.68, 0.3468, 1, 0.6923584, 0.91, 0.5915, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_112p8"]
 gradient = SubResource("Gradient_j2q8x")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_112p8"]
-size = Vector2(1920, 128)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bss38"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_112p8")
@@ -105,6 +114,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_bss38")
 
 [node name="HUD" type="Control" parent="UI/GameScreen"]
 layout_mode = 1
@@ -115,47 +125,89 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_j2q8x")
 
-[node name="AmmoDisplay" type="PanelContainer" parent="UI/GameScreen/HUD"]
-custom_minimum_size = Vector2(200, 80)
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD"]
 layout_mode = 1
-offset_right = 269.0
-offset_bottom = 80.0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 64
+
+[node name="AmmoDisplay" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_j2q8x")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/AmmoDisplay"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/AmmoDisplay/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/GameScreen/HUD/AmmoDisplay/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "AMMO:"
 
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/HUD/AmmoDisplay/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_sy5k4")
 expand_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/HUD/AmmoDisplay/MarginContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_sy5k4")
 expand_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/HUD/AmmoDisplay/MarginContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_sy5k4")
 expand_mode = 2
 
-[node name="FireButton" type="Button" parent="UI/GameScreen/HUD"]
+[node name="WeaponControls" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2u21")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Launch Angle"
+
+[node name="AngleLabel" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "45°"
+
+[node name="AngleSlider" type="HSlider" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 90.0
+value = 45.0
+tick_count = 90
+ticks_position = 3
+
+[node name="VSpacer" type="Control" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FireButton" type="Button" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 40)
-layout_mode = 0
-offset_left = 321.0
-offset_top = 881.0
-offset_right = 421.0
-offset_bottom = 921.0
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_bss38")
 text = "FIRE"
+expand_icon = true
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen"]
 layout_mode = 1
@@ -222,23 +274,32 @@ color = Color(0.2051175, 0.2051174, 0.20511746, 1)
 [node name="World" type="Node2D" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World"]
-position = Vector2(0, 953)
+position = Vector2(9, 1086)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/StaticBody2D"]
-position = Vector2(959, 64.00006)
+position = Vector2(953.5, -62.99994)
 scale = Vector2(7.4882813, 128.00009)
 texture = SubResource("GradientTexture1D_112p8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D"]
-position = Vector2(960, 64)
-shape = SubResource("RectangleShape2D_112p8")
+position = Vector2(320.49994, -129)
+shape = SubResource("WorldBoundaryShape2D_bss38")
 
 [node name="Weapon" parent="World" instance=ExtResource("4_e2u21")]
 position = Vector2(528, 896)
 collision_layer = 0
 
 [node name="Camera2D" type="Camera2D" parent="World"]
-visible = false
 offset = Vector2(960, 540)
-zoom = Vector2(0.73, 0.73)
+zoom = Vector2(0.8, 0.8)
+limit_left = -75000
+limit_top = -100000
+limit_right = 100000
+limit_bottom = 75000
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true

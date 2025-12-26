@@ -6,13 +6,13 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
 radius = 22.090721
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="Projectile" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 5
-constant_force = Vector2(0, 980)
+mass = 1.5
 script = ExtResource("1_ighsu")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

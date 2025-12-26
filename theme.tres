@@ -1,4 +1,16 @@
-[gd_resource type="Theme" format=3 uid="uid://i3vbv3fax5ab"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://i3vbv3fax5ab"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvktn"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1x85"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+corner_detail = 1
 
 [resource]
 default_font_size = 18
@@ -8,4 +20,6 @@ MarginContainer/constants/margin_bottom = 16
 MarginContainer/constants/margin_left = 16
 MarginContainer/constants/margin_right = 16
 MarginContainer/constants/margin_top = 16
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_wvktn")
+PanelContainer/styles/panel2 = SubResource("StyleBoxFlat_e1x85")
 VBoxContainer/constants/separation = 8
