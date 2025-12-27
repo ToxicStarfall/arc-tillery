@@ -1,16 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://crodvh1rsy2hj"]
+[gd_scene load_steps=6 format=3 uid="uid://crodvh1rsy2hj"]
 
 [ext_resource type="Script" uid="uid://biglil3dljgo" path="res://projectiles/projectile.gd" id="1_ighsu"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_7nr1q"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ighsu"]
+bounce = 0.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ighsu"]
+radius = 0.01
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
 radius = 22.090721
 
 [node name="Projectile" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 7
 mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_ighsu")
 script = ExtResource("1_ighsu")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ighsu")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 visible = false

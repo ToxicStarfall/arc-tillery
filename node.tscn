@@ -1,19 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=25 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_112p8"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="1_sy5k4"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://theme.tres" id="2_j2q8x"]
 [ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://game_screen.gd" id="3_bss38"]
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://weapon.tscn" id="4_e2u21"]
+[ext_resource type="PackedScene" uid="uid://b5rxgcprihlhu" path="res://destructable_object.tscn" id="6_tda05"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2q8x"]
-bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
-border_width_right = 4
-border_width_bottom = 4
-corner_radius_bottom_right = 30
-corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2u21"]
 bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
@@ -22,9 +16,67 @@ border_width_right = 3
 border_width_bottom = 3
 corner_detail = 1
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tda05"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qn3nj"]
+height = 51
+noise = SubResource("FastNoiseLite_tda05")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tda05"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_width_left = 2
+border_width_bottom = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l6pdb"]
+noise_type = 2
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r657h"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_l6pdb")
+seamless = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f0urt"]
+texture = SubResource("NoiseTexture2D_r657h")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bss38"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2q8x"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+border_width_top = 4
+border_width_right = 4
+corner_radius_top_right = 30
+corner_detail = 1
+expand_margin_right = 16.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
+
+[sub_resource type="Gradient" id="Gradient_tda05"]
+offsets = PackedFloat32Array(0.9, 0.95)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.5)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qn3nj"]
+noise_type = 2
+fractal_type = 0
+fractal_lacunarity = 7.295
+fractal_gain = 3.61
+fractal_weighted_strength = 0.23
+fractal_ping_pong_strength = 6.645
+cellular_distance_function = 1
+cellular_jitter = 0.0
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l6pdb"]
+width = 1920
+height = 1080
+noise = SubResource("FastNoiseLite_qn3nj")
+color_ramp = SubResource("Gradient_tda05")
+seamless = true
 
 [sub_resource type="Gradient" id="Gradient_j2q8x"]
 colors = PackedColorArray(0.3468, 0.68, 0.3468, 1, 0.6923584, 0.91, 0.5915, 1)
@@ -33,6 +85,9 @@ colors = PackedColorArray(0.3468, 0.68, 0.3468, 1, 0.6923584, 0.91, 0.5915, 1)
 gradient = SubResource("Gradient_j2q8x")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bss38"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tda05"]
+size = Vector2(685, 70)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_112p8")
@@ -127,40 +182,12 @@ theme = ExtResource("2_j2q8x")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD"]
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 257.0
+grow_vertical = 2
 theme_override_constants/separation = 64
-
-[node name="AmmoDisplay" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 80)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_j2q8x")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "AMMO:"
-
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("1_sy5k4")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("1_sy5k4")
-expand_mode = 2
-
-[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("1_sy5k4")
-expand_mode = 2
+alignment = 2
 
 [node name="WeaponControls" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer"]
 unique_name_in_owner = true
@@ -169,9 +196,43 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_e2u21")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer"]
 layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Gunpowder"
+
+[node name="GunpowderLabel" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "50%"
+horizontal_alignment = 2
+
+[node name="GunpowderProgress" type="TextureProgressBar" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+value = 50.0
+nine_patch_stretch = true
+texture_progress = SubResource("NoiseTexture2D_qn3nj")
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_tda05")
+theme_override_styles/fill = SubResource("StyleBoxTexture_f0urt")
+step = 0.1
+value = 50.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -209,12 +270,52 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_bss38")
 text = "FIRE"
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen"]
+[node name="AmmoDisplay" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j2q8x")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "AMMO:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_sy5k4")
+expand_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_sy5k4")
+expand_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_sy5k4")
+expand_mode = 2
+
+[node name="AmmoLabel" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3/3"
+
+[node name="DialoguePanelMargin" type="MarginContainer" parent="UI/GameScreen"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -128.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 64
@@ -222,30 +323,30 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
-[node name="DialoguePanel" type="PanelContainer" parent="UI/GameScreen/MarginContainer"]
+[node name="DialoguePanel" type="PanelContainer" parent="UI/GameScreen/DialoguePanelMargin"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/MarginContainer/DialoguePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/MarginContainer/DialoguePanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel/MarginContainer"]
 visible = false
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/MarginContainer/DialoguePanel/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel/MarginContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("1_sy5k4")
 stretch_mode = 2
 
-[node name="DialogueOutput" type="RichTextLabel" parent="UI/GameScreen/MarginContainer/DialoguePanel/MarginContainer/HBoxContainer"]
+[node name="DialogueOutput" type="RichTextLabel" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -253,7 +354,7 @@ theme = ExtResource("2_j2q8x")
 bbcode_enabled = true
 text = "Some dialogue output"
 
-[node name="DialogueButton" type="Button" parent="UI/GameScreen/MarginContainer/DialoguePanel"]
+[node name="DialogueButton" type="Button" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_j2q8x")
@@ -261,17 +362,17 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_j2q8x")
 
-[node name="ColorRect" type="ColorRect" parent="UI/GameScreen"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.2051175, 0.2051174, 0.20511746, 1)
-
 [node name="World" type="Node2D" parent="."]
+
+[node name="Parallax2D" type="Parallax2D" parent="World"]
+scroll_offset = Vector2(33, 24)
+repeat_size = Vector2(1920, 1080)
+repeat_times = 3
+screen_offset = Vector2(1920, 0)
+
+[node name="CellularNoiseGrid" type="Sprite2D" parent="World/Parallax2D"]
+position = Vector2(937, 406)
+texture = SubResource("NoiseTexture2D_l6pdb")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World"]
 position = Vector2(9, 1086)
@@ -286,20 +387,47 @@ texture = SubResource("GradientTexture1D_112p8")
 position = Vector2(320.49994, -129)
 shape = SubResource("WorldBoundaryShape2D_bss38")
 
+[node name="StaticBody2D2" type="StaticBody2D" parent="World"]
+position = Vector2(726, 587)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="World/StaticBody2D2"]
+position = Vector2(339, -35.99992)
+scale = Vector2(2.6875, 74.00005)
+texture = SubResource("GradientTexture1D_112p8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D2"]
+position = Vector2(336.5, -36)
+shape = SubResource("RectangleShape2D_tda05")
+
 [node name="Weapon" parent="World" instance=ExtResource("4_e2u21")]
 position = Vector2(528, 896)
 collision_layer = 0
+projectile_speed = 40.0
 
-[node name="Camera2D" type="Camera2D" parent="World"]
-offset = Vector2(960, 540)
+[node name="Camera2D" type="Camera2D" parent="World/Weapon"]
+unique_name_in_owner = true
 zoom = Vector2(0.8, 0.8)
-limit_left = -75000
+limit_left = -3000
 limit_top = -100000
 limit_right = 100000
-limit_bottom = 75000
+limit_bottom = 2000
 limit_smoothed = true
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="DestructableObject" parent="World" instance=ExtResource("6_tda05")]
+position = Vector2(1254, 378)
+contact_monitor = true
+max_contacts_reported = 4
+
+[node name="DestructableObject2" parent="World" instance=ExtResource("6_tda05")]
+position = Vector2(1738, 248)
+contact_monitor = true
+max_contacts_reported = 4
+
+[connection signal="body_shape_entered" from="World/DestructableObject" to="World/DestructableObject" method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="World/DestructableObject2" to="World/DestructableObject2" method="_on_body_shape_entered"]
