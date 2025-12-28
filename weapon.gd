@@ -6,6 +6,10 @@ extends StaticBody2D
 signal weapon_fired (projectile: Projectile)
 
 
+@export_enum("Gunpowder:gunpowder", "Energy:energy") var power_type = "Gunpowder"
+@export_range(10.0, 100.0) var power_level_default = 100.0
+var power_level = power_level_default
+
 @export var projectile: PackedScene
 @export var projectile_speed: float = 100.0  ## Projectile launch speed in metres (100px/metre).
 #@export var projectile_weight: float = 1.5  ## Projectile weight in kilograms (kg).
@@ -21,6 +25,7 @@ func fire():
 	weapon_fired.emit( new_projectile )
 
 	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed * 100
+	vel = vel * (power_level/100)
 	new_projectile.apply_central_force( vel * projectile_speed )
 	pass
 

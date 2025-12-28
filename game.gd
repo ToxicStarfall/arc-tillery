@@ -6,11 +6,14 @@ var World: Node2D
 
 var Camera: Camera2D
 
+const gunpowder_default := 10.0
+var gunpowder_level := gunpowder_default
+
 var ammo := 3
 var current_weapon: Weapon
 var current_projectile: Projectile
 
-#var gravity := Vector2(0.0, 980.0)
+
 
 
 func _ready() -> void:
@@ -38,14 +41,15 @@ func _on_weapon_fired(projectile: Projectile):
 func _on_projectile_sleeping(projectile):
 	if projectile.sleeping:
 		camera_focus_weapon()
-	pass
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("zoom_in"):
 		Camera.zoom = (Camera.zoom + (Vector2.ONE * 0.01)).minf(1.5)
+		World.get_node("Line2D").queue_redraw()
 	if event.is_action_pressed("zoom_out"):
 		Camera.zoom = (Camera.zoom - (Vector2.ONE * 0.01)).maxf(0.1)
+		World.get_node("Line2D").queue_redraw()
 
 
 func camera_focus_projectile():

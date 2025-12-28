@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=32 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_112p8"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="1_sy5k4"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://theme.tres" id="2_j2q8x"]
 [ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://game_screen.gd" id="3_bss38"]
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://weapon.tscn" id="4_e2u21"]
+[ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://line_2d.gd" id="5_qn3nj"]
 [ext_resource type="PackedScene" uid="uid://b5rxgcprihlhu" path="res://destructable_object.tscn" id="6_tda05"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
@@ -23,24 +24,45 @@ height = 51
 noise = SubResource("FastNoiseLite_tda05")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tda05"]
-bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
 border_width_left = 2
+border_width_top = 2
+border_width_right = 2
 border_width_bottom = 2
+corner_detail = 1
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_l6pdb"]
 noise_type = 2
 frequency = 0.05
+cellular_distance_function = 1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r657h"]
-width = 256
-height = 256
 noise = SubResource("FastNoiseLite_l6pdb")
 seamless = true
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f0urt"]
 texture = SubResource("NoiseTexture2D_r657h")
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r657h"]
+noise_type = 2
+frequency = 0.05
+cellular_distance_function = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f0urt"]
+noise = SubResource("FastNoiseLite_r657h")
+seamless = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jfkdj"]
+texture = SubResource("NoiseTexture2D_f0urt")
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(1.353256, 1.353256, 1.353256, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bss38"]
 
@@ -83,6 +105,20 @@ colors = PackedColorArray(0.3468, 0.68, 0.3468, 1, 0.6923584, 0.91, 0.5915, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_112p8"]
 gradient = SubResource("Gradient_j2q8x")
+
+[sub_resource type="Gradient" id="Gradient_qn3nj"]
+colors = PackedColorArray(0.16928667, 0.67, 0.16080001, 1, 0.5309233, 0.83, 0.44819996, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f0urt"]
+noise_type = 3
+frequency = 0.1
+domain_warp_frequency = -0.795
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jfkdj"]
+width = 1024
+height = 128
+noise = SubResource("FastNoiseLite_f0urt")
+color_ramp = SubResource("Gradient_qn3nj")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bss38"]
 
@@ -171,55 +207,56 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_bss38")
 
-[node name="HUD" type="Control" parent="UI/GameScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_j2q8x")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 257.0
+offset_right = 293.0
 grow_vertical = 2
 theme_override_constants/separation = 64
 alignment = 2
 
-[node name="WeaponControls" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer"]
+[node name="WeaponControls" type="PanelContainer" parent="UI/GameScreen/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2u21")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Gunpowder"
 
-[node name="GunpowderLabel" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="GunpowderLabel" type="Label" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "50%"
 horizontal_alignment = 2
 
-[node name="GunpowderProgress" type="TextureProgressBar" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="GunpowderSpinBox" type="SpinBox" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+layout_mode = 2
+max_value = 200.0
+step = 10.0
+alignment = 2
+suffix = "%"
+
+[node name="GunpowderProgress" type="TextureProgressBar" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
@@ -227,42 +264,62 @@ value = 50.0
 nine_patch_stretch = true
 texture_progress = SubResource("NoiseTexture2D_qn3nj")
 
-[node name="ProgressBar" type="ProgressBar" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_tda05")
-theme_override_styles/fill = SubResource("StyleBoxTexture_f0urt")
-step = 0.1
+theme_override_styles/panel = SubResource("StyleBoxFlat_tda05")
+
+[node name="GunpowderSlider" type="HSlider" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_f0urt")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_jfkdj")
+max_value = 200.0
+step = 10.0
 value = 50.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Launch Angle"
 
-[node name="AngleLabel" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AngleLabel" type="Label" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "45°"
 
-[node name="AngleSlider" type="HSlider" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+[node name="AngleSpinBox" type="SpinBox" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 180.0
+step = 0.1
+alignment = 2
+suffix = "°"
+
+[node name="AngleSlider" type="HSlider" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 90.0
-value = 45.0
-tick_count = 90
+step = 0.1
+value = 40.0
+tick_count = 180
 ticks_position = 3
 
-[node name="VSpacer" type="Control" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+[node name="VSpacer" type="Control" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="FireButton" type="Button" parent="UI/GameScreen/HUD/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/PanelContainer"]
+[node name="FireButton" type="Button" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
@@ -270,41 +327,41 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_bss38")
 text = "FIRE"
 expand_icon = true
 
-[node name="AmmoDisplay" type="PanelContainer" parent="UI/GameScreen/HUD/VBoxContainer"]
+[node name="AmmoDisplay" type="PanelContainer" parent="UI/GameScreen/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_j2q8x")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/VBoxContainer/AmmoDisplay"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/VBoxContainer/AmmoDisplay/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/GameScreen/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "AMMO:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("1_sy5k4")
-expand_mode = 2
-
-[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_sy5k4")
 expand_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_sy5k4")
 expand_mode = 2
 
-[node name="AmmoLabel" type="Label" parent="UI/GameScreen/HUD/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_sy5k4")
+expand_mode = 2
+
+[node name="AmmoLabel" type="Label" parent="UI/GameScreen/VBoxContainer/AmmoDisplay/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "3/3"
@@ -365,6 +422,7 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_j2q8x")
 [node name="World" type="Node2D" parent="."]
 
 [node name="Parallax2D" type="Parallax2D" parent="World"]
+visible = false
 scroll_offset = Vector2(33, 24)
 repeat_size = Vector2(1920, 1080)
 repeat_times = 3
@@ -374,14 +432,23 @@ screen_offset = Vector2(1920, 0)
 position = Vector2(937, 406)
 texture = SubResource("NoiseTexture2D_l6pdb")
 
+[node name="Line2D" type="Line2D" parent="World"]
+points = PackedVector2Array(466, 960)
+script = ExtResource("5_qn3nj")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="World"]
 position = Vector2(9, 1086)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="World/StaticBody2D"]
-position = Vector2(953.5, -62.99994)
-scale = Vector2(7.4882813, 128.00009)
+position = Vector2(519.4999, -62.99994)
+scale = Vector2(10.878906, 128.00009)
 texture = SubResource("GradientTexture1D_112p8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="World/StaticBody2D"]
+visible = false
+position = Vector2(256, -62)
+texture = SubResource("NoiseTexture2D_jfkdj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D"]
 position = Vector2(320.49994, -129)
