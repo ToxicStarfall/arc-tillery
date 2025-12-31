@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=35 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_112p8"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="1_sy5k4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://weapon.tscn" id="4_e2u21"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://line_2d.gd" id="5_qn3nj"]
 [ext_resource type="PackedScene" uid="uid://b5rxgcprihlhu" path="res://destructable_object.tscn" id="6_tda05"]
+[ext_resource type="Script" uid="uid://cx6jxb8wkqt2f" path="res://star.gd" id="8_l6pdb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
 
@@ -100,6 +101,8 @@ noise = SubResource("FastNoiseLite_qn3nj")
 color_ramp = SubResource("Gradient_tda05")
 seamless = true
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qn3nj"]
+
 [sub_resource type="Gradient" id="Gradient_j2q8x"]
 colors = PackedColorArray(0.3468, 0.68, 0.3468, 1, 0.6923584, 0.91, 0.5915, 1)
 
@@ -124,6 +127,9 @@ color_ramp = SubResource("Gradient_qn3nj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tda05"]
 size = Vector2(685, 70)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r657h"]
+radius = 40.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_112p8")
@@ -432,25 +438,22 @@ screen_offset = Vector2(1920, 0)
 position = Vector2(937, 406)
 texture = SubResource("NoiseTexture2D_l6pdb")
 
-[node name="Line2D" type="Line2D" parent="World"]
-points = PackedVector2Array(466, 960)
-script = ExtResource("5_qn3nj")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="World"]
+[node name="Ground" type="StaticBody2D" parent="World"]
 position = Vector2(9, 1086)
 collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_qn3nj")
 
-[node name="Sprite2D" type="Sprite2D" parent="World/StaticBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="World/Ground"]
 position = Vector2(519.4999, -62.99994)
 scale = Vector2(10.878906, 128.00009)
 texture = SubResource("GradientTexture1D_112p8")
 
-[node name="Sprite2D2" type="Sprite2D" parent="World/StaticBody2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="World/Ground"]
 visible = false
 position = Vector2(256, -62)
 texture = SubResource("NoiseTexture2D_jfkdj")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ground"]
 position = Vector2(320.49994, -129)
 shape = SubResource("WorldBoundaryShape2D_bss38")
 
@@ -467,9 +470,15 @@ texture = SubResource("GradientTexture1D_112p8")
 position = Vector2(336.5, -36)
 shape = SubResource("RectangleShape2D_tda05")
 
+[node name="Line2D" type="Line2D" parent="World"]
+unique_name_in_owner = true
+points = PackedVector2Array(466, 960)
+script = ExtResource("5_qn3nj")
+
 [node name="Weapon" parent="World" instance=ExtResource("4_e2u21")]
 position = Vector2(528, 896)
 collision_layer = 0
+power_level_default = 10.0
 projectile_speed = 40.0
 
 [node name="Camera2D" type="Camera2D" parent="World/Weapon"]
@@ -492,9 +501,23 @@ contact_monitor = true
 max_contacts_reported = 4
 
 [node name="DestructableObject2" parent="World" instance=ExtResource("6_tda05")]
-position = Vector2(1738, 248)
+position = Vector2(1500, 900)
 contact_monitor = true
 max_contacts_reported = 4
 
+[node name="Area2D" type="Area2D" parent="World"]
+position = Vector2(1400, 900)
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("8_l6pdb")
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Area2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_sy5k4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Area2D"]
+shape = SubResource("CircleShape2D_r657h")
+
 [connection signal="body_shape_entered" from="World/DestructableObject" to="World/DestructableObject" method="_on_body_shape_entered"]
 [connection signal="body_shape_entered" from="World/DestructableObject2" to="World/DestructableObject2" method="_on_body_shape_entered"]
+[connection signal="body_entered" from="World/Area2D" to="World/Area2D" method="_on_body_entered"]

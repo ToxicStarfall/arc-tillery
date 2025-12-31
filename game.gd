@@ -1,6 +1,8 @@
 extends Node
 
 
+const PIXELS_PER_METER = 100
+
 var UI: CanvasLayer
 var World: Node2D
 
@@ -13,6 +15,7 @@ var ammo := 3
 var current_weapon: Weapon
 var current_projectile: Projectile
 
+var targets: Array = []
 
 
 
@@ -44,12 +47,19 @@ func _on_projectile_sleeping(projectile):
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	var zoom_factor = 0.1
+	if event is InputEventMouse and !event.factor == 1:
+		#zoom_factor = event.factor
+		zoom_factor = 0.01
+		#print(zoom_factor)
+			#print("trackpad?")
+
 	if event.is_action_pressed("zoom_in"):
-		Camera.zoom = (Camera.zoom + (Vector2.ONE * 0.01)).minf(1.5)
-		World.get_node("Line2D").queue_redraw()
+		Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(1.5)
+		World.get_node("%Line2D").queue_redraw()
 	if event.is_action_pressed("zoom_out"):
-		Camera.zoom = (Camera.zoom - (Vector2.ONE * 0.01)).maxf(0.1)
-		World.get_node("Line2D").queue_redraw()
+		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.1)
+		World.get_node("%Line2D").queue_redraw()
 
 
 func camera_focus_projectile():

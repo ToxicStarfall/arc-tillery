@@ -15,8 +15,8 @@ func _on_body_entered(body: Node) -> void:
 		#print("body")
 
 		await Game.camera_focus_weapon()
-		self.queue_free()
-		body.queue_free()
+		#self.queue_free()
+		#body.queue_free()
 
 
 #func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
