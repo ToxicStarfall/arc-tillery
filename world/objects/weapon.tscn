@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://by7e1tj1gqa6q"]
 
-[ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://weapon.gd" id="1_o2wld"]
+[ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://world/objects/weapon.gd" id="1_o2wld"]
 [ext_resource type="PackedScene" uid="uid://crodvh1rsy2hj" path="res://projectiles/projectile.tscn" id="2_3fy1u"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_8xwfw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fy1u"]
-size = Vector2(128, 64)
+size = Vector2(128, 128)
 
 [node name="Weapon" type="StaticBody2D"]
 script = ExtResource("1_o2wld")
 projectile = ExtResource("2_3fy1u")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Base" type="Sprite2D" parent="."]
 texture = ExtResource("2_8xwfw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -20,3 +20,11 @@ shape = SubResource("RectangleShape2D_3fy1u")
 [node name="ProjectilePoint" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(600, 832)
+
+[node name="PivotPoint" type="Marker2D" parent="."]
+rotation = 1.5707964
+
+[node name="Gun" type="Sprite2D" parent="PivotPoint"]
+position = Vector2(0, -92)
+scale = Vector2(0.5, 2)
+texture = ExtResource("2_8xwfw")
