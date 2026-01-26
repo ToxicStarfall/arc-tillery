@@ -1,12 +1,12 @@
 extends Node
 
 
-const PIXELS_PER_METER = 100
-
 var UI: CanvasLayer
 var World: Node2D
-
 var Camera: Camera2D
+
+
+const PIXELS_PER_METER = 100
 
 const gunpowder_default := 10.0
 var gunpowder_level := gunpowder_default

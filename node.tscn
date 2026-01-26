@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=29 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_112p8"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="1_sy5k4"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://game_screen.gd" id="3_bss38"]
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://weapon.tscn" id="4_e2u21"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://line_2d.gd" id="5_qn3nj"]
-[ext_resource type="PackedScene" uid="uid://b5rxgcprihlhu" path="res://destructable_object.tscn" id="6_tda05"]
+[ext_resource type="PackedScene" uid="uid://b5rxgcprihlhu" path="res://world/objects/destructable_object.tscn" id="6_tda05"]
 [ext_resource type="Script" uid="uid://cx6jxb8wkqt2f" path="res://star.gd" id="8_l6pdb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
@@ -77,30 +77,6 @@ expand_margin_right = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
 
-[sub_resource type="Gradient" id="Gradient_tda05"]
-offsets = PackedFloat32Array(0.9, 0.95)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.5)
-metadata/_snap_enabled = true
-metadata/_snap_count = 20
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_qn3nj"]
-noise_type = 2
-fractal_type = 0
-fractal_lacunarity = 7.295
-fractal_gain = 3.61
-fractal_weighted_strength = 0.23
-fractal_ping_pong_strength = 6.645
-cellular_distance_function = 1
-cellular_jitter = 0.0
-cellular_return_type = 6
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l6pdb"]
-width = 1920
-height = 1080
-noise = SubResource("FastNoiseLite_qn3nj")
-color_ramp = SubResource("Gradient_tda05")
-seamless = true
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qn3nj"]
 
 [sub_resource type="Gradient" id="Gradient_j2q8x"]
@@ -108,20 +84,6 @@ colors = PackedColorArray(0.3468, 0.68, 0.3468, 1, 0.6923584, 0.91, 0.5915, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_112p8"]
 gradient = SubResource("Gradient_j2q8x")
-
-[sub_resource type="Gradient" id="Gradient_qn3nj"]
-colors = PackedColorArray(0.16928667, 0.67, 0.16080001, 1, 0.5309233, 0.83, 0.44819996, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_f0urt"]
-noise_type = 3
-frequency = 0.1
-domain_warp_frequency = -0.795
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jfkdj"]
-width = 1024
-height = 128
-noise = SubResource("FastNoiseLite_f0urt")
-color_ramp = SubResource("Gradient_qn3nj")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bss38"]
 
@@ -427,17 +389,6 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_j2q8x")
 
 [node name="World" type="Node2D" parent="."]
 
-[node name="Parallax2D" type="Parallax2D" parent="World"]
-visible = false
-scroll_offset = Vector2(33, 24)
-repeat_size = Vector2(1920, 1080)
-repeat_times = 3
-screen_offset = Vector2(1920, 0)
-
-[node name="CellularNoiseGrid" type="Sprite2D" parent="World/Parallax2D"]
-position = Vector2(937, 406)
-texture = SubResource("NoiseTexture2D_l6pdb")
-
 [node name="Ground" type="StaticBody2D" parent="World"]
 position = Vector2(9, 1086)
 collision_mask = 0
@@ -447,11 +398,6 @@ physics_material_override = SubResource("PhysicsMaterial_qn3nj")
 position = Vector2(519.4999, -62.99994)
 scale = Vector2(10.878906, 128.00009)
 texture = SubResource("GradientTexture1D_112p8")
-
-[node name="Sprite2D2" type="Sprite2D" parent="World/Ground"]
-visible = false
-position = Vector2(256, -62)
-texture = SubResource("NoiseTexture2D_jfkdj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ground"]
 position = Vector2(320.49994, -129)
