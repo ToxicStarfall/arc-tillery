@@ -172,6 +172,68 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_4c57u")
 
+[node name="TimeDisplay" type="PanelContainer" parent="UI/GameScreen"]
+layout_mode = 1
+offset_right = 125.0
+offset_bottom = 63.125
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/TimeDisplay"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/GameScreen/TimeDisplay/MarginContainer"]
+layout_mode = 2
+text = "TIME: 0 . 0"
+
+[node name="ScoreContainer" type="PanelContainer" parent="UI/GameScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -3.0
+offset_right = 3.0
+offset_bottom = 6.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/ScoreContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/ScoreContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_efxa6")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_efxa6")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_efxa6")
+expand_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameScreen"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -6.0
+offset_bottom = 6.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/PanelContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UI/GameScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "MENU"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen"]
 layout_mode = 1
 anchors_preset = 9
@@ -406,6 +468,8 @@ shape = SubResource("RectangleShape2D_tda05")
 unique_name_in_owner = true
 points = PackedVector2Array(466, 960)
 script = ExtResource("5_dg77c")
+
+[node name="Line2D" type="Line2D" parent="World"]
 
 [node name="Weapon" parent="World" instance=ExtResource("6_ycdy4")]
 position = Vector2(528, 896)

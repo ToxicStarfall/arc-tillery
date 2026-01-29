@@ -9,10 +9,9 @@ var Camera: Camera2D
 
 const PIXELS_PER_METER = 100
 
-const gunpowder_default := 10.0
-var gunpowder_level := gunpowder_default
+var current_level: Level
 
-var ammo := 3
+#var ammo := 3
 var current_weapon: Weapon
 var current_projectile: Projectile
 
@@ -27,8 +26,11 @@ func _ready() -> void:
 	UI = get_tree().root.get_node("Main/UI")
 
 	current_weapon = World.get_node("Weapon")
-	current_weapon.weapon_fired.connect( _on_weapon_fired )
-	UI.get_node("%FireButton").pressed.connect( current_weapon.fire )
+	Events.weapon_fired.connect( _on_weapon_fired )
+
+
+func setup():
+	pass
 
 
 func _on_weapon_fired(projectile: Projectile):
@@ -57,10 +59,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("zoom_in"):
 		Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(1.5)
-		World.get_node("%Line2D").queue_redraw()
+		World.get_node("%GridDrawer").queue_redraw()
 	if event.is_action_pressed("zoom_out"):
 		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.1)
-		World.get_node("%Line2D").queue_redraw()
+		World.get_node("%GridDrawer").queue_redraw()
 
 
 func camera_focus_projectile():
