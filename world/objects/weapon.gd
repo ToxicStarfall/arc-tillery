@@ -5,6 +5,7 @@ extends StaticBody2D
 #@warning_ignore_start("unused_signal")
 #signal weapon_fired (projectile: Projectile)
 
+@export var disabled := false
 
 @export_enum("Gunpowder:gunpowder", "Energy:energy") var power_type = "Gunpowder"
 @export_range(10.0, 100.0) var power_default = 100.0
@@ -30,6 +31,9 @@ func _ready() -> void:
 
 
 func _on_fire_requested():
+	#Game.ammo -= 1
+	#Events.ammo_changed.emit( Game.ammo )
+
 	var new_projectile: RigidBody2D = projectile_scene.instantiate()
 	new_projectile.position = $ProjectilePoint.position
 	Events.weapon_fired.emit( new_projectile )

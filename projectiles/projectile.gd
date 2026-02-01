@@ -10,7 +10,7 @@ extends RigidBody2D
 
 
 func _ready() -> void:
-	$Area2D/CollisionShape2D.shape.radius = impact_range * 100
+	#$Area2D/CollisionShape2D.shape.radius = impact_range * 100
 	pass
 
 

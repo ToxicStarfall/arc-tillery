@@ -17,9 +17,11 @@ texture = ExtResource("2_8xwfw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3fy1u")
 
-[node name="ProjectilePoint" type="Marker2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(600, 832)
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+emitting = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="PivotPoint" type="Marker2D" parent="."]
 rotation = 0.7853982
@@ -28,3 +30,7 @@ rotation = 0.7853982
 position = Vector2(0, -92)
 scale = Vector2(0.5, 2)
 texture = ExtResource("2_8xwfw")
+
+[node name="ProjectilePoint" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(600, 832)

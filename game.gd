@@ -20,17 +20,28 @@ var targets: Array = []
 
 
 func _ready() -> void:
-	World = get_tree().root.get_node("Main/World")
-	Camera = World.get_node("%Camera2D")
+	setup()
 
-	UI = get_tree().root.get_node("Main/UI")
-
-	current_weapon = World.get_node("Weapon")
-	Events.weapon_fired.connect( _on_weapon_fired )
+	start_level("level_0")
+	pass
 
 
 func setup():
-	pass
+	UI = get_tree().root.get_node("Main/UI")
+	World = get_tree().root.get_node("Main/World")
+	#Camera = World.get_node("%Camera2D")
+	#current_weapon = World.get_node("Weapon")
+
+	Events.weapon_fired.connect( _on_weapon_fired )
+
+
+func start_level(level_id: String):
+	var level = load("res://world/levels/%s.tscn" % [level_id]).instantiate()
+	current_level = level
+	World.add_child(level)
+
+	Camera = World.get_node("Level/%Camera2D")
+	current_weapon = World.get_node("Level/Weapon")
 
 
 func _on_weapon_fired(projectile: Projectile):
