@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=27 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_5vw27"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://ui/styles/theme.tres" id="2_kek77"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/markers.gd" id="5_dg77c"]
-[ext_resource type="Texture2D" uid="uid://c2f8f6pqxjbnb" path="res://ui/icons/star.svg" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://ie0uo71ttfbb" path="res://ui/win_banner.tscn" id="6_272bh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
 
@@ -75,14 +75,6 @@ corner_detail = 1
 expand_margin_right = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
-bg_color = Color(0.11207495, 0.11207495, 0.11207495, 0.5)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_kek77"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_272bh"]
-texture = SubResource("GradientTexture1D_kek77")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qn3nj"]
 
@@ -192,7 +184,7 @@ layout_mode = 2
 layout_mode = 2
 text = "TIME: 0 . 0"
 
-[node name="ScoreDisplay" type="PanelContainer" parent="UI/GameScreen"]
+[node name="ScoreContainer" type="PanelContainer" parent="UI/GameScreen"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -202,37 +194,38 @@ offset_right = 3.0
 offset_bottom = 6.0
 grow_horizontal = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/ScoreDisplay"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/ScoreContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/ScoreDisplay/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/ScoreContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ScoreLabel" type="Label" parent="UI/GameScreen/ScoreDisplay/MarginContainer/VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "SCORE: 0/3"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/ScoreDisplay/MarginContainer/VBoxContainer"]
+[node name="ScoreDisplay" type="HBoxContainer" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/ScoreDisplay/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_272bh")
 expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/ScoreDisplay/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_272bh")
 expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/ScoreDisplay/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("4_272bh")
@@ -454,88 +447,15 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_j2q8x")
 
-[node name="WinBanner" type="PanelContainer" parent="UI/GameScreen"]
+[node name="WinBanner" parent="UI/GameScreen" instance=ExtResource("6_272bh")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/GameScreen/WinBanner"]
-layout_mode = 2
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/GameScreen/WinBanner/VBoxContainer2"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_272bh")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/WinBanner/VBoxContainer2/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameScreen/WinBanner/VBoxContainer2/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/GameScreen/WinBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 96
-text = "SUCCESS"
-fit_content = true
-horizontal_alignment = 1
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/GameScreen/WinBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/WinBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("6_272bh")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/WinBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("6_272bh")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/WinBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("6_272bh")
-expand_mode = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/WinBanner/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="BackButton" type="Button" parent="UI/GameScreen/WinBanner/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Back"
-
-[node name="RetryButton" type="Button" parent="UI/GameScreen/WinBanner/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Retry"
-
-[node name="NextButton" type="Button" parent="UI/GameScreen/WinBanner/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Next"
 
 [node name="World" type="Node2D" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="World"]
+visible = false
 position = Vector2(16, 1232)
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_qn3nj")
@@ -555,6 +475,7 @@ position = Vector2(320.49994, -129)
 shape = SubResource("WorldBoundaryShape2D_bss38")
 
 [node name="FloatingGround" type="StaticBody2D" parent="World"]
+visible = false
 position = Vector2(360, 1232)
 collision_mask = 0
 

@@ -6,7 +6,6 @@ extends Collectable
 
 
 func _collected():
-	print("collected")
-	#Events.score_incremented.emit(score_amount)
 	Game.current_level.add_score(score_amount)
-	pass
+	set_deferred("monitoring", false)
+	self.hide()

@@ -2,27 +2,24 @@ extends Node
 
 
 
+const PIXELS_PER_METER = 64
+
 var UI: CanvasLayer
 var World: Node2D
 var Camera: Camera2D
 
-
-const PIXELS_PER_METER = 100
-
 var current_level: Level
-
-#var ammo := 3
 var current_weapon: Weapon
 var current_projectile: Projectile
 
-var targets: Array = []
+#var targets: Array = []
 
 
 
 func _ready() -> void:
 	setup()
 
-	start_level("level_0")
+	start_level("0")
 	pass
 
 
@@ -36,16 +33,56 @@ func setup():
 
 
 func start_level(level_id: String):
-	var level = load("res://world/levels/%s.tscn" % [level_id]).instantiate()
+	end_level()  # Ends the previous level if available
+
+	var level: Level = load("res://world/levels/%s.tscn" % [level_id]).instantiate()
+	#print(level.get_level_id())
 	current_level = level
 	World.add_child(level)
-
 	Camera = World.get_node("Level/%Camera2D")
-	current_weapon = World.get_node("Level/Weapon")
+
+	#current_weapon = World.get_node("Level/Weapon")
+	current_weapon = level.active_weapon
+
+
+func end_level():
+	if current_level:
+		World.remove_child(current_level)
+		current_level.end()
+		current_level.queue_free()
+		current_level = null
+
+
+func home():
+	end_level()
+	#sceren_changed.emit()
+	pass
+
+
+func retry_level():
+	start_level( current_level.get_level_id() )
+	#end_level()
+
+
+func next_level():
+	var level_id = str(str_to_var(current_level.get_level_id()) + 1)
+	if has_level( level_id ):
+		start_level( level_id )
+
+
+func has_level(level_id: String) -> bool:
+	return ResourceLoader.exists("res://world/levels/" + level_id)
+
+
+func _on_level_completed():
+	pass
+
+func _on_level_ended():
+	pass
 
 
 func _on_weapon_fired(projectile: Projectile):
-	World.add_child(projectile)
+	#World.add_child(projectile)
 	if current_projectile: current_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
 	current_projectile = projectile
 	current_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(current_projectile) )
