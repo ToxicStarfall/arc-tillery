@@ -9,6 +9,7 @@ size = Vector2(128, 128)
 
 [node name="Weapon" type="StaticBody2D"]
 script = ExtResource("1_o2wld")
+power_default = 50.0
 projectile_scene = ExtResource("2_3fy1u")
 
 [node name="Base" type="Sprite2D" parent="."]

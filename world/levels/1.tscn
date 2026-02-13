@@ -10,10 +10,25 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kofpo"]
 
-[node name="Level" type="Node2D" node_paths=PackedStringArray("active_weapon")]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("current_weapon")]
 script = ExtResource("1_abncn")
-active_weapon = NodePath("Weapon")
+current_weapon = NodePath("Weapon")
 metadata/_custom_type_script = "uid://dynhc2ivouv7a"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(528, 896)
+zoom = Vector2(0.8, 0.8)
+limit_left = -3000
+limit_top = -100000
+limit_right = 100000
+limit_bottom = 2000
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(9, 1086)
@@ -33,23 +48,8 @@ shape = SubResource("WorldBoundaryShape2D_kofpo")
 [node name="Weapon" parent="." instance=ExtResource("2_mir8o")]
 position = Vector2(528, 896)
 collision_layer = 0
-power_default = 50.0
 projectile_scene = ExtResource("3_wg0e8")
 projectile_speed = 40.0
-
-[node name="Camera2D" type="Camera2D" parent="Weapon"]
-unique_name_in_owner = true
-zoom = Vector2(0.8, 0.8)
-limit_left = -3000
-limit_top = -100000
-limit_right = 100000
-limit_bottom = 2000
-limit_smoothed = true
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
 
 [node name="Star" parent="." instance=ExtResource("4_f70v7")]
 position = Vector2(1536, 768)

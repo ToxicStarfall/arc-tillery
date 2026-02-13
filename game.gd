@@ -14,6 +14,8 @@ var current_projectile: Projectile
 
 #var targets: Array = []
 
+var save_data
+
 
 
 func _ready() -> void:
@@ -29,20 +31,19 @@ func setup():
 	#Camera = World.get_node("%Camera2D")
 	#current_weapon = World.get_node("Weapon")
 
-	Events.weapon_fired.connect( _on_weapon_fired )
+	#Events.weapon_fired.connect( _on_weapon_fired )
 
 
 func start_level(level_id: String):
 	end_level()  # Ends the previous level if available
 
 	var level: Level = load("res://world/levels/%s.tscn" % [level_id]).instantiate()
-	#print(level.get_level_id())
 	current_level = level
 	World.add_child(level)
 	Camera = World.get_node("Level/%Camera2D")
 
 	#current_weapon = World.get_node("Level/Weapon")
-	current_weapon = level.active_weapon
+	current_weapon = level.current_weapon
 
 
 func end_level():
@@ -66,12 +67,13 @@ func retry_level():
 
 func next_level():
 	var level_id = str(str_to_var(current_level.get_level_id()) + 1)
+	#print(has_level( level_id ))
 	if has_level( level_id ):
 		start_level( level_id )
 
 
 func has_level(level_id: String) -> bool:
-	return ResourceLoader.exists("res://world/levels/" + level_id)
+	return ResourceLoader.exists("res://world/levels/%s.tscn" % [level_id])
 
 
 func _on_level_completed():
@@ -81,20 +83,22 @@ func _on_level_ended():
 	pass
 
 
-func _on_weapon_fired(projectile: Projectile):
+#func _on_weapon_fired(projectile: Projectile):
 	#World.add_child(projectile)
-	if current_projectile: current_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
-	current_projectile = projectile
-	current_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(current_projectile) )
+	#if current_projectile: current_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+	#current_projectile = projectile
+	#current_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(current_projectile) )
+#
+	#Camera.reparent(current_projectile)
+	#Camera.position = Vector2.ZERO  # Re-center camera onto projectile
+	#Camera.offset = Vector2.ZERO
+	#pass
 
-	Camera.reparent(current_projectile)
-	Camera.position = Vector2.ZERO  # Re-center camera onto projectile
-	Camera.offset = Vector2.ZERO
 
-
-func _on_projectile_sleeping(projectile):
-	if projectile.sleeping:
-		camera_focus_weapon()
+#func _on_projectile_sleeping(projectile):
+	#if projectile.sleeping:
+		#camera_focus_weapon()
+	#pass
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -117,13 +121,13 @@ func camera_focus_projectile():
 	pass
 
 
-func camera_focus_weapon():
-	#Camera.position_smoothing_enabled = false
-	#Camera.reparent(current_weapon, true)
-	Camera.reparent(current_weapon)
-	#Camera.position = projectile.global_position
-
-	var tween = get_tree().create_tween()
-	tween.tween_property(Camera, "position", Vector2.ZERO, 3)
-	await tween.finished
-	#Camera.align()
+#func camera_focus_weapon():
+	##Camera.position_smoothing_enabled = false
+	##Camera.reparent(current_weapon, true)
+	#Camera.reparent(current_weapon)
+	##Camera.position = projectile.global_position
+#
+	#var tween = get_tree().create_tween()
+	#tween.tween_property(Camera, "position", Vector2.ZERO, 3)
+	#await tween.finished
+	##Camera.align()
