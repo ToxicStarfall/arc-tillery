@@ -8,16 +8,15 @@ extends StaticBody2D
 @export var disabled := false
 
 @export_enum("Gunpowder:gunpowder", "Energy:energy") var power_type = "Gunpowder"
-@export_range(10.0, 100.0) var power_default = 100.0
-var power = power_default
+@export_range(10.0, 100.0) var default_power = 100.0
+@export_range(0.0, 90.0) var default_angle = 0.0
+var power = default_power
+var current_angle = default_angle
 
 @export var projectile_scene: PackedScene
 @export var projectile_speed: float = 100.0  ## Projectile launch speed in metres (100px/metre).
 #var projectiles: Array[Projectile] = []
 #@export var projectile_weight: float = 1.5  ## Projectile weight in kilograms (kg).
-
-var default_angle: float = 45.0
-var current_angle = default_angle
 
 
 func _ready() -> void:
@@ -25,14 +24,14 @@ func _ready() -> void:
 	Events.weapon_angle_change_requested.connect( _on_angle_change_requested )
 	Events.weapon_power_change_requested.connect( _on_power_change_requested )
 	# Init default values
-	Events.weapon_angle_changed.emit(45.0)
-	Events.weapon_power_changed.emit(50.0)
+	Events.weapon_angle_change_requested.emit(0.0)
+	Events.weapon_power_change_requested.emit(50.0)
+	#print("weapon ready")
 	pass
 
 
 func _on_fire_requested():
-	#Game.ammo -= 1
-	#Events.ammo_changed.emit( Game.ammo )
+	# Level controls the ammo
 
 	var new_projectile: RigidBody2D = projectile_scene.instantiate()
 	new_projectile.position = $ProjectilePoint.position

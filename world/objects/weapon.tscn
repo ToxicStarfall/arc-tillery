@@ -1,15 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://by7e1tj1gqa6q"]
+[gd_scene load_steps=6 format=3 uid="uid://by7e1tj1gqa6q"]
 
 [ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://world/objects/weapon.gd" id="1_o2wld"]
 [ext_resource type="PackedScene" uid="uid://crodvh1rsy2hj" path="res://projectiles/projectile.tscn" id="2_3fy1u"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_8xwfw"]
+[ext_resource type="Texture2D" uid="uid://crob74qfvj85m" path="res://world/objects/cannon_barrel.svg" id="4_g6ipy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fy1u"]
 size = Vector2(128, 128)
 
 [node name="Weapon" type="StaticBody2D"]
 script = ExtResource("1_o2wld")
-power_default = 50.0
+default_power = 10.0
 projectile_scene = ExtResource("2_3fy1u")
 
 [node name="Base" type="Sprite2D" parent="."]
@@ -25,12 +26,13 @@ emitting = false
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="PivotPoint" type="Marker2D" parent="."]
-rotation = 0.7853982
+rotation = 1.5707964
 
 [node name="Gun" type="Sprite2D" parent="PivotPoint"]
-position = Vector2(0, -92)
-scale = Vector2(0.5, 2)
-texture = ExtResource("2_8xwfw")
+position = Vector2(0, -79.19595)
+rotation = -1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_g6ipy")
 
 [node name="ProjectilePoint" type="Marker2D" parent="."]
 unique_name_in_owner = true

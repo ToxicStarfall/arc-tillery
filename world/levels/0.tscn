@@ -38,13 +38,12 @@ metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
 
 [node name="Polygon2D" type="Polygon2D" parent="Ground"]
 color = Color(0.34560004, 0.72, 0.61392003, 1)
-polygon = PackedVector2Array(-97, -126, 1943, -126, 1943, 2, -97, 2)
+polygon = PackedVector2Array(-97, -126, 1943, -142, 1943, 2, -97, 2)
 
 [node name="Weapon" parent="." instance=ExtResource("2_ovth3")]
 position = Vector2(528, 896)
 collision_layer = 0
 projectile_scene = ExtResource("3_fdjeg")
-projectile_speed = 40.0
 
 [node name="Star" parent="." instance=ExtResource("4_u2p4m")]
 position = Vector2(1408, 896)

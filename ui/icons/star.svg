@@ -1,1 +1,96 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128"><rect width="124" height="124" x="2" y="2" fill="#363d52" stroke="#212532" stroke-width="4" rx="14"/><g fill="#fff" transform="translate(12.322 12.322)scale(.101)"><path d="M105 673v33q407 354 814 0v-33z"/><path fill="#478cbf" d="m105 673 152 14q12 1 15 14l4 67 132 10 8-61q2-11 15-15h162q13 4 15 15l8 61 132-10 4-67q3-13 15-14l152-14V427q30-39 56-81-35-59-83-108-43 20-82 47-40-37-88-64 7-51 8-102-59-28-123-42-26 43-46 89-49-7-98 0-20-46-46-89-64 14-123 42 1 51 8 102-48 27-88 64-39-27-82-47-48 49-83 108 26 42 56 81zm0 33v39c0 276 813 276 814 0v-39l-134 12-5 69q-2 10-14 13l-162 11q-12 0-16-11l-10-65H446l-10 65q-4 11-16 11l-162-11q-12-3-14-13l-5-69z"/><path d="M483 600c0 34 58 34 58 0v-86c0-34-58-34-58 0z"/><circle cx="725" cy="526" r="90"/><circle cx="299" cy="526" r="90"/></g><g fill="#414042" transform="translate(12.322 12.322)scale(.101)"><circle cx="307" cy="532" r="60"/><circle cx="717" cy="532" r="60"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128"
+   height="128"
+   viewBox="0 0 33.866666 33.866671"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="star.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="false"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     showgrid="true"
+     showguides="false"
+     inkscape:zoom="3.671095"
+     inkscape:cx="70.414959"
+     inkscape:cy="65.511789"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="2.1166668"
+       spacingy="2.1166668"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="star"
+       style="fill:#edbf1c;stroke:none;stroke-width:2.64599;stroke-dasharray:none;paint-order:stroke fill markers;fill-opacity:1"
+       id="path1"
+       inkscape:flatsided="false"
+       sodipodi:sides="5"
+       sodipodi:cx="16.933336"
+       sodipodi:cy="16.933332"
+       sodipodi:r1="16.933332"
+       sodipodi:r2="6.7727066"
+       sodipodi:arg1="-1.5707963"
+       sodipodi:arg2="-0.93419535"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="m 16.933337,0 4.026141,11.487257 12.078415,0.213388 -9.680885,7.378846 3.529491,11.553195 L 16.877242,23.705807 6.9801728,30.632686 10.474997,18.972794 0.82878024,11.700645 12.997957,11.421315 Z"
+       inkscape:transform-center-y="-1.7877001"
+       transform="matrix(1.0514623,0,0,1.1055729,-0.87143117,0)" />
+    <path
+       style="fill:#e3aa28;fill-opacity:1;stroke:none;stroke-width:2.64599;stroke-dasharray:none;paint-order:stroke fill markers"
+       d="M 16.933336,0 V 16.933333 L 21.16667,12.7 Z"
+       id="path2" />
+    <path
+       style="fill:#d59725;fill-opacity:1;stroke:none;stroke-width:2.64599;stroke-dasharray:none;paint-order:stroke fill markers"
+       d="m 33.866669,12.935917 -16.933333,3.997416 6.754246,4.160435 z"
+       id="path3" />
+    <path
+       style="fill:#e3aa28;fill-opacity:1;stroke:none;stroke-width:2.64599;stroke-dasharray:none;paint-order:stroke fill markers"
+       d="M 27.516671,33.866666 16.933336,16.933333 16.874353,26.208497 Z"
+       id="path4" />
+    <path
+       style="fill:#d59725;fill-opacity:1;stroke:none;stroke-width:2.64599;stroke-dasharray:none;paint-order:stroke fill markers"
+       d="M 16.933336,16.933333 6.4679575,33.866669 16.874353,26.208497 Z"
+       id="path5" />
+    <path
+       style="fill:#e3aa28;fill-opacity:1;stroke:none;stroke-width:2.64599;stroke-dasharray:none;paint-order:stroke fill markers"
+       d="M 7.8936572e-8,12.935915 16.933336,16.933333 10.142633,20.975807 Z"
+       id="path6" />
+  </g>
+</svg>

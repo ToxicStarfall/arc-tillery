@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Events="*res://events.gd"
 Game="*res://game.gd"
+UIManager="*res://ui_manager.gd"
 
 [display]
 

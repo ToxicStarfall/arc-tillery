@@ -1,8 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=30 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_5vw27"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://ui/styles/theme.tres" id="2_kek77"]
 [ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://ui/game_screen.gd" id="3_4c57u"]
+[ext_resource type="Script" uid="uid://dcpsa78t31ye2" path="res://ui/main_menu.gd" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/markers.gd" id="5_dg77c"]
@@ -76,6 +77,14 @@ expand_margin_right = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
 
+[sub_resource type="Gradient" id="Gradient_5vw27"]
+colors = PackedColorArray(0.43, 0.71500003, 1, 1, 0.65, 0.825, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kek77"]
+gradient = SubResource("Gradient_5vw27")
+width = 1920
+height = 1080
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qn3nj"]
 
 [sub_resource type="Gradient" id="Gradient_kek77"]
@@ -89,13 +98,10 @@ gradient = SubResource("Gradient_kek77")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tda05"]
 size = Vector2(685, 70)
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
 script = ExtResource("1_5vw27")
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="MainMenu" type="Control" parent="UI"]
-visible = false
+[node name="MainMenu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,8 +109,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_kek77")
+script = ExtResource("3_5vw27")
 
-[node name="ColorRect" type="ColorRect" parent="UI/MainMenu"]
+[node name="ColorRect" type="ColorRect" parent="MainMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,7 +120,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.16924527, 0.1692453, 0.16924527, 1)
 
-[node name="TextureRect" type="TextureRect" parent="UI/MainMenu"]
+[node name="TextureRect" type="TextureRect" parent="MainMenu"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -122,7 +129,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MainMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -130,39 +137,73 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSpacer" type="Control" parent="UI/MainMenu/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/MainMenu/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 1.5
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 96
 theme_override_constants/margin_bottom = 64
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "TITLE"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 24
 theme_override_styles/separator = SubResource("StyleBoxEmpty_nxiqb")
 
-[node name="PlayButton" type="Button" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "PLAY"
 
+[node name="HSpacer" type="Control" parent="MainMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/HBoxContainer/HSpacer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
+
+[node name="BoxContainer" type="BoxContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+vertical = true
+
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer/BoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="LevelContainer" type="FlowContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer/BoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+
 [node name="GameScreen" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -452,6 +493,13 @@ visible = false
 layout_mode = 1
 
 [node name="World" type="Node2D" parent="."]
+visible = false
+
+[node name="Parallax2D" type="Parallax2D" parent="World"]
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Parallax2D"]
+texture = SubResource("GradientTexture2D_kek77")
+centered = false
 
 [node name="Ground" type="StaticBody2D" parent="World"]
 visible = false
