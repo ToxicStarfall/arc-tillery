@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_abncn"]
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/objects/weapon.tscn" id="2_mir8o"]
 [ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/ground.gd" id="2_wg0e8"]
-[ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://projectiles/cannonball.tscn" id="3_wg0e8"]
+[ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://projectiles/cannon/cannonball.tscn" id="3_wg0e8"]
 [ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="4_f70v7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_la0sn"]

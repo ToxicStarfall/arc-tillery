@@ -16,19 +16,18 @@ signal star_collected
 var ammo := 3
 var score := 0
 var attempts := 0
+var elapsed_time := 0.0
 
 #@export var starting_weapon: Weapon
 @export var current_weapon: Weapon
-var available_weapons: Array[Weapon]
+#var available_weapons: Array[Weapon]
 
 @export var current_projectile: Projectile
-
 #@export var allowed_ammo_types
 
 
-#@onready var Camera: Camera2D = Camera2D.new()
-#@onready
-var Camera: Camera2D# = $Camera2D
+
+var Camera: Camera2D
 
 
 
@@ -46,41 +45,41 @@ func setup():
 	Camera.position = Vector2.ZERO
 
 
+func start():
+	Events.level_started.emit(self)
+
 func end():
 	Events.level_ended.emit(self)
 
 
 
 func _on_weapon_fired(projectile):
-	self.add_child(projectile)
-	#current_projectile = projectile
-	if current_projectile: current_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
-	current_projectile = projectile
-	current_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(current_projectile) )
+	if ammo > 0:
+		self.add_child(projectile)
+		if current_projectile: current_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+		current_projectile = projectile
+		current_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(current_projectile) )
 
-	Camera.reparent(current_projectile)
-	Camera.position = Vector2.ZERO  # Re-center camera onto projectile
-	Camera.offset = Vector2.ZERO
+		Camera.reparent(current_projectile)
+		Camera.position = Vector2.ZERO  # Re-center camera onto projectile
+		#Camera.offset = Vector2.ZERO
 
-	ammo = max(ammo - 1, 0)
-	Events.level_ammo_changed.emit( ammo )
-
-	if ammo == 0:
-		Events.level_completed.emit(self)
+		ammo = max(ammo - 1, 0)
+		Events.level_ammo_changed.emit( ammo )
 
 
 func _on_projectile_sleeping(projectile):
 	if projectile.sleeping:
 		camera_focus_weapon()
 
+	if ammo == 0 or score == max_score:
+		Events.level_completed.emit(self)
+
 
 
 func add_score(score_amount: int):
 	score = min(score + score_amount, max_score)
 	Events.level_score_changed.emit( score )
-
-	if score == max_score:
-		Events.level_completed.emit(self)
 
 
 func camera_focus_weapon():

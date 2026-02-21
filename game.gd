@@ -1,6 +1,7 @@
 extends Node
 
 
+const LEVEL_DIRECTORY = "res://world/levels/"
 
 const PIXELS_PER_METER = 64
 
@@ -21,7 +22,7 @@ var save_data
 func _ready() -> void:
 	setup()
 
-	start_level("0")
+	#start_level("0")
 	pass
 
 
@@ -37,13 +38,16 @@ func setup():
 func start_level(level_id: String):
 	end_level()  # Ends the previous level if available
 
-	var level: Level = load("res://world/levels/%s.tscn" % [level_id]).instantiate()
+	#var level: Level = load("res://world/levels/%s.tscn" % [level_id]).instantiate()
+	var level: Level = get_level(level_id).instantiate()
 	current_level = level
 	World.add_child(level)
 	Camera = World.get_node("Level/%Camera2D")
 
 	#current_weapon = World.get_node("Level/Weapon")
 	current_weapon = level.current_weapon
+	Game.World.show()
+	level.start()
 
 
 func end_level():
@@ -54,8 +58,14 @@ func end_level():
 		current_level = null
 
 
+func get_level(level_id: String) -> PackedScene:
+	var level_scene = load(LEVEL_DIRECTORY + "%s.tscn" % [level_id])
+	return level_scene
+
+
 func home():
 	end_level()
+	Game.World.hide()
 	#sceren_changed.emit()
 	pass
 
@@ -103,7 +113,7 @@ func _on_level_ended():
 
 func _unhandled_input(event: InputEvent) -> void:
 	var zoom_factor = 0.1
-	if event is InputEventMouse and !event.factor == 1:
+	if event is InputEventMouseButton and !event.factor == 1:
 		#zoom_factor = event.factor
 		zoom_factor = 0.01
 		#print(zoom_factor)

@@ -25,13 +25,14 @@ func _init_display():
 
 
 func _init_misc():
-	#Game.current_level
+	Events.level_started.connect( _on_level_started )
 	#Events.level_ended.connect( _on_level_ended )
 	Events.level_completed.connect( _on_level_completed )
 
 	%WinBanner/%BackButton.pressed.connect( func():
 		%WinBanner.hide()
 		Game.home()
+		self.hide()
 		pass )
 	%WinBanner/%RetryButton.pressed.connect( func():
 		%WinBanner.hide()
@@ -60,7 +61,10 @@ func request_weapon_fire():
 
 #region - - Updater Functions - - - #
 
-#func _on_level_ended(level: Level):
+func _on_level_started(_level: Level):
+	self.show()
+
+
 func _on_level_completed(level: Level):
 	%WinBanner.show()
 	update_score_display(level.score, %WinBanner/%ScoreDisplay, %WinBanner/%ScoreLabel)
