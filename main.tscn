@@ -1,13 +1,14 @@
-[gd_scene load_steps=30 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=35 format=3 uid="uid://bi5b7j3y3f4wy"]
 
-[ext_resource type="Script" uid="uid://dgtbdvsi2srs4" path="res://main.gd" id="1_5vw27"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://ui/styles/theme.tres" id="2_kek77"]
 [ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://ui/game_screen.gd" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://dcpsa78t31ye2" path="res://ui/main_menu.gd" id="3_5vw27"]
+[ext_resource type="PackedScene" uid="uid://1c5lr7oterih" path="res://ui/screens/level_select.tscn" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/markers.gd" id="5_dg77c"]
 [ext_resource type="PackedScene" uid="uid://ie0uo71ttfbb" path="res://ui/win_banner.tscn" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://c2f8f6pqxjbnb" path="res://ui/icons/star.svg" id="8_kek77"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
 
@@ -77,6 +78,20 @@ expand_margin_right = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(0.11207495, 0.11207495, 0.11207495, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_272bh"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(0, 0, 0, 0.5, 0, 0, 0, 0.70000005, 0, 0, 0, 0.70000005, 0, 0, 0, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kek77"]
+gradient = SubResource("Gradient_272bh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_272bh"]
+texture = SubResource("GradientTexture1D_kek77")
+
 [sub_resource type="Gradient" id="Gradient_5vw27"]
 colors = PackedColorArray(0.43, 0.71500003, 1, 1, 0.65, 0.825, 1, 1)
 
@@ -99,9 +114,11 @@ gradient = SubResource("Gradient_kek77")
 size = Vector2(685, 70)
 
 [node name="Main" type="Node"]
-script = ExtResource("1_5vw27")
 
-[node name="MainMenu" type="Control" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="MainMenu" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,7 +128,7 @@ grow_vertical = 2
 theme = ExtResource("2_kek77")
 script = ExtResource("3_5vw27")
 
-[node name="ColorRect" type="ColorRect" parent="MainMenu"]
+[node name="BackgroundColor" type="ColorRect" parent="UI/MainMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,7 +137,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.16924527, 0.1692453, 0.16924527, 1)
 
-[node name="TextureRect" type="TextureRect" parent="MainMenu"]
+[node name="BackgroundTexture" type="TextureRect" parent="UI/MainMenu"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -129,7 +146,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MainMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,7 +154,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenu/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MainMenu/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.5
@@ -146,61 +163,30 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 96
 theme_override_constants/margin_bottom = 64
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/HBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "TITLE"
+text = "ARC-TILLERY"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 24
 theme_override_styles/separator = SubResource("StyleBoxEmpty_nxiqb")
 
-[node name="PlayButton" type="Button" parent="MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "PLAY"
 
-[node name="HSpacer" type="Control" parent="MainMenu/HBoxContainer"]
+[node name="HSpacer" type="Control" parent="UI/MainMenu/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenu/HBoxContainer/HSpacer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 128
-theme_override_constants/margin_right = 128
-theme_override_constants/margin_bottom = 128
-
-[node name="BoxContainer" type="BoxContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer"]
-layout_mode = 2
-alignment = 1
-vertical = true
-
-[node name="PanelContainer" type="PanelContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer/BoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer/BoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="LevelContainer" type="FlowContainer" parent="MainMenu/HBoxContainer/HSpacer/MarginContainer/BoxContainer/PanelContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="LevelSelect" parent="UI" instance=ExtResource("3_kek77")]
 
 [node name="GameScreen" type="Control" parent="UI"]
 visible = false
@@ -492,6 +478,203 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
+[node name="WeaponControls" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoDisplays" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenu" type="PanelContainer" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PauseMenu"]
+layout_mode = 2
+alignment = 1
+
+[node name="HSpacer" type="Control" parent="UI/PauseMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/PauseMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_272bh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+text = "PAUSED"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="ScoreDisplay" type="HBoxContainer" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+texture = ExtResource("8_kek77")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+texture = ExtResource("8_kek77")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+texture = ExtResource("8_kek77")
+expand_mode = 1
+
+[node name="ResumeButton" type="Button" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "Resume"
+
+[node name="RetryButton" type="Button" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "Retry"
+
+[node name="BackButton" type="Button" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "Back"
+
+[node name="HSpacer2" type="Control" parent="UI/PauseMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EndBanner" type="PanelContainer" parent="UI"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/EndBanner"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/EndBanner/VBoxContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_272bh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/EndBanner/VBoxContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ResultLabel" type="RichTextLabel" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 96
+text = "OPERATION FAILURE"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="ScoreDisplay" type="HBoxContainer" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("8_kek77")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("8_kek77")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("8_kek77")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/EndBanner/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BackButton" type="Button" parent="UI/EndBanner/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "Back"
+
+[node name="RetryButton" type="Button" parent="UI/EndBanner/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "Retry"
+
+[node name="NextButton" type="Button" parent="UI/EndBanner/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+text = "Next"
+
+[node name="Drawers" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+follow_viewport_enabled = true
+
+[node name="GridDrawer" type="Line2D" parent="Drawers"]
+unique_name_in_owner = true
+script = ExtResource("5_dg77c")
+
+[node name="AimDrawer" type="Line2D" parent="Drawers"]
+unique_name_in_owner = true
+
+[node name="PathDrawer" type="Line2D" parent="Drawers"]
+unique_name_in_owner = true
+
 [node name="World" type="Node2D" parent="."]
 visible = false
 
@@ -534,13 +717,3 @@ texture = SubResource("GradientTexture1D_112p8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/FloatingGround"]
 position = Vector2(336.5, -36)
 shape = SubResource("RectangleShape2D_tda05")
-
-[node name="GridDrawer" type="Line2D" parent="World"]
-unique_name_in_owner = true
-script = ExtResource("5_dg77c")
-
-[node name="AimDrawer" type="Line2D" parent="World"]
-unique_name_in_owner = true
-
-[node name="PathDrawer" type="Line2D" parent="World"]
-unique_name_in_owner = true

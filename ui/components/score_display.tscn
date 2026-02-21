@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfqesbiffcssm"]
+
+[ext_resource type="Script" uid="uid://c2hskomus5sua" path="res://ui/components/score_display.gd" id="1_nu5g0"]
+[ext_resource type="Texture2D" uid="uid://c2f8f6pqxjbnb" path="res://ui/icons/star.svg" id="1_q6eda"]
+
+[node name="ScoreDisplay" type="HBoxContainer"]
+alignment = 1
+script = ExtResource("1_nu5g0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_q6eda")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_q6eda")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("1_q6eda")
+expand_mode = 1

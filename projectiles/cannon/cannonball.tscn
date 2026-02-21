@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://jy1qvx6j58ti"]
 
 [ext_resource type="Script" uid="uid://biglil3dljgo" path="res://projectiles/projectile.gd" id="1_gfbpb"]
-[ext_resource type="Texture2D" uid="uid://ce1yh1j0mg46u" path="res://projectiles/cannonball.svg" id="2_gfbpb"]
+[ext_resource type="Texture2D" uid="uid://ce1yh1j0mg46u" path="res://projectiles/cannon/cannonball.svg" id="2_gfbpb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ighsu"]
 bounce = 0.2
