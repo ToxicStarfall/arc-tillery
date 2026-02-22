@@ -1,9 +1,15 @@
+@tool
 extends HBoxContainer
 
 
 const STAR_TEXTURE = preload("res://ui/icons/star.svg")
 const STAR_EMPTY_TEXTURE = preload("res://ui/icons/star_empty.svg")
 
+@export var star_size: Vector2 = Vector2(32, 32):
+	set(size):
+		star_size = size
+		for placeholder in self.get_children():
+			placeholder.custom_minimum_size = size
 
 
 func set_score(score):

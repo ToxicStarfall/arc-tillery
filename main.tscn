@@ -1,16 +1,16 @@
-[gd_scene load_steps=35 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=36 format=3 uid="uid://bi5b7j3y3f4wy"]
 
+[ext_resource type="Script" uid="uid://dqi3sui7bvwb8" path="res://ui/ui.gd" id="1_efxa6"]
+[ext_resource type="PackedScene" uid="uid://dy5ts73tim3hq" path="res://ui/screens/main_menu.tscn" id="2_efxa6"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://ui/styles/theme.tres" id="2_kek77"]
-[ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://ui/game_screen.gd" id="3_4c57u"]
-[ext_resource type="Script" uid="uid://dcpsa78t31ye2" path="res://ui/main_menu.gd" id="3_5vw27"]
+[ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://ui/screens/game_screen.gd" id="3_4c57u"]
 [ext_resource type="PackedScene" uid="uid://1c5lr7oterih" path="res://ui/screens/level_select.tscn" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="4_efxa6"]
-[ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/markers.gd" id="5_dg77c"]
-[ext_resource type="PackedScene" uid="uid://ie0uo71ttfbb" path="res://ui/win_banner.tscn" id="6_272bh"]
+[ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/drawers/distance_markers.gd" id="5_dg77c"]
 [ext_resource type="Texture2D" uid="uid://c2f8f6pqxjbnb" path="res://ui/icons/star.svg" id="8_kek77"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nxiqb"]
+[ext_resource type="PackedScene" uid="uid://b5sfdvqveubaa" path="res://ui/screens/end_banner.tscn" id="9_4c57u"]
+[ext_resource type="Script" uid="uid://7nkw8prjgygf" path="res://ui/drawers/drawers.gd" id="10_efxa6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2u21"]
 bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
@@ -117,78 +117,17 @@ size = Vector2(685, 70)
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
+script = ExtResource("1_efxa6")
 
-[node name="MainMenu" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_kek77")
-script = ExtResource("3_5vw27")
-
-[node name="BackgroundColor" type="ColorRect" parent="UI/MainMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.16924527, 0.1692453, 0.16924527, 1)
-
-[node name="BackgroundTexture" type="TextureRect" parent="UI/MainMenu"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/MainMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/MainMenu/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.5
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 96
-theme_override_constants/margin_bottom = 64
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu/HBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="TitleLabel" type="Label" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "ARC-TILLERY"
-horizontal_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 24
-theme_override_styles/separator = SubResource("StyleBoxEmpty_nxiqb")
-
-[node name="PlayButton" type="Button" parent="UI/MainMenu/HBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "PLAY"
-
-[node name="HSpacer" type="Control" parent="UI/MainMenu/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
+[node name="MainMenu" parent="UI" instance=ExtResource("2_efxa6")]
+unique_name_in_owner = true
 
 [node name="LevelSelect" parent="UI" instance=ExtResource("3_kek77")]
+unique_name_in_owner = true
+visible = false
 
 [node name="GameScreen" type="Control" parent="UI"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -320,7 +259,8 @@ unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-value = 50.0
+step = 10.0
+value = 10.0
 nine_patch_stretch = true
 texture_progress = SubResource("NoiseTexture2D_qn3nj")
 
@@ -333,9 +273,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/grabber_area = SubResource("StyleBoxTexture_f0urt")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_jfkdj")
-max_value = 200.0
 step = 10.0
-value = 50.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="UI/GameScreen/VBoxContainer/WeaponControls/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -473,11 +411,6 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_j2q8x")
 
-[node name="WinBanner" parent="UI/GameScreen" instance=ExtResource("6_272bh")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-
 [node name="WeaponControls" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
@@ -488,6 +421,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InfoDisplays" type="Control" parent="UI"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -582,97 +516,29 @@ text = "Back"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EndBanner" type="PanelContainer" parent="UI"]
+[node name="StartBanner" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/EndBanner"]
-layout_mode = 2
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/EndBanner/VBoxContainer2"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_272bh")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/EndBanner/VBoxContainer2/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="ResultLabel" type="RichTextLabel" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 96
-text = "OPERATION FAILURE"
-fit_content = true
-horizontal_alignment = 1
-
-[node name="ScoreDisplay" type="HBoxContainer" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("8_kek77")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("8_kek77")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="UI/EndBanner/VBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("8_kek77")
-expand_mode = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/EndBanner/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="BackButton" type="Button" parent="UI/EndBanner/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Back"
-
-[node name="RetryButton" type="Button" parent="UI/EndBanner/VBoxContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Retry"
-
-[node name="NextButton" type="Button" parent="UI/EndBanner/VBoxContainer2/HBoxContainer"]
+[node name="EndBanner" parent="UI" instance=ExtResource("9_4c57u")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Next"
+visible = false
 
 [node name="Drawers" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 follow_viewport_enabled = true
+script = ExtResource("10_efxa6")
 
-[node name="GridDrawer" type="Line2D" parent="Drawers"]
+[node name="DistanceMarkers" type="Line2D" parent="Drawers"]
 unique_name_in_owner = true
 script = ExtResource("5_dg77c")
 
 [node name="AimDrawer" type="Line2D" parent="Drawers"]
 unique_name_in_owner = true
 
-[node name="PathDrawer" type="Line2D" parent="Drawers"]
+[node name="TrailDrawer" type="Line2D" parent="Drawers"]
 unique_name_in_owner = true
 
 [node name="World" type="Node2D" parent="."]

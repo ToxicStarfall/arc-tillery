@@ -26,22 +26,20 @@ func _init_display():
 
 func _init_misc():
 	Events.level_started.connect( _on_level_started )
-	#Events.level_ended.connect( _on_level_ended )
-	Events.level_completed.connect( _on_level_completed )
 
-	%WinBanner/%BackButton.pressed.connect( func():
-		%WinBanner.hide()
-		Game.home()
-		self.hide()
-		pass )
-	%WinBanner/%RetryButton.pressed.connect( func():
-		%WinBanner.hide()
-		Game.retry_level()
-		pass )
-	%WinBanner/%NextButton.pressed.connect( func():
-		%WinBanner.hide()
-		Game.next_level()
-		pass )
+	#%WinBanner/%BackButton.pressed.connect( func():
+		#%WinBanner.hide()
+		#Game.home()
+		#self.hide()
+		#pass )
+	#%WinBanner/%RetryButton.pressed.connect( func():
+		#%WinBanner.hide()
+		#Game.retry_level()
+		#pass )
+	#%WinBanner/%NextButton.pressed.connect( func():
+		#%WinBanner.hide()
+		#Game.next_level()
+		#pass )
 	pass
 
 
@@ -65,9 +63,9 @@ func _on_level_started(_level: Level):
 	self.show()
 
 
-func _on_level_completed(level: Level):
-	%WinBanner.show()
-	update_score_display(level.score, %WinBanner/%ScoreDisplay, %WinBanner/%ScoreLabel)
+#func _on_level_completed(level: Level):
+	#%WinBanner.show()
+	#update_score_display(level.score, %WinBanner/%ScoreDisplay, %WinBanner/%ScoreLabel)
 
 
 func _on_level_score_changed( new_score: int ):

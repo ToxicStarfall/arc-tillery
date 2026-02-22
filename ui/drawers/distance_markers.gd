@@ -1,7 +1,8 @@
 extends Node2D
 
 
-func _draw() -> void:
+#func _draw() -> void:
+func draw() -> void:
 	const area = Vector2i(100, 1)  ## The 2D area to draw markers.
 	var Camera: Camera2D = Game.Camera
 	var weapon := Game.current_weapon
