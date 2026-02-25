@@ -6,6 +6,7 @@ const LEVEL_DIRECTORY = "res://world/levels/"
 const PIXELS_PER_METER = 64
 
 var UI: CanvasLayer
+var Drawers: CanvasLayer
 var World: Node2D
 var Camera: Camera2D
 
@@ -20,19 +21,17 @@ var save_data
 
 
 func _ready() -> void:
-	setup()
+	_setup()
 
 	#start_level("0")
 	pass
 
 
-func setup():
-	UI = get_tree().root.get_node("Main/UI")
-	World = get_tree().root.get_node("Main/World")
-	#Camera = World.get_node("%Camera2D")
-	#current_weapon = World.get_node("Weapon")
-
-	#Events.weapon_fired.connect( _on_weapon_fired )
+func _setup():
+	var Main = get_tree().root.get_node("Main")
+	UI = Main.get_node("UI")
+	Drawers = Main.get_node("Drawers")
+	World = Main.get_node("World")
 
 
 func start_level(level_id: String):

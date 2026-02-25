@@ -24,6 +24,9 @@ signal level_ammo_changed (new_ammo_count: int)
 signal level_score_changed (new_score: int)
 signal level_attempts_changed (new_attempt_count: int)
 
+signal distance_drawer_redrawn
+#endregion - - - - #
+
 
 #region - - WEAPON CONTROLS - - - #
 # UI Requests
