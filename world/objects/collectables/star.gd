@@ -6,6 +6,12 @@ extends Collectable
 
 
 func _collected():
+	collected.emit()
 	Game.current_level.add_score(score_amount)
-	set_deferred("monitoring", false)
+
+	set_deferred("monitoring", false)  # Disable collision detection.
+	$StarPickupParticles.emitting = true
+	$Sprite2D.hide()
+
+	await $StarPickupParticles.finished
 	self.hide()

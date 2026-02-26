@@ -2,12 +2,12 @@ class_name Collectable
 extends Area2D
 
 
-#signal collected
+@warning_ignore("unused_signal")
+signal collected
 
 
+var collectable: bool = true  ## Used internally to prevent double collection.
 var time = 0.0  # Used for floating animation
-
-var collected: bool = false  ## Used internally to prevent double collection.
 
 
 func _ready() -> void:
@@ -25,11 +25,12 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Projectile:
-		if !collected:
-			collected = true
+		if collectable:
+			collectable = false
 			_collected()
 
 
+# Collection effects
 func _collected():
 	#if has_node("CPUParticles2D"):
 		#$CPUParticles2D.emitting = true  # Requires oneshot

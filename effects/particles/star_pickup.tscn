@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw7r5rusvclye"]
+
+[ext_resource type="Texture2D" uid="uid://c2f8f6pqxjbnb" path="res://ui/icons/star.svg" id="1_gyn6g"]
+
+[sub_resource type="Curve" id="Curve_wbe1w"]
+_data = [Vector2(0, 0.5), 0.0, 0.22044364, 0, 0, Vector2(0.8, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ycsjn"]
+offsets = PackedFloat32Array(0.4, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1.1638972, 1.1638972, 1.1638972, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_o4us0"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[node name="StarPickupParticles" type="CPUParticles2D"]
+emitting = false
+texture = ExtResource("1_gyn6g")
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.8
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 245)
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+scale_amount_curve = SubResource("Curve_wbe1w")
+color_ramp = SubResource("Gradient_ycsjn")
+color_initial_ramp = SubResource("Gradient_o4us0")
