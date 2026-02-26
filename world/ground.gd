@@ -3,6 +3,7 @@ class_name Ground
 extends StaticBody2D
 
 
+@export_tool_button("Generate Collisions") var generate_collision = generate_poly_collision
 @export var auto_generate = true  ## Automatically generate collision polygon from texture polygon.
 @export var infinite = true  ##
 
@@ -44,6 +45,9 @@ func generate_poly_collision():
 		add_child(polygon)
 		move_child(polygon, 0)
 
+		if Engine.is_editor_hint():  # Show the polygon in scene tree while in editor
+			polygon.owner = get_tree().edited_scene_root
+
 	if has_node("Polygon2D"):
 		$CollisionPolygon2D.polygon = $Polygon2D.polygon
 
@@ -54,7 +58,15 @@ func make_infinite():
 
 	#var max_vect: Vector2 = Vector2.ZERO
 	#var max_vectors = []
+	var vectors = []
 
 	for i in texture_poly.size():
-		texture_poly[i].x *= 10
+		vectors.append( texture_poly[i] )
+		#texture_poly[i].x *= 10
+	vectors.sort()
+
+	for vector in vectors.slice(0, 2) + vectors.slice(-3, -1):
+		texture_poly[ texture_poly.find(vector) ].x *= 10
+		#vector.x *= 10
+	#print(vectors)
 	$Polygon2D.polygon = texture_poly

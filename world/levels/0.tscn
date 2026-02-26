@@ -13,20 +13,6 @@ script = ExtResource("1_71in7")
 current_weapon = NodePath("Weapon")
 metadata/_custom_type_script = "uid://dynhc2ivouv7a"
 
-[node name="Camera2D" type="Camera2D" parent="."]
-unique_name_in_owner = true
-zoom = Vector2(0.8, 0.8)
-limit_left = -3000
-limit_top = -100000
-limit_right = 100000
-limit_bottom = 2000
-limit_smoothed = true
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
-
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(9, 1086)
 collision_mask = 0
@@ -35,17 +21,17 @@ script = ExtResource("2_fdjeg")
 metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
-polygon = PackedVector2Array(-97, -126, 1943, -126, 1943, 2, -97, 2)
+polygon = PackedVector2Array(-521, -126, 4087, -126, 4087, 2, -521, 2)
 
 [node name="Polygon2D" type="Polygon2D" parent="Ground"]
 color = Color(0.34560004, 0.72, 0.61392003, 1)
 polygon = PackedVector2Array(-521, -126, 4087, -126, 4087, 2, -521, 2)
 
 [node name="Weapon" parent="." instance=ExtResource("2_ovth3")]
-position = Vector2(512, 896)
+position = Vector2(640, 896)
 collision_layer = 0
 projectile_scene = ExtResource("3_fdjeg")
 
 [node name="Star" parent="." instance=ExtResource("4_u2p4m")]
-position = Vector2(1504, 896)
+position = Vector2(1920, 896)
 score_amount = 3

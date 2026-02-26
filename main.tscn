@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=28 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dqi3sui7bvwb8" path="res://ui/ui.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dy5ts73tim3hq" path="res://ui/screens/main_menu.tscn" id="2_efxa6"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/drawers/distance_markers.gd" id="5_dg77c"]
-[ext_resource type="Texture2D" uid="uid://c2f8f6pqxjbnb" path="res://ui/icons/star.svg" id="8_kek77"]
+[ext_resource type="PackedScene" uid="uid://borebij22gqym" path="res://ui/screens/pause_menu.tscn" id="8_dg77c"]
 [ext_resource type="PackedScene" uid="uid://b5sfdvqveubaa" path="res://ui/screens/end_banner.tscn" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://7nkw8prjgygf" path="res://ui/drawers/drawers.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://dilkkugs2jift" path="res://ui/drawers/distance_pointers.gd" id="12_dg77c"]
@@ -79,20 +79,6 @@ expand_margin_right = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
-bg_color = Color(0.11207495, 0.11207495, 0.11207495, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_272bh"]
-offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
-colors = PackedColorArray(0, 0, 0, 0.5, 0, 0, 0, 0.70000005, 0, 0, 0, 0.70000005, 0, 0, 0, 0.5)
-metadata/_snap_enabled = true
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_kek77"]
-gradient = SubResource("Gradient_272bh")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_272bh"]
-texture = SubResource("GradientTexture1D_kek77")
-
 [sub_resource type="Gradient" id="Gradient_5vw27"]
 colors = PackedColorArray(0.43, 0.71500003, 1, 1, 0.65, 0.825, 1, 1)
 
@@ -101,22 +87,10 @@ gradient = SubResource("Gradient_5vw27")
 width = 1920
 height = 1080
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qn3nj"]
-
-[sub_resource type="Gradient" id="Gradient_kek77"]
-colors = PackedColorArray(0.3468, 0.68, 0.3468, 1, 0.6923584, 0.91, 0.5915, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_112p8"]
-gradient = SubResource("Gradient_kek77")
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bss38"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tda05"]
-size = Vector2(685, 70)
-
 [node name="Main" type="Node"]
 
 [node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 2
 script = ExtResource("1_efxa6")
 
@@ -210,7 +184,8 @@ grow_horizontal = 0
 [node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/MenuDisplay"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="UI/GameScreen/MenuDisplay/MarginContainer"]
+[node name="MenuButton" type="Button" parent="UI/GameScreen/MenuDisplay/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "MENU"
 
@@ -431,91 +406,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PauseMenu" type="PanelContainer" parent="UI"]
+[node name="PauseMenu" parent="UI" instance=ExtResource("8_dg77c")]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/PauseMenu"]
-layout_mode = 2
-alignment = 1
-
-[node name="HSpacer" type="Control" parent="UI/PauseMenu/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/PauseMenu/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_272bh")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu/HBoxContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 96
-text = "PAUSED"
-fit_content = true
-horizontal_alignment = 1
-
-[node name="ScoreDisplay" type="HBoxContainer" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-texture = ExtResource("8_kek77")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-texture = ExtResource("8_kek77")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-texture = ExtResource("8_kek77")
-expand_mode = 1
-
-[node name="ResumeButton" type="Button" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Resume"
-
-[node name="RetryButton" type="Button" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Retry"
-
-[node name="BackButton" type="Button" parent="UI/PauseMenu/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-text = "Back"
-
-[node name="HSpacer2" type="Control" parent="UI/PauseMenu/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="StartBanner" type="PanelContainer" parent="UI"]
 unique_name_in_owner = true
@@ -542,9 +435,11 @@ script = ExtResource("12_dg77c")
 
 [node name="AimDrawer" type="Line2D" parent="Drawers"]
 unique_name_in_owner = true
+visible = false
 
 [node name="TrailDrawer" type="Line2D" parent="Drawers"]
 unique_name_in_owner = true
+visible = false
 
 [node name="World" type="Node2D" parent="."]
 visible = false
@@ -554,37 +449,3 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="World/Parallax2D"]
 texture = SubResource("GradientTexture2D_kek77")
 centered = false
-
-[node name="Ground" type="StaticBody2D" parent="World"]
-visible = false
-position = Vector2(16, 1232)
-collision_mask = 0
-physics_material_override = SubResource("PhysicsMaterial_qn3nj")
-
-[node name="Sprite2D" type="Sprite2D" parent="World/Ground"]
-visible = false
-position = Vector2(519.4999, -62.99994)
-scale = Vector2(10.878906, 128.00009)
-texture = SubResource("GradientTexture1D_112p8")
-
-[node name="Polygon2D" type="Polygon2D" parent="World/Ground"]
-color = Color(0.34560004, 0.72, 0.61392003, 1)
-polygon = PackedVector2Array(-97, -126, 1943, -126, 1943, 2, -97, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Ground"]
-position = Vector2(320.49994, -129)
-shape = SubResource("WorldBoundaryShape2D_bss38")
-
-[node name="FloatingGround" type="StaticBody2D" parent="World"]
-visible = false
-position = Vector2(360, 1232)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="World/FloatingGround"]
-position = Vector2(339, -35.99992)
-scale = Vector2(2.6875, 74.00005)
-texture = SubResource("GradientTexture1D_112p8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/FloatingGround"]
-position = Vector2(336.5, -36)
-shape = SubResource("RectangleShape2D_tda05")

@@ -10,7 +10,6 @@ signal attempts_changed
 signal star_collected
 
 
-
 @export var max_ammo := 3
 @export var max_score := 3
 var ammo := 3
@@ -20,36 +19,110 @@ var elapsed_time := 0.0
 
 #@export var starting_weapon: Weapon
 @export var current_weapon: Weapon
-#var available_weapons: Array[Weapon]
-
 @export var current_projectile: Projectile
 #@export var allowed_ammo_types
 
-
+#var weapons: Array[Weapon] = []
+var stars: Array[Star] = []
 
 var Camera: Camera2D
+var Drawers: CanvasLayer
 
+
+
+func _init() -> void:
+	child_entered_tree.connect( _on_child_entered_tree )
 
 
 func _ready() -> void:
-	setup()
+	_setup()
 
 
-func setup():
+func _setup():
+	# UI Request Signals
+	Events.level_pause_request.connect( pause )
+	Events.level_unpause_request.connect( unpause )
+	# Updater Signals
 	Events.level_score_changed.emit( score )  # Initialize UI to starting score value
 	Events.level_ammo_changed.emit( max_ammo )  # Initialize UI to starting ammo value
 	Events.weapon_fired.connect( _on_weapon_fired )
 
-	Camera = $Camera2D
+	_setup_camera()
+	Drawers = Game.Drawers
+	for drawer in Drawers.get_drawers(): drawer.level = self  # Set the "level" var in each drawer.
+
+
+# Initialize Camera into the level.
+func _setup_camera():
+	if !has_node("Camera2D"):
+		Camera = preload("res://world/camera_2d.tscn").instantiate()
+		add_child(Camera)
+	else: Camera = $Camera2D
+
 	Camera.reparent(current_weapon)
 	Camera.position = Vector2.ZERO
+	_setup_camera_limits()
 
 
+# Set camera limit to disable tracking past certain areas.
+func _setup_camera_limits():
+	var objects = get_objects()
+	var x = []
+	var y = []
+	for obj in objects:
+		x.append(obj.position.x)
+		y.append(obj.position.y)
+	x.sort()
+	y.sort()
+	Camera.limit_left = x[1] - 2000
+	Camera.limit_right = x[-1] + 2000
+	Camera.limit_top = y[1] - 2000
+	Camera.limit_bottom = y[-1] + 2000
+	pass
+
+
+func _on_child_entered_tree(node: Node):
+	if node is Star:
+		var star = node
+		stars.append(star)
+		star.collected.connect( _on_star_collected )
+
+
+# Notifies that the Level has started.
 func start():
+	Drawers.queue_redraw()
 	Events.level_started.emit(self)
 
+# Notifies that the Level has ended.
 func end():
 	Events.level_ended.emit(self)
+
+
+func pause():
+	get_tree().paused = true
+	Events.level_paused.emit(self)
+
+func unpause():
+	get_tree().paused = false
+	Events.level_unpaused.emit(self)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# NOTE: event.factor is used for variable inputs such as trackpad scroll speed
+	var zoom_factor = 0.1
+	if event is InputEventMouseButton and !event.factor == 1:
+		#zoom_factor = event.factor
+		zoom_factor = 0.01
+		#print(zoom_factor)
+
+	if event.is_action_pressed("zoom_in"):
+		Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(1.5)
+		#Drawers.DistanceMarkers.queue_redraw()
+		Drawers.queue_redraw()
+	if event.is_action_pressed("zoom_out"):
+		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.1)
+		#Drawers.DistanceMarkers.queue_redraw()
+		Drawers.queue_redraw()
 
 
 
@@ -68,6 +141,7 @@ func _on_weapon_fired(projectile):
 		Events.level_ammo_changed.emit( ammo )
 
 
+# When projectile physics stops running (idle).
 func _on_projectile_sleeping(projectile):
 	if projectile.sleeping:
 		camera_focus_weapon()
@@ -75,6 +149,10 @@ func _on_projectile_sleeping(projectile):
 	if ammo == 0 or score == max_score:
 		Events.level_completed.emit(self)
 
+
+func _on_star_collected():
+	print("star collected")
+	Drawers.queue_redraw()
 
 
 func add_score(score_amount: int):
@@ -93,6 +171,23 @@ func camera_focus_weapon():
 	await tween.finished
 
 
+func get_objects() -> Array:
+	var objects = []
+	for child in get_children():
+		if child is Weapon or child is Collectable:
+			objects.append(child)
+	return objects
+
+
+# Returns distance between "from" and "to" as Vector2.
+func get_distance(from: Node2D, to: Node2D) -> Vector2:
+	var distance = (to.global_position - from.global_position) / Game.PIXELS_PER_METER
+	return distance
+
 
 func get_level_id() -> String:
 	return scene_file_path.split("/")[-1].split(".")[0]
+
+
+#func get_level_size() -> Vector2:
+	#return Vector2()

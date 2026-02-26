@@ -37,14 +37,13 @@ func _setup():
 func start_level(level_id: String):
 	end_level()  # Ends the previous level if available
 
-	#var level: Level = load("res://world/levels/%s.tscn" % [level_id]).instantiate()
 	var level: Level = get_level(level_id).instantiate()
 	current_level = level
 	World.add_child(level)
-	Camera = World.get_node("Level/%Camera2D")
+	#Camera = World.get_node("Level/%Camera2D")
+	Camera = level.Camera
 
-	#current_weapon = World.get_node("Level/Weapon")
-	current_weapon = level.current_weapon
+	#current_weapon = level.current_weapon
 	Game.World.show()
 	level.start()
 
@@ -55,11 +54,6 @@ func end_level():
 		current_level.end()
 		current_level.queue_free()
 		current_level = null
-
-
-func get_level(level_id: String) -> PackedScene:
-	var level_scene = load(LEVEL_DIRECTORY + "%s.tscn" % [level_id])
-	return level_scene
 
 
 func home():
@@ -81,62 +75,11 @@ func next_level():
 		start_level( level_id )
 
 
+# Returns the the level scene associated with level_id.
+func get_level(level_id: String) -> PackedScene:
+	var level_scene = load(LEVEL_DIRECTORY + "%s.tscn" % [level_id])
+	return level_scene
+
+# Returns true if level_id exists in the level directory.
 func has_level(level_id: String) -> bool:
 	return ResourceLoader.exists("res://world/levels/%s.tscn" % [level_id])
-
-
-func _on_level_completed():
-	pass
-
-func _on_level_ended():
-	pass
-
-
-#func _on_weapon_fired(projectile: Projectile):
-	#World.add_child(projectile)
-	#if current_projectile: current_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
-	#current_projectile = projectile
-	#current_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(current_projectile) )
-#
-	#Camera.reparent(current_projectile)
-	#Camera.position = Vector2.ZERO  # Re-center camera onto projectile
-	#Camera.offset = Vector2.ZERO
-	#pass
-
-
-#func _on_projectile_sleeping(projectile):
-	#if projectile.sleeping:
-		#camera_focus_weapon()
-	#pass
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	var zoom_factor = 0.1
-	if event is InputEventMouseButton and !event.factor == 1:
-		#zoom_factor = event.factor
-		zoom_factor = 0.01
-		#print(zoom_factor)
-			#print("trackpad?")
-
-	if event.is_action_pressed("zoom_in"):
-		Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(1.5)
-		World.get_node("%GridDrawer").queue_redraw()
-	if event.is_action_pressed("zoom_out"):
-		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.1)
-		World.get_node("%GridDrawer").queue_redraw()
-
-
-func camera_focus_projectile():
-	pass
-
-
-#func camera_focus_weapon():
-	##Camera.position_smoothing_enabled = false
-	##Camera.reparent(current_weapon, true)
-	#Camera.reparent(current_weapon)
-	##Camera.position = projectile.global_position
-#
-	#var tween = get_tree().create_tween()
-	#tween.tween_property(Camera, "position", Vector2.ZERO, 3)
-	#await tween.finished
-	##Camera.align()

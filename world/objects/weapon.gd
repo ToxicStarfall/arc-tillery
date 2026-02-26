@@ -25,7 +25,7 @@ func _ready() -> void:
 	Events.weapon_power_change_requested.connect( _on_power_change_requested )
 	# Init default values
 	Events.weapon_angle_change_requested.emit(0.0)
-	Events.weapon_power_change_requested.emit(50.0)
+	Events.weapon_power_change_requested.emit(10.0)
 	#print("weapon ready")
 	pass
 
@@ -37,8 +37,9 @@ func _on_fire_requested():
 	new_projectile.position = $ProjectilePoint.position
 	Events.weapon_fired.emit( new_projectile )
 
-	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed * 100
-	vel = vel * (power/100)
+	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed #* 100
+	#vel = vel * (power/100)
+	vel = vel * (power)
 	new_projectile.apply_central_force( vel * projectile_speed )
 
 

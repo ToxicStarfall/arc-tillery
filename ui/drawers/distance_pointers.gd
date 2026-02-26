@@ -26,21 +26,22 @@ func _draw_pointers():
 	const text_orientation := TextServer.ORIENTATION_HORIZONTAL  # Text Server Orientation
 
 	for star in level.stars:
-		#text = str((level.current_weapon.global_position - star.global_position).length())
-		text = str(level.get_distance(level.current_weapon, star).x)
-		text_position = star.global_position
-		text_position -= Vector2(32, 32)  # half the size of stars
+		if star.collectable:
+			#text = str((level.current_weapon.global_position - star.global_position).length())
+			text = str(level.get_distance(level.current_weapon, star).x)
+			text_position = star.global_position
+			text_position -= Vector2(32, 32)  # half the size of stars
 
-		draw_string(
-			font, text_position,
-			#text_pos + offset_h,  # Text position
-			"%sm" % [text],  # Text
-			alignment,  # Alignment
-			-1,  # Width
-			font_size,  # Font size (scales font up as you zoom out)
-			text_color,  # Text color
-			text_justification,
-			text_direction,
-			text_orientation
-			)
+			draw_string(
+				font, text_position,
+				#text_pos + offset_h,  # Text position
+				"%sm" % [text],  # Text
+				alignment,  # Alignment
+				-1,  # Width
+				font_size,  # Font size (scales font up as you zoom out)
+				text_color,  # Text color
+				text_justification,
+				text_direction,
+				text_orientation
+				)
 	pass

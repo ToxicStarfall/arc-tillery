@@ -27,20 +27,7 @@ func _init_display():
 func _init_misc():
 	Events.level_started.connect( _on_level_started )
 
-	#%WinBanner/%BackButton.pressed.connect( func():
-		#%WinBanner.hide()
-		#Game.home()
-		#self.hide()
-		#pass )
-	#%WinBanner/%RetryButton.pressed.connect( func():
-		#%WinBanner.hide()
-		#Game.retry_level()
-		#pass )
-	#%WinBanner/%NextButton.pressed.connect( func():
-		#%WinBanner.hide()
-		#Game.next_level()
-		#pass )
-	pass
+	%MenuButton.pressed.connect( func(): Events.level_pause_request.emit() )
 
 
 func request_weapon_angle_change(value):

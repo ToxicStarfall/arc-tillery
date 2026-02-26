@@ -2,6 +2,8 @@ extends PanelContainer
 
 
 func _ready() -> void:
+	Events.level_completed.connect( _on_level_completed )
+
 	%BackButton.pressed.connect( func():
 		Game.home()
 		self.hide()
@@ -14,3 +16,10 @@ func _ready() -> void:
 		Game.next_level()
 		self.hide()
 		pass )
+
+
+func _on_level_completed(level: Level):
+	if level.score > 0:
+		%ResultLabel.text = "LEVEL SUCCESS"
+	else:
+		%ResultLabel.text = "LEVEL FAILURE"

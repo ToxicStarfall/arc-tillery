@@ -5,6 +5,7 @@ extends HBoxContainer
 const STAR_TEXTURE = preload("res://ui/icons/star.svg")
 const STAR_EMPTY_TEXTURE = preload("res://ui/icons/star_empty.svg")
 
+## @tool to provide instant textuer size update to all placeholders
 @export var star_size: Vector2 = Vector2(32, 32):
 	set(size):
 		star_size = size

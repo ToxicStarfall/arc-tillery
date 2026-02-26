@@ -6,16 +6,19 @@ extends Node
 #region - - UI SCENE SIGNALS - - - #
 signal screen_changed (new_screen: Control)
 
-#signal
-#signal next_level
 
 #region - - LEVEL SIGNALS - - - #
-signal level_start_request
-signal level_end_request
+#signal level_start_request
+#signal level_end_request
+signal level_pause_request
+signal level_unpause_request
+
 signal level_started
 signal level_ended
 signal level_completed
 #signal level_restarted
+signal level_paused
+signal level_unpaused
 
 #signal score_incremented(increment_amount: int)
 #signal level_score_changed_requested( new_score: int )
@@ -24,7 +27,7 @@ signal level_ammo_changed (new_ammo_count: int)
 signal level_score_changed (new_score: int)
 signal level_attempts_changed (new_attempt_count: int)
 
-signal distance_drawer_redrawn
+#signal distance_drawer_redrawn
 #endregion - - - - #
 
 
