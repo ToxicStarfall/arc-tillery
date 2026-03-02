@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://by7e1tj1gqa6q"]
 
-[ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://world/objects/weapon.gd" id="1_o2wld"]
+[ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://world/objects/weapons/weapon.gd" id="1_o2wld"]
 [ext_resource type="PackedScene" uid="uid://crodvh1rsy2hj" path="res://projectiles/projectile.tscn" id="2_3fy1u"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_8xwfw"]
-[ext_resource type="Texture2D" uid="uid://crob74qfvj85m" path="res://world/objects/cannon_barrel.svg" id="4_g6ipy"]
+[ext_resource type="Texture2D" uid="uid://crob74qfvj85m" path="res://world/objects/weapons/cannon_barrel.svg" id="4_g6ipy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fy1u"]
 size = Vector2(128, 128)

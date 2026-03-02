@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cs8afinprl74m"]
 
 [ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_71in7"]
-[ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/ground.gd" id="2_fdjeg"]
-[ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/objects/weapon.tscn" id="2_ovth3"]
+[ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/objects/ground.gd" id="2_fdjeg"]
+[ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/objects/weapons/weapon.tscn" id="2_ovth3"]
 [ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://projectiles/cannon/cannonball.tscn" id="3_fdjeg"]
 [ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="4_u2p4m"]
 
@@ -10,6 +10,8 @@
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("current_weapon")]
 script = ExtResource("1_71in7")
+max_ammo = null
+max_score = null
 current_weapon = NodePath("Weapon")
 metadata/_custom_type_script = "uid://dynhc2ivouv7a"
 
