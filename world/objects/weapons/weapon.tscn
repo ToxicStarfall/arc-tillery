@@ -10,7 +10,7 @@ size = Vector2(128, 128)
 
 [node name="Weapon" type="StaticBody2D"]
 script = ExtResource("1_o2wld")
-default_power = 10.0
+default_power = 50.0
 projectile_scene = ExtResource("2_3fy1u")
 
 [node name="Base" type="Sprite2D" parent="."]
@@ -18,10 +18,6 @@ texture = ExtResource("2_8xwfw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3fy1u")
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-emitting = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
@@ -34,6 +30,17 @@ rotation = -1.5707964
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_g6ipy")
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="PivotPoint/Gun"]
+position = Vector2(225.6081, -6.9235302e-06)
+scale = Vector2(2, 2)
+emitting = false
+explosiveness = 0.8
+spread = 22.5
+gravity = Vector2(0, 245)
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+
 [node name="ProjectilePoint" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(600, 832)
