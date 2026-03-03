@@ -21,11 +21,11 @@ script = ExtResource("2_wg0e8")
 metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
-polygon = PackedVector2Array(-649, -126, 631, -126, 759, -254, 1911, -254, 1911, 2, -649, 2)
+polygon = PackedVector2Array(-649, -126, 631, -126, 759, -254, 2551, -254, 2551, 2, -649, 2)
 
 [node name="Polygon2D" type="Polygon2D" parent="Ground"]
 color = Color(0.34560004, 0.72, 0.61392003, 1)
-polygon = PackedVector2Array(-649, -126, 631, -126, 759, -254, 1911, -254, 1911, 2, -649, 2)
+polygon = PackedVector2Array(-649, -126, 631, -126, 759, -254, 2551, -254, 2551, 2, -649, 2)
 
 [node name="Weapon" parent="." instance=ExtResource("2_mir8o")]
 position = Vector2(0, 896)

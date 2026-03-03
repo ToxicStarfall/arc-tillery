@@ -30,36 +30,60 @@ func _draw() -> void:
 			var text_pos := Camera.global_position + Vector2(8 / Camera.zoom.length(), 0)
 			var offset: int =  x
 			var line_color := Color(1, 1, 1, 0.75)
-			var text = true
+			var _text = true
 			var scaler = Camera.zoom.length()
 
 			if !(x % interval) == 0:
 				end_pos += Vector2(0, 100)
 				line_color.a = 0.4
-				text = false
+				#text = false
 
-			_draw_marker(start_pos, end_pos, text_pos, offset, line_color, text, scaler)
+			_draw_marker(start_pos, end_pos, text_pos, offset, line_color, scaler)
 
 
-func _draw_marker(start: Vector2, end: Vector2, text_pos: Vector2, offset: int, color: Color, text: bool, scaler: float = 1.0):
-	var raw_offset := offset
+func _draw_marker(start: Vector2, end: Vector2, text_pos: Vector2, offset: int, color: Color, scaler):
+	var distance := offset
 	offset = offset * Game.PIXELS_PER_METER
 	var offset_h := Vector2(offset, 0)
+
+	#var scaler = Camera.zoom.length()
+
+	var font: Font = ThemeDB.fallback_font  # Text font
+	var text: String = str(distance)
+	const alignment := HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+	var text_position: Vector2  # Text position
+	var text_color := Color.BLACK
+	var font_size: int = 24 / scaler  # Font size (scales font up as you zoom out)
+	const text_justification = 3  # Justification Flag - (KASHIDA + WORD_BOUND)  TextServer.JustificationFlag
+	const text_direction := TextServer.Direction.DIRECTION_AUTO  # Text Server Direction
+	const text_orientation := TextServer.ORIENTATION_HORIZONTAL  # Text Server Orientation
 
 	# Draw measurement lines
 	draw_line(start + offset_h, end + offset_h, color)
 
-	#if (raw_offset % 2) == 0:
+	if (distance % 2) == 0:
 	# Draw measurements
-	if text:
+	#if text:
 		draw_string(
-			ThemeDB.fallback_font,  # Text font
-			text_pos + offset_h,  # Text position
-			"%sm" % [raw_offset],  # Text
-			HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT,  # Alignment
+			font,
+			text_position + offset_h,  # Text position
+			"%sm" % [text],  # Text
+			alignment,  # Alignment
 			-1,  # Width
-			24 / scaler,  # Font size (scales font up as you zoom out)
-			color,  # Text color
-			3,
-			TextServer.Direction.DIRECTION_AUTO,
-				TextServer.ORIENTATION_HORIZONTAL )
+			font_size,  # Font size (scales font up as you zoom out)
+			text_color,  # Text color
+			text_justification,
+			text_direction,
+			text_orientation
+			)
+		#draw_string(
+			#ThemeDB.fallback_font,  # Text font
+			#text_pos + offset_h,  # Text position
+			#"%sm" % [raw_offset],  # Text
+			#HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT,  # Alignment
+			#-1,  # Width
+			#24 / scaler,  # Font size (scales font up as you zoom out)
+			#color,  # Text color
+			#3,
+			#TextServer.Direction.DIRECTION_AUTO,
+				#TextServer.ORIENTATION_HORIZONTAL )

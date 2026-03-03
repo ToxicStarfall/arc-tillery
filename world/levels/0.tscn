@@ -10,8 +10,6 @@
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("current_weapon")]
 script = ExtResource("1_71in7")
-max_ammo = null
-max_score = null
 current_weapon = NodePath("Weapon")
 metadata/_custom_type_script = "uid://dynhc2ivouv7a"
 
@@ -23,17 +21,17 @@ script = ExtResource("2_fdjeg")
 metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
-polygon = PackedVector2Array(-521, -126, 4087, -126, 4087, 2, -521, 2)
+polygon = PackedVector2Array(-649, -126, 3191, -126, 3191, 2, -649, 2)
 
 [node name="Polygon2D" type="Polygon2D" parent="Ground"]
 color = Color(0.34560004, 0.72, 0.61392003, 1)
-polygon = PackedVector2Array(-521, -126, 4087, -126, 4087, 2, -521, 2)
+polygon = PackedVector2Array(-649, -126, 3191, -126, 3191, 2, -649, 2)
 
 [node name="Weapon" parent="." instance=ExtResource("2_ovth3")]
-position = Vector2(640, 896)
+position = Vector2(0, 896)
 collision_layer = 0
 projectile_scene = ExtResource("3_fdjeg")
 
 [node name="Star" parent="." instance=ExtResource("4_u2p4m")]
-position = Vector2(1920, 896)
+position = Vector2(1280, 896)
 score_amount = 3

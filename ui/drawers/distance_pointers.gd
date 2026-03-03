@@ -18,6 +18,7 @@ func _draw_pointers():
 	var font: Font = ThemeDB.fallback_font  # Text font
 	var text: String = "STAR"
 	const alignment := HorizontalAlignment.HORIZONTAL_ALIGNMENT_LEFT
+	var width = -1  # Width (-1 = Autoscale)
 	var text_position: Vector2  # Text position
 	var text_color := Color.BLACK
 	var font_size: int = 24 / scaler  # Font size (scales font up as you zoom out)
@@ -33,11 +34,10 @@ func _draw_pointers():
 			text_position -= Vector2(32, 32)  # half the size of stars
 
 			draw_string(
-				font, text_position,
-				#text_pos + offset_h,  # Text position
+				font, text_position,  # Text position
 				"%sm" % [text],  # Text
 				alignment,  # Alignment
-				-1,  # Width
+				width,  # Width
 				font_size,  # Font size (scales font up as you zoom out)
 				text_color,  # Text color
 				text_justification,

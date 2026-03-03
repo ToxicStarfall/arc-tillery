@@ -8,7 +8,7 @@ extends CanvasLayer
 
 
 func queue_redraw():
-	DistanceMarkers.queue_redraw()
+	#DistanceMarkers.queue_redraw()
 	DistancePointers.queue_redraw()
 
 
