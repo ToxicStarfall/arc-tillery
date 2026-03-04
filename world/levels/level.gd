@@ -14,16 +14,26 @@ signal star_collected
 @export var max_score := 3
 var ammo := 3
 var score := 0
-var attempts := 0
-var elapsed_time := 0.0
+#var elapsed_time := 0.0
 
-#@export var starting_weapon: Weapon
+#var attempts := 0
+var high_score := 0
+#var total_time := 0.0
+#var unlocked := false
+
 @export var current_weapon: Weapon
-@export var current_projectile: Projectile
+#@export var starting_weapon: Weapon
 #@export var allowed_ammo_types
+
+var tracked_projectile: Projectile
+var tracking_countdown := 0.0
+var is_tracking_projectile := false
 
 #var weapons: Array[Weapon] = []
 var stars: Array[Star] = []
+
+var paused := false
+var completed := false
 
 var Camera: Camera2D
 var Drawers: CanvasLayer
@@ -93,17 +103,27 @@ func start():
 	Drawers.queue_redraw()
 	Events.level_started.emit(self)
 
-# Notifies that the Level has ended.
+# Notifies that the Level is completed but is NOT ready to be cleared.
+func complete():
+	if !completed:
+		#print("emit level_completed")
+		completed = true
+		Events.level_completed.emit(self)
+
+# Notifies that the Level has ended and is ready to be cleared.
 func end():
 	Events.level_ended.emit(self)
 
 
 func pause():
 	get_tree().paused = true
+	paused = true
 	Events.level_paused.emit(self)
+
 
 func unpause():
 	get_tree().paused = false
+	paused = false
 	Events.level_unpaused.emit(self)
 
 
@@ -117,23 +137,28 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("zoom_in"):
 		Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(1.5)
-		#Drawers.DistanceMarkers.queue_redraw()
 		Drawers.queue_redraw()
 	if event.is_action_pressed("zoom_out"):
 		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.1)
-		#Drawers.DistanceMarkers.queue_redraw()
 		Drawers.queue_redraw()
 
 
+#func _physics_process(delta: float) -> void:
+	#if !paused:
+		#elapsed_time += delta
+		#total_time += delta
 
-func _on_weapon_fired(projectile):
+
+func _on_weapon_fired(projectile: Projectile):
 	if ammo > 0:
 		self.add_child(projectile)
-		if current_projectile: current_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
-		current_projectile = projectile
-		current_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(current_projectile) )
+		if tracked_projectile:  # Disconnect previous tracked projectile.
+			tracked_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+		tracked_projectile = projectile
+		tracked_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(tracked_projectile) )
+		is_tracking_projectile = true
 
-		Camera.reparent(current_projectile)
+		Camera.reparent(tracked_projectile)
 		Camera.position = Vector2.ZERO  # Re-center camera onto projectile
 		#Camera.offset = Vector2.ZERO
 
@@ -144,20 +169,45 @@ func _on_weapon_fired(projectile):
 # When projectile physics stops running (idle).
 func _on_projectile_sleeping(projectile):
 	if projectile.sleeping:
-		camera_focus_weapon()
+		check_level_completion()
 
-	if ammo == 0 or score == max_score:
-		Events.level_completed.emit(self)
+		#if is_tracking_projectile:
+			#camera_focus_weapon()
+
+
+# When projectile goes past focused play area.
+func _on_projectile_exit_bounds(projectile: Projectile):
+	# Disconnect to prevent refiring checks.
+	projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+
+	await get_tree().create_timer(3.0).timeout
+	check_level_completion()
+	camera_focus_weapon()
 
 
 func _on_star_collected():
-	print("star collected")
-	Drawers.queue_redraw()
+	Drawers.queue_redraw()  # Refresh Star pointers
+
+	await get_tree().create_timer(3.0).timeout
+	camera_focus_weapon()
+	check_level_completion()
+
+
+func check_level_completion():
+	if ammo == 0 or score == max_score:
+		complete()
+		#Events.level_completed.emit(self)
+
 
 
 func add_score(score_amount: int):
 	score = min(score + score_amount, max_score)
 	Events.level_score_changed.emit( score )
+
+
+
+func camera_focus_projectile():
+	pass
 
 
 func camera_focus_weapon():
@@ -166,14 +216,18 @@ func camera_focus_weapon():
 	Camera.reparent(current_weapon)
 	#Camera.position = projectile.global_position
 
+	is_tracking_projectile = false
+
 	var tween = get_tree().create_tween()
 	tween.tween_property(Camera, "position", Vector2.ZERO, 3)
 	await tween.finished
 
 
-func get_objects() -> Array:
+# Returns an array of (non-Ground) world objects.
+func get_objects(_include_ground: bool = false) -> Array:
 	var objects = []
 	for child in get_children():
+		#if include_ground == true:
 		if child is Weapon or child is Collectable:
 			objects.append(child)
 	return objects
@@ -188,6 +242,14 @@ func get_distance(from: Node2D, to: Node2D) -> Vector2:
 func get_level_id() -> String:
 	return scene_file_path.split("/")[-1].split(".")[0]
 
-
 #func get_level_size() -> Vector2:
-	#return Vector2()
+	#return Vector2(Camera.limit_left )
+
+
+func get_save_data() -> LevelData:
+	var level_data = LevelData.new()
+	level_data.id = get_level_id()
+	#level_data.attempts = attempts
+	level_data.high_score = high_score
+	#level_data.time = total_time
+	return level_data
