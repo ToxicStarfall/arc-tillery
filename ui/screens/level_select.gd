@@ -20,7 +20,7 @@ func populate_levels():
 
 				var level_button = level_button_scene.instantiate()
 				level_button.text = "LEVEL " + file.get_slice(".", 0)
-				level_button.score = Game.save_data.levels[level_id].high_score
+				level_button.score = Game.save_data.levels.get(level_id).high_score
 				level_button.pressed.connect( func():
 					Game.start_level(file.get_slice(".", 0))
 					)

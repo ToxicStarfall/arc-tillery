@@ -246,10 +246,15 @@ func get_level_id() -> String:
 	#return Vector2(Camera.limit_left )
 
 
-func get_save_data() -> LevelData:
-	var level_data = LevelData.new()
-	level_data.id = get_level_id()
+func get_save_data() -> Dictionary:
+	#var level_data = LevelData.new()
+	#level_data.id = get_level_id()
 	#level_data.attempts = attempts
-	level_data.high_score = high_score
+	#level_data.high_score = high_score
 	#level_data.time = total_time
+
+	var level_data = {}
+	level_data.set("id", get_level_id())
+	level_data.set("high_score", high_score)
+	#level_data.set("time", total_time)
 	return level_data

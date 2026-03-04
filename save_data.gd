@@ -4,7 +4,7 @@ extends Resource
 const SAVE_DATA_PATH = "user://save_data.tres"
 
 
-var levels = []
+var levels = {}
 
 
 func setup():
@@ -23,9 +23,14 @@ func load():
 
 		for file in level_dir:
 			if file.ends_with(".tscn"):
-				var level_data = LevelData.new()
-				level_data.id = file.split(".")[0]
-				levels.append(level_data)
+				#var level_data = LevelData.new()
+				#level_data.id = file.split(".")[0]
+				#levels.append(level_data)
+				var level_data = {
+					"id": file.split(".")[0],
+					"high_score": 0,
+				}
+				levels.set(level_data.id, level_data)
 		save()
 
 
@@ -43,8 +48,9 @@ func save_level(_level: Level):
 	pass
 
 
-func sync_level(level_data: LevelData):
-	print(levels)
+#func sync_level(level_data: LevelData):
+func sync_level(level_data: Dictionary):
+	#print(levels)
 	var current_data = levels.get(level_data.id)
 
 	if current_data.high_score < level_data.high_score:
