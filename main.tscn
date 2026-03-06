@@ -80,7 +80,8 @@ expand_margin_right = 16.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
 
 [sub_resource type="Gradient" id="Gradient_5vw27"]
-colors = PackedColorArray(0.43, 0.71500003, 1, 1, 0.65, 0.825, 1, 1)
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.43, 0.71500003, 1, 1, 0.65, 0.825, 1, 1, 0.42745098, 0.7137255, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_kek77"]
 gradient = SubResource("Gradient_5vw27")
@@ -440,6 +441,14 @@ visible = false
 [node name="TrailDrawer" type="Line2D" parent="Drawers"]
 unique_name_in_owner = true
 visible = false
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+modulate = Color(1, 1, 1, 0.8)
+texture = SubResource("GradientTexture2D_kek77")
+centered = false
 
 [node name="World" type="Node2D" parent="."]
 visible = false

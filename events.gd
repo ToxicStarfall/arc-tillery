@@ -3,6 +3,8 @@ extends Node
 
 @warning_ignore_start("unused_signal")
 
+signal game_ready
+
 #region - - UI SCENE SIGNALS - - - #
 signal screen_changed (new_screen: Control)
 

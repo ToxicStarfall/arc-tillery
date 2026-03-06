@@ -34,7 +34,8 @@ func _setup():
 	Drawers = Main.get_node("Drawers")
 	World = Main.get_node("World")
 
-	save_data.load()
+	save_data.load_data()
+
 
 
 
@@ -44,10 +45,8 @@ func start_level(level_id: String):
 	var level: Level = get_level(level_id).instantiate()
 	current_level = level
 	World.add_child(level)
-	#Camera = World.get_node("Level/%Camera2D")
 	Camera = level.Camera
 
-	#current_weapon = level.current_weapon
 	Game.World.show()
 	level.start()
 
@@ -89,4 +88,5 @@ func has_level(level_id: String) -> bool:
 func _on_level_completed(level: Level):
 	var level_data = level.get_save_data()
 	save_data.sync_level(level_data)
+	save_data.save()
 	pass

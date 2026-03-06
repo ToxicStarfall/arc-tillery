@@ -76,6 +76,9 @@ func _setup_camera():
 
 # Set camera limit to disable tracking past certain areas.
 func _setup_camera_limits():
+	const TOP_LIMIT = 2000
+	const BOTTOM_LIMIT = 1000
+	const HORIZONTAL_LIMIT = 2000
 	var objects = get_objects()
 	var x = []
 	var y = []
@@ -84,11 +87,30 @@ func _setup_camera_limits():
 		y.append(obj.position.y)
 	x.sort()
 	y.sort()
-	Camera.limit_left = x[1] - 2000
-	Camera.limit_right = x[-1] + 2000
-	Camera.limit_top = y[1] - 2000
-	Camera.limit_bottom = y[-1] + 2000
-	pass
+	Camera.limit_left = x[1] - HORIZONTAL_LIMIT
+	Camera.limit_right = x[-1] + HORIZONTAL_LIMIT
+	Camera.limit_top = y[1] - TOP_LIMIT
+	Camera.limit_bottom = y[-1] + BOTTOM_LIMIT
+	#var camera_limits = [Camera.limit_left, Camera.limit_right, Camera.limit_top, Camera.limit_bottom]
+
+	var bounds = Area2D.new()
+	bounds.name = "LevelBounds"
+	bounds.collision_mask = 4
+	bounds.body_entered.connect( _on_body_exit_bounds )
+	var collision_left := CollisionShape2D.new()
+	var collision_right := CollisionShape2D.new()
+	var collision_top := CollisionShape2D.new()
+	var collision_bottom := CollisionShape2D.new()
+	var bounds_collisions = [collision_left, collision_right, collision_top, collision_bottom]
+	collision_left.position = Vector2(Camera.limit_left, 0)
+	collision_right.position = Vector2(Camera.limit_right, 0)
+	collision_top.position = Vector2(0, Camera.limit_top)
+	collision_bottom.position = Vector2(0, Camera.limit_bottom)
+	for collision in bounds_collisions:
+		collision.shape = WorldBoundaryShape2D.new()
+		collision.shape.normal = (Vector2.ZERO - collision.position).normalized()
+		bounds.add_child(collision)
+	self.add_child(bounds)
 
 
 func _on_child_entered_tree(node: Node):
@@ -152,8 +174,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_weapon_fired(projectile: Projectile):
 	if ammo > 0:
 		self.add_child(projectile)
-		if tracked_projectile:  # Disconnect previous tracked projectile.
-			tracked_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+		#if tracked_projectile:  # Disconnect previous tracked projectile.
+			#tracked_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
 		tracked_projectile = projectile
 		tracked_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(tracked_projectile) )
 		is_tracking_projectile = true
@@ -176,13 +198,14 @@ func _on_projectile_sleeping(projectile):
 
 
 # When projectile goes past focused play area.
-func _on_projectile_exit_bounds(projectile: Projectile):
-	# Disconnect to prevent refiring checks.
-	projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+func _on_body_exit_bounds(body: PhysicsBody2D):
+	if body is Projectile:
+		# Disconnect to prevent refiring checks.
+		body.sleeping_state_changed.disconnect( _on_projectile_sleeping )
 
-	await get_tree().create_timer(3.0).timeout
-	check_level_completion()
-	camera_focus_weapon()
+		await get_tree().create_timer(3.0).timeout
+		camera_focus_weapon()
+		check_level_completion()
 
 
 func _on_star_collected():
@@ -196,7 +219,6 @@ func _on_star_collected():
 func check_level_completion():
 	if ammo == 0 or score == max_score:
 		complete()
-		#Events.level_completed.emit(self)
 
 
 
@@ -255,6 +277,6 @@ func get_save_data() -> Dictionary:
 
 	var level_data = {}
 	level_data.set("id", get_level_id())
-	level_data.set("high_score", high_score)
+	level_data.set("high_score", score)
 	#level_data.set("time", total_time)
 	return level_data
