@@ -89,13 +89,13 @@ func _setup_camera_limits():
 	y.sort()
 	Camera.limit_left = x[1] - HORIZONTAL_LIMIT
 	Camera.limit_right = x[-1] + HORIZONTAL_LIMIT
-	Camera.limit_top = y[1] - TOP_LIMIT
+	#Camera.limit_top = y[1] - TOP_LIMIT
 	Camera.limit_bottom = y[-1] + BOTTOM_LIMIT
-	#var camera_limits = [Camera.limit_left, Camera.limit_right, Camera.limit_top, Camera.limit_bottom]
 
 	var bounds = Area2D.new()
 	bounds.name = "LevelBounds"
-	bounds.collision_mask = 4
+	bounds.collision_layer = 0  # Not detectable by other objects.
+	bounds.collision_mask = 4  # Detects projectiles only.
 	bounds.body_entered.connect( _on_body_exit_bounds )
 	var collision_left := CollisionShape2D.new()
 	var collision_right := CollisionShape2D.new()
@@ -128,7 +128,6 @@ func start():
 # Notifies that the Level is completed but is NOT ready to be cleared.
 func complete():
 	if !completed:
-		#print("emit level_completed")
 		completed = true
 		Events.level_completed.emit(self)
 
@@ -191,10 +190,9 @@ func _on_weapon_fired(projectile: Projectile):
 # When projectile physics stops running (idle).
 func _on_projectile_sleeping(projectile):
 	if projectile.sleeping:
+		await get_tree().create_timer(3.0).timeout
+		camera_focus_weapon()
 		check_level_completion()
-
-		#if is_tracking_projectile:
-			#camera_focus_weapon()
 
 
 # When projectile goes past focused play area.
@@ -221,11 +219,9 @@ func check_level_completion():
 		complete()
 
 
-
 func add_score(score_amount: int):
 	score = min(score + score_amount, max_score)
 	Events.level_score_changed.emit( score )
-
 
 
 func camera_focus_projectile():
@@ -262,19 +258,13 @@ func get_distance(from: Node2D, to: Node2D) -> Vector2:
 
 
 func get_level_id() -> String:
-	return scene_file_path.split("/")[-1].split(".")[0]
+	return scene_file_path.get_file().get_slice(".", 0)
 
 #func get_level_size() -> Vector2:
 	#return Vector2(Camera.limit_left )
 
 
 func get_save_data() -> Dictionary:
-	#var level_data = LevelData.new()
-	#level_data.id = get_level_id()
-	#level_data.attempts = attempts
-	#level_data.high_score = high_score
-	#level_data.time = total_time
-
 	var level_data = {}
 	level_data.set("id", get_level_id())
 	level_data.set("high_score", score)

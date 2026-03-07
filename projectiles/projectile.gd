@@ -1,46 +1,75 @@
 class_name Projectile
 extends RigidBody2D
-#extends Area2D
+#extends CharacterBody2D
 
 
-#var velocity := Vector2.ZERO
-var last_velocity := Vector2.ZERO
 @export var impact_force: float = 100.0
 @export var impact_range: float = 4.0  ## Impact effect area in meters
 @export var impact_falloff: float = 0.3  ## Force percentage per every meter from impact
 
+var velocity := Vector2.ZERO
+#var last_velocity := Vector2.ZERO
+
 
 func _ready() -> void:
-	#body_entered.connect( _on_body_entered )
+	body_entered.connect( _on_body_entered )
 	#sleeping_state_changed.connect( _on_sleeping_state_changed )
 
 	#$Area2D/CollisionShape2D.shape.radius = impact_range * 100
 	pass
 
 
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if state.get_contact_count() > 1:
+		#print(state.get_contact_collider_object(0), " @ ", state.get_contact_local_position(0))
+		#var contact_local_pos = state.get_contact_local_position(0)
+		#var contact_local_vel = state.get_contact_local_velocity_at_position(0)
+		#print("velocity_at_local_position ", state.get_velocity_at_local_position(contact_local_pos))
+		#print("contact_local_vel ", contact_local_vel)
+		#print(state.get_contact_collider_velocity_at_position(0))
+		#print("")
+		pass
+
+
 func _physics_process(_delta: float) -> void:
-	#if !sleeping:
-		#last_velocity = linear_velocity
-		#print("a")
-	#position += velocity * delta
+	#var collision: KinematicCollision2D = move_and_collide(linear_velocity * delta, true)
+	#if collision:
+		#print(collision.get_travel())
+		#print(collision.get_collider_velocity())
 	pass
 
 
-#func impact():
-	#$Camera2D.reparent(self.get_parent())
-	#queue_free()
+func _on_body_entered(body: Node):
+	#for body in get_colliding_bodies():
+	if body is Ground:
+		_impact( linear_velocity )
+	pass
+
+
+func _impact(force: Vector2):
+	var speed: float = force.length() / Game.PIXELS_PER_METER
+	#print("impact force: ", force, "  speed: ", speed, " ")
+
+	#var collision: KinematicCollision2D = move_and_collide(force, true)
+	#if collision:
+		#print( collision.get_remainder() )
+
+	var impact_scaler: float = 1.0
+	if rad_to_deg(angular_velocity) > 720.0:
+		#print("angular vel particles")
+		impact_scaler = rad_to_deg(angular_velocity) / 720.0
+	elif speed >= 3.0:  # 3m/s threshold for impact particles.
+		#print("linear vel particles")
+		impact_scaler = speed / 3.0
+
+	#print(int(impact_scaler))
+	var a: CPUParticles2D = $GrassImpactParticles.duplicate()
+	a.amount = int(a.amount * impact_scaler)
+	self.add_child(a)
+	a.emitting = true
+	a.finished.connect( func(): a.queue_free() )
+
+
+#func _on_sleeping_state_changed():
+	#print("sleep stae")
 	#pass
-
-
-func _on_body_entered(_body: Node):
-	#if body is Ground:
-	print("body")
-	print(linear_velocity)
-	pass
-
-
-func _on_sleeping_state_changed():
-	print("sleep stae")
-	print(linear_velocity)
-	print(last_velocity)
-	pass

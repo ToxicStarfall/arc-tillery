@@ -30,17 +30,17 @@ func _ready() -> void:
 	pass
 
 
+# NOTE: Ammo controlled by Level.
 func _on_fire_requested():
-	# Level controls the ammo
+	var projectile: RigidBody2D = projectile_scene.instantiate()
+	projectile.position = $ProjectilePoint.global_position
+	Events.weapon_fired.emit( projectile )
 
-	var new_projectile: RigidBody2D = projectile_scene.instantiate()
-	new_projectile.position = $ProjectilePoint.global_position
-	Events.weapon_fired.emit( new_projectile )
-
-	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed #* 100
-	#vel = vel * (power/100)
+	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed
 	vel = vel * (power)
-	new_projectile.apply_central_force( vel * projectile_speed )
+	projectile.velocity = vel
+	projectile.apply_central_force( vel * projectile_speed )
+	#projectile.move_and_collide(vel)
 
 
 func _on_angle_change_requested( new_angle: float ):

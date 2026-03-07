@@ -55,8 +55,7 @@ func save_level(_level: Level):
 
 
 func sync_level(level_data: Dictionary):
-	print("syncing level")
-	print(level_data.high_score)
+	#print("syncing level")
 	var current_data = config.get_value("levels", level_data.id)
 
 	if current_data.high_score < level_data.high_score:

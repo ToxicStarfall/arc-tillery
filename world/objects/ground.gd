@@ -20,14 +20,7 @@ func _exit_tree() -> void:
 		EditorInterface.get_inspector().property_edited.disconnect( _on_property_edited )
 
 
-
-func _ready() -> void:
-	if auto_generate == true:
-		generate_poly_collision()
-		#make_infinite()
-		#generate_poly_collision()
-
-
+## @tool function
 func _on_property_edited(property: String):
 	print(property)
 	#if EditorInterface.get_inspector().get_edited_object() == self:
@@ -36,6 +29,24 @@ func _on_property_edited(property: String):
 			"polygon":
 				print("polygon")
 				pass
+
+
+func _ready() -> void:
+	if auto_generate == true:
+		generate_poly_collision()
+		#make_infinite()
+		#generate_poly_collision()
+
+
+func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	if state.get_contact_count() > 1:
+		print(state.get_contact_local_position(0))
+		pass
+	#_local_collision_position = state.get_contact_local_position(0)
+
+func _on_body_entered(body: Node) -> void:
+	prints(body.name, "hit at")#, to_global(_local_collision_position))
+	pass
 
 
 func generate_poly_collision():
