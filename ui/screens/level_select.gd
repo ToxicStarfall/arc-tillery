@@ -6,6 +6,10 @@ const level_button_scene = preload("res://ui/screens/level_button.tscn")
 
 
 func _ready() -> void:
+	%BackButton.pressed.connect( func(): self.hide() )
+
+	Events.game_reset.connect( func(): refresh() )
+
 	populate_levels()
 
 

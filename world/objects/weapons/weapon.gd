@@ -38,9 +38,8 @@ func _on_fire_requested():
 
 	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed
 	vel = vel * (power)
-	projectile.velocity = vel
+	#projectile.velocity = vel
 	projectile.apply_central_force( vel * projectile_speed )
-	#projectile.move_and_collide(vel)
 
 
 func _on_angle_change_requested( new_angle: float ):

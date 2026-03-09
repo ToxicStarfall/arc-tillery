@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://biglil3dljgo" path="res://projectiles/projectile.gd" id="1_gfbpb"]
 [ext_resource type="Texture2D" uid="uid://ce1yh1j0mg46u" path="res://projectiles/cannon/cannonball.svg" id="2_gfbpb"]
-[ext_resource type="PackedScene" uid="uid://cqm0nfna84d6h" path="res://effects/particles/grass_impact.tscn" id="3_ooc1k"]
+[ext_resource type="PackedScene" uid="uid://86y5vgsqtbbj" path="res://effects/particles/grass_impact_c.tscn" id="3_ooc1k"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ighsu"]
 bounce = 0.2
@@ -26,9 +26,4 @@ texture = ExtResource("2_gfbpb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qxf0c")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-
 [node name="GrassImpactParticles" parent="." instance=ExtResource("3_ooc1k")]
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

@@ -7,6 +7,9 @@ extends RigidBody2D
 @export var impact_range: float = 4.0  ## Impact effect area in meters
 @export var impact_falloff: float = 0.3  ## Force percentage per every meter from impact
 
+#@onready var GrassParticles = ResourceLoader.load("res://effects/particles/grass_impact.tscn")
+
+
 var velocity := Vector2.ZERO
 #var last_velocity := Vector2.ZERO
 
@@ -19,8 +22,8 @@ func _ready() -> void:
 	pass
 
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if state.get_contact_count() > 1:
+#func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	#if state.get_contact_count() > 1:
 		#print(state.get_contact_collider_object(0), " @ ", state.get_contact_local_position(0))
 		#var contact_local_pos = state.get_contact_local_position(0)
 		#var contact_local_vel = state.get_contact_local_velocity_at_position(0)
@@ -28,7 +31,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		#print("contact_local_vel ", contact_local_vel)
 		#print(state.get_contact_collider_velocity_at_position(0))
 		#print("")
-		pass
+		#pass
 
 
 func _physics_process(_delta: float) -> void:
@@ -36,7 +39,15 @@ func _physics_process(_delta: float) -> void:
 	#if collision:
 		#print(collision.get_travel())
 		#print(collision.get_collider_velocity())
-	pass
+
+	#if !sleeping:
+		#if Game.current_level.tracked_projectile:
+			#Game.Drawers.ProjectileTrail.queue_redraw()
+			#print(Game.Drawers.ProjectileTrail.points.append( self.position ))
+			#var a = Game.Drawers.ProjectileTrail.points.duplicate()
+			#a.append( self.position )
+			#Game.Drawers.ProjectileTrail.points = a
+			pass
 
 
 func _on_body_entered(body: Node):
@@ -63,11 +74,16 @@ func _impact(force: Vector2):
 		impact_scaler = speed / 3.0
 
 	#print(int(impact_scaler))
-	var a: CPUParticles2D = $GrassImpactParticles.duplicate()
-	a.amount = int(a.amount * impact_scaler)
-	self.add_child(a)
-	a.emitting = true
-	a.finished.connect( func(): a.queue_free() )
+	if has_node("GrassImpactParticles"):
+		var a = $GrassImpactParticles.duplicate()
+		#var a = ResourceLoader.load("res://effects/particles/grass_impact.tscn").instantiate()
+		#var a = GrassParticles.instantiate()
+		a.amount = int(a.amount * impact_scaler)
+		print("particles")
+		if a.amount > 1:
+			self.add_child(a)
+			a.emitting = true
+			a.finished.connect( func(): a.queue_free() )
 
 
 #func _on_sleeping_state_changed():

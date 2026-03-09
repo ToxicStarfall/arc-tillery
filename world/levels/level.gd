@@ -76,7 +76,7 @@ func _setup_camera():
 
 # Set camera limit to disable tracking past certain areas.
 func _setup_camera_limits():
-	const TOP_LIMIT = 2000
+	const _TOP_LIMIT = 2000
 	const BOTTOM_LIMIT = 1000
 	const HORIZONTAL_LIMIT = 2000
 	var objects = get_objects()

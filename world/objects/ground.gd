@@ -22,13 +22,16 @@ func _exit_tree() -> void:
 
 ## @tool function
 func _on_property_edited(property: String):
-	print(property)
-	#if EditorInterface.get_inspector().get_edited_object() == self:
-	if EditorInterface.get_inspector().get_edited_object() == $Polygon2D:
-		match property:
-			"polygon":
-				print("polygon")
-				pass
+	if Engine.is_editor_hint():
+
+		print(property)
+		#if EditorInterface.get_inspector().get_edited_object() == self:
+		#if EditorInterface.get_inspector().get_edited_object() == $Polygon2D:
+		if Engine.get_singleton("EditorInterface").get_inspector().get_edited_object() == $Polygon2D:
+			match property:
+				"polygon":
+					print("polygon")
+					pass
 
 
 func _ready() -> void:

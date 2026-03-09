@@ -16,8 +16,6 @@ func _ready() -> void:
 	#Events.level_paused.connect( _on_level_paused )
 	#Events.level_unpaused.connect( _on_level_unpaused )
 
-	%MainMenu/%PlayButton.pressed.connect( func(): %LevelSelect.show() )
-
 	%GameScreen.hide()
 
 
@@ -40,13 +38,6 @@ func _on_level_ended(_level: Level):
 	%LevelSelect.refresh()
 	%GameScreen.hide()
 	pass
-
-
-#func _on_level_paused(_level: Level):
-	#%PauseMenu.show()
-#
-#func _on_level_unpaused(_level: Level):
-	#%PauseMenu.hide()
 
 
 #func navigate_to(screen: Control):

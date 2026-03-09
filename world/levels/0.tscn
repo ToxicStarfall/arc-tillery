@@ -35,5 +35,3 @@ projectile_scene = ExtResource("3_fdjeg")
 [node name="Star" parent="." instance=ExtResource("4_u2p4m")]
 position = Vector2(1280, 896)
 score_amount = 3
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]

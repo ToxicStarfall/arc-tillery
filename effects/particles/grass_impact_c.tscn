@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://86y5vgsqtbbj"]
+
+[ext_resource type="Texture2D" uid="uid://b3efni0wdpm3i" path="res://effects/particles/grass_impact.png" id="1_1k4s2"]
+
+[sub_resource type="Curve" id="Curve_wbe1w"]
+_data = [Vector2(0.7, 1), 0.0, 0.22044364, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ycsjn"]
+offsets = PackedFloat32Array(0.4, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_o4us0"]
+colors = PackedColorArray(0.46562496, 0.75, 0.26250002, 1, 0.5088999, 0.84, 0.378, 1)
+
+[node name="GrassImpactParticles" type="CPUParticles2D"]
+emitting = false
+amount = 4
+texture = ExtResource("1_1k4s2")
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 245)
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+scale_amount_curve = SubResource("Curve_wbe1w")
+color_ramp = SubResource("Gradient_ycsjn")
+color_initial_ramp = SubResource("Gradient_o4us0")
