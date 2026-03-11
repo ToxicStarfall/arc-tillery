@@ -7,7 +7,6 @@ extends RigidBody2D
 @export var impact_range: float = 4.0  ## Impact effect area in meters
 @export var impact_falloff: float = 0.3  ## Force percentage per every meter from impact
 
-#@onready var GrassParticles = ResourceLoader.load("res://effects/particles/grass_impact.tscn")
 
 
 var velocity := Vector2.ZERO
@@ -47,7 +46,7 @@ func _physics_process(_delta: float) -> void:
 			#var a = Game.Drawers.ProjectileTrail.points.duplicate()
 			#a.append( self.position )
 			#Game.Drawers.ProjectileTrail.points = a
-			pass
+	pass
 
 
 func _on_body_entered(body: Node):
@@ -76,10 +75,7 @@ func _impact(force: Vector2):
 	#print(int(impact_scaler))
 	if has_node("GrassImpactParticles"):
 		var a = $GrassImpactParticles.duplicate()
-		#var a = ResourceLoader.load("res://effects/particles/grass_impact.tscn").instantiate()
-		#var a = GrassParticles.instantiate()
 		a.amount = int(a.amount * impact_scaler)
-		print("particles")
 		if a.amount > 1:
 			self.add_child(a)
 			a.emitting = true

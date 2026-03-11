@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://7mvau31bdjhg"]
+
+[sub_resource type="Curve" id="Curve_n2aaf"]
+_data = [Vector2(0.6, 1), 0.0, -0.18904933, 0, 0, Vector2(1, 0), -6.482501, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_02tun"]
+curve = SubResource("Curve_n2aaf")
+
+[sub_resource type="Gradient" id="Gradient_86nwf"]
+colors = PackedColorArray(1, 1, 1, 1, 0.8, 0.8, 0.8, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xa2n2"]
+gradient = SubResource("Gradient_86nwf")
+
+[sub_resource type="Gradient" id="Gradient_butos"]
+colors = PackedColorArray(0.77, 0.77, 0.77, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uqq03"]
+gradient = SubResource("Gradient_butos")
+
+[sub_resource type="Curve" id="Curve_pn34d"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0.009433955, 0.04494381), 0.0, 8.012258, 0, 0, Vector2(0.6745283, 2), 0.0, 0.0, 0, 0, Vector2(1, 1.0561799), -8.38472, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_jabn3"]
+curve = SubResource("Curve_pn34d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhibw"]
+particle_flag_disable_z = true
+initial_velocity_min = 250.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 99.99999
+radial_accel_min = -100.0
+radial_accel_max = 99.99999
+damping_min = 50.000004
+damping_max = 100.00001
+scale_min = 16.0
+scale_max = 16.0
+scale_curve = SubResource("CurveTexture_jabn3")
+color_ramp = SubResource("GradientTexture1D_uqq03")
+color_initial_ramp = SubResource("GradientTexture1D_xa2n2")
+alpha_curve = SubResource("CurveTexture_02tun")
+
+[node name="CannonSmokeParticles" type="GPUParticles2D"]
+scale = Vector2(4, 4)
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_bhibw")

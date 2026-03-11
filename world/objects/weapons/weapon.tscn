@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://by7e1tj1gqa6q"]
+[gd_scene load_steps=8 format=3 uid="uid://by7e1tj1gqa6q"]
 
 [ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://world/objects/weapons/weapon.gd" id="1_o2wld"]
 [ext_resource type="PackedScene" uid="uid://crodvh1rsy2hj" path="res://projectiles/projectile.tscn" id="2_3fy1u"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_8xwfw"]
 [ext_resource type="Texture2D" uid="uid://crob74qfvj85m" path="res://world/objects/weapons/cannon_barrel.svg" id="4_g6ipy"]
+[ext_resource type="PackedScene" uid="uid://blylwtxi06nye" path="res://effects/particles/cannon_firing.tscn" id="5_6ay7h"]
+[ext_resource type="PackedScene" uid="uid://7mvau31bdjhg" path="res://effects/particles/cannon_firing_smoke.tscn" id="6_5kefl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3fy1u"]
 size = Vector2(128, 128)
@@ -30,17 +32,11 @@ rotation = -1.5707964
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_g6ipy")
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="PivotPoint/Gun"]
-position = Vector2(225.6081, -6.9235302e-06)
-scale = Vector2(2, 2)
-emitting = false
-explosiveness = 0.8
-spread = 22.5
-gravity = Vector2(0, 245)
-initial_velocity_min = 500.0
-initial_velocity_max = 1000.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
+[node name="CannonParticles" parent="PivotPoint/Gun" instance=ExtResource("5_6ay7h")]
+unique_name_in_owner = true
+
+[node name="CannonSmokeParticles" parent="PivotPoint/Gun" instance=ExtResource("6_5kefl")]
+unique_name_in_owner = true
 
 [node name="ProjectilePoint" type="Marker2D" parent="."]
 unique_name_in_owner = true

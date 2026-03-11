@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://34kqa5moxi7h"]
+
+[sub_resource type="Gradient" id="Gradient_o4us0"]
+offsets = PackedFloat32Array(0, 0.9892473)
+colors = PackedColorArray(0.36, 0.35244, 0.3348, 1, 0.53, 0.50456, 0.48759997, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cygpk"]
+gradient = SubResource("Gradient_o4us0")
+
+[sub_resource type="Gradient" id="Gradient_ycsjn"]
+offsets = PackedFloat32Array(0.4, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l3ssy"]
+gradient = SubResource("Gradient_ycsjn")
+
+[sub_resource type="Curve" id="Curve_wbe1w"]
+_data = [Vector2(0.7, 1), 0.0, 0.22044364, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_cjvqy"]
+curve = SubResource("Curve_wbe1w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7imp4"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 150.0
+initial_velocity_max = 300.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+gravity = Vector3(0, 245, 0)
+scale_min = 16.0
+scale_max = 16.0
+scale_curve = SubResource("CurveTexture_cjvqy")
+color_ramp = SubResource("GradientTexture1D_l3ssy")
+color_initial_ramp = SubResource("GradientTexture1D_cygpk")
+
+[node name="StoneImpactParticles" type="GPUParticles2D"]
+emitting = false
+amount = 4
+lifetime = 1.5
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 0
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_7imp4")

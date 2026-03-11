@@ -40,6 +40,7 @@ func _on_fire_requested():
 	vel = vel * (power)
 	#projectile.velocity = vel
 	projectile.apply_central_force( vel * projectile_speed )
+	_emit_fire_particles()
 
 
 func _on_angle_change_requested( new_angle: float ):
@@ -51,3 +52,10 @@ func _on_angle_change_requested( new_angle: float ):
 func _on_power_change_requested( new_power: float ):
 	power = new_power
 	Events.weapon_power_changed.emit( power )
+
+
+func _emit_fire_particles():
+	%CannonParticles.emitting = true
+	%CannonSmokeParticles.emitting = true
+	#%CannonParticles.restart()
+	pass

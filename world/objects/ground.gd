@@ -41,17 +41,6 @@ func _ready() -> void:
 		#generate_poly_collision()
 
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if state.get_contact_count() > 1:
-		print(state.get_contact_local_position(0))
-		pass
-	#_local_collision_position = state.get_contact_local_position(0)
-
-func _on_body_entered(body: Node) -> void:
-	prints(body.name, "hit at")#, to_global(_local_collision_position))
-	pass
-
-
 func generate_poly_collision():
 	if !has_node("CollisionPolygon2D"):
 		var polygon = CollisionPolygon2D.new()

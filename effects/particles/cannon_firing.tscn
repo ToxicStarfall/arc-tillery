@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://blylwtxi06nye"]
+
+[sub_resource type="Curve" id="Curve_qj5q1"]
+_data = [Vector2(0.7, 1), 0.0, -0.18904933, 0, 0, Vector2(1, 0.1), -6.482501, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+
+[sub_resource type="CurveTexture" id="CurveTexture_jip5i"]
+curve = SubResource("Curve_qj5q1")
+
+[sub_resource type="Gradient" id="Gradient_6ay7h"]
+offsets = PackedFloat32Array(0.010752688, 1)
+colors = PackedColorArray(1, 0.90000004, 0, 1, 1, 0.73333335, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5kefl"]
+gradient = SubResource("Gradient_6ay7h")
+
+[sub_resource type="Gradient" id="Gradient_beb11"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.53333336, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hf1ur"]
+gradient = SubResource("Gradient_beb11")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yw7s5"]
+particle_flag_disable_z = true
+initial_velocity_min = 250.0
+initial_velocity_max = 500.0
+angular_velocity_min = -180.00002
+angular_velocity_max = 179.99998
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 99.99999
+radial_accel_min = -100.0
+radial_accel_max = 99.99999
+damping_min = 50.000004
+damping_max = 100.00001
+scale_min = 16.0
+scale_max = 16.0
+color_ramp = SubResource("GradientTexture1D_hf1ur")
+color_initial_ramp = SubResource("GradientTexture1D_5kefl")
+alpha_curve = SubResource("CurveTexture_jip5i")
+
+[node name="CannonParticles" type="GPUParticles2D"]
+scale = Vector2(2, 2)
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_yw7s5")
