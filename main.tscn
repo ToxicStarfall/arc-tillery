@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=32 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dqi3sui7bvwb8" path="res://ui/ui.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dy5ts73tim3hq" path="res://ui/screens/main_menu.tscn" id="2_efxa6"]
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://ui/styles/theme.tres" id="2_kek77"]
+[ext_resource type="Script" uid="uid://imwna151w7pg" path="res://ui/screens/splash_screen.gd" id="2_vivmo"]
 [ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://ui/screens/game_screen.gd" id="3_4c57u"]
 [ext_resource type="PackedScene" uid="uid://1c5lr7oterih" path="res://ui/screens/level_select.tscn" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
@@ -13,6 +14,7 @@
 [ext_resource type="Script" uid="uid://7nkw8prjgygf" path="res://ui/drawers/drawers.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://dilkkugs2jift" path="res://ui/drawers/distance_pointers.gd" id="12_dg77c"]
 [ext_resource type="Script" uid="uid://c6esopqrg6gom" path="res://ui/drawers/projectile_trail.gd" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://banrl8c1nk4cw" path="res://world/objects/destructables/loader.tscn" id="14_w48qg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2u21"]
 bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
@@ -103,8 +105,49 @@ process_mode = 3
 layer = 2
 script = ExtResource("1_efxa6")
 
+[node name="SplashScreen" type="Control" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_vivmo")
+
+[node name="FadeColor" type="ColorRect" parent="UI/SplashScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="UI/SplashScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_efxa6")
+
+[node name="LoadingLabel" type="Label" parent="UI/SplashScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 84
+text = "LOADING..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MainMenu" parent="UI" instance=ExtResource("2_efxa6")]
 unique_name_in_owner = true
+visible = false
 
 [node name="LevelSelect" parent="UI" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
@@ -473,12 +516,13 @@ script = ExtResource("12_dg77c")
 unique_name_in_owner = true
 visible = false
 
-[node name="ProjectileTrails" type="Node2D" parent="Drawers"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Drawers"]
+layer = -1
+follow_viewport_enabled = true
+
+[node name="ProjectileTrails" type="Node2D" parent="Drawers/CanvasLayer"]
 unique_name_in_owner = true
 script = ExtResource("13_ycdy4")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="Drawers"]
-visible = false
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -493,6 +537,8 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D"]
 visible = false
 texture = ExtResource("4_efxa6")
+
+[node name="Loader" parent="." instance=ExtResource("14_w48qg")]
 
 [node name="World" type="Node2D" parent="."]
 visible = false

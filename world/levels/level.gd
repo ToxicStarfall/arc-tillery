@@ -191,8 +191,9 @@ func _on_weapon_fired(projectile: Projectile):
 func _on_projectile_sleeping(projectile):
 	if projectile.sleeping:
 		await get_tree().create_timer(3.0).timeout
-		camera_focus_weapon()
-		check_level_completion()
+		if projectile.sleeping:
+			camera_focus_weapon()
+			check_level_completion()
 
 
 # When projectile goes past focused play area.

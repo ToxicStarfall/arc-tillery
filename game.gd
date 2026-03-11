@@ -2,8 +2,12 @@ extends Node
 
 
 const LEVEL_DIRECTORY = "res://world/levels/"
-
 const PIXELS_PER_METER = 64
+
+var IMPACT_PARTICLES = {
+	"GRASS": ResourceLoader.load("res://effects/particles/grass_impact.tscn")
+}
+
 
 var UI: CanvasLayer
 var Drawers: CanvasLayer
@@ -12,7 +16,6 @@ var Camera: Camera2D
 
 var current_level: Level
 var current_weapon: Weapon
-var current_projectile: Projectile
 
 var save_data = SaveData.new()
 
@@ -22,11 +25,15 @@ func _ready() -> void:
 	_setup()
 
 	#start_level("0")
+	print("start")
+	await _preloader()
+	print("end")
 	pass
 
 
 func _setup():
 	# Connect Signals
+	Events.game_loading_started.connect( _on_game_loading_started )
 	Events.level_completed.connect( _on_level_completed )
 
 	var Main = get_tree().root.get_node("Main")
@@ -36,6 +43,25 @@ func _setup():
 
 	save_data.load_data()
 
+
+func _on_game_loading_started():
+	await _preloader()
+	Events.game_loading_ended.emit()
+
+
+
+func _preloader():
+	var Loader = get_tree().root.get_node("Main/Loader")
+	var queue = Loader.get_child_count()
+
+	for child in Loader.get_children():
+		child.emitting = true
+		#await child.finished
+		queue -= 1
+	if queue == 0:
+		return
+		#print("queue ended")
+		#pass
 
 
 
@@ -89,4 +115,3 @@ func _on_level_completed(level: Level):
 	var level_data = level.get_save_data()
 	save_data.sync_level(level_data)
 	save_data.save()
-	pass

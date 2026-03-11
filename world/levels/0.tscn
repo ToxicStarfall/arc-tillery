@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cs8afinprl74m"]
+[gd_scene load_steps=8 format=3 uid="uid://1pun5g3lvwf5"]
 
 [ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_71in7"]
 [ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/objects/ground.gd" id="2_fdjeg"]
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/objects/weapons/weapon.tscn" id="2_ovth3"]
 [ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://projectiles/cannon/cannonball.tscn" id="3_fdjeg"]
 [ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="4_u2p4m"]
+[ext_resource type="PackedScene" uid="uid://bk5u5tap5gsfe" path="res://world/objects/destructables/box.tscn" id="6_fdjeg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_la0sn"]
 
@@ -14,24 +15,27 @@ current_weapon = NodePath("Weapon")
 metadata/_custom_type_script = "uid://dynhc2ivouv7a"
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(9, 1086)
+position = Vector2(9, 190)
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_la0sn")
 script = ExtResource("2_fdjeg")
 metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
-polygon = PackedVector2Array(-649, -126, 3191, -126, 3191, 2, -649, 2)
+polygon = PackedVector2Array(-649, -126, 3831, -126, 3831, 2, -649, 2)
 
 [node name="Polygon2D" type="Polygon2D" parent="Ground"]
 color = Color(0.34560004, 0.72, 0.61392003, 1)
-polygon = PackedVector2Array(-649, -126, 3191, -126, 3191, 2, -649, 2)
+polygon = PackedVector2Array(-649, -126, 3831, -126, 3831, 2, -649, 2)
 
 [node name="Weapon" parent="." instance=ExtResource("2_ovth3")]
-position = Vector2(0, 896)
 collision_layer = 0
 projectile_scene = ExtResource("3_fdjeg")
 
 [node name="Star" parent="." instance=ExtResource("4_u2p4m")]
-position = Vector2(1280, 896)
+position = Vector2(1920, 0)
 score_amount = 3
+
+[node name="Box" parent="." instance=ExtResource("6_fdjeg")]
+position = Vector2(960, 0)
+mass = 10.0

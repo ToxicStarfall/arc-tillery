@@ -1,10 +1,10 @@
 extends CanvasLayer
 
 
-@onready var DistanceMarkers = $DistanceMarkers
-@onready var DistancePointers = $DistancePointers
-#@onready var AimDrawer = $GridDrawer
-@onready var ProjectileTrails = $ProjectileTrails
+@onready var DistanceMarkers = %DistanceMarkers
+@onready var DistancePointers = %DistancePointers
+#@onready var AimDrawer = %GridDrawer
+@onready var ProjectileTrails = %ProjectileTrails
 
 
 func queue_redraw():

@@ -3,6 +3,8 @@ extends Node
 
 @warning_ignore_start("unused_signal")
 
+signal game_loading_started
+signal game_loading_ended
 signal game_ready
 signal game_reset
 
