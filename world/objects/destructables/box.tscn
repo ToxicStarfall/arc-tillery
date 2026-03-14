@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk5u5tap5gsfe"]
+
+[ext_resource type="Script" uid="uid://vbcv8jup0c5o" path="res://world/objects/destructables/destructable_object.gd" id="1_p337q"]
+[ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_0p5dw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0pvva"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfee1"]
+size = Vector2(128, 128)
+
+[node name="Box" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_0pvva")
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_p337q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.77, 0.5236, 0.15399998, 1)
+texture = ExtResource("2_0p5dw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jfee1")

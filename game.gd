@@ -5,7 +5,7 @@ const LEVEL_DIRECTORY = "res://world/levels/"
 const PIXELS_PER_METER = 64
 
 var IMPACT_PARTICLES = {
-	"GRASS": ResourceLoader.load("res://effects/particles/grass_impact.tscn")
+	#"GRASS": ResourceLoader.load("res://effects/particles/grass_impact.tscn")
 }
 
 
@@ -19,15 +19,15 @@ var current_weapon: Weapon
 
 var save_data = SaveData.new()
 
+# Toggles
+var splash = false
+var preloader = true
 
 
 func _ready() -> void:
 	_setup()
 
 	#start_level("0")
-	print("start")
-	await _preloader()
-	print("end")
 	pass
 
 
@@ -49,7 +49,6 @@ func _on_game_loading_started():
 	Events.game_loading_ended.emit()
 
 
-
 func _preloader():
 	var Loader = get_tree().root.get_node("Main/Loader")
 	var queue = Loader.get_child_count()
@@ -62,7 +61,6 @@ func _preloader():
 		return
 		#print("queue ended")
 		#pass
-
 
 
 func start_level(level_id: String):

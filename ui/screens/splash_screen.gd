@@ -3,10 +3,18 @@ extends Control
 
 
 func _ready():
-	Events.game_loading_ended.connect( _on_game_loading_ended )
+	if Game.splash:
+		await _splash()
+	else:
+		#Events.game_ready.emit()
+		#get_parent().get_node("MainMenu").show()
+		self.hide()
 
-	await splash()
-	Events.game_loading_started.emit()
+	if Game.preloader:
+		Events.game_loading_ended.connect( _on_game_loading_ended )
+		Events.game_loading_started.emit()
+
+
 
 
 func _on_game_loading_ended():
@@ -14,11 +22,11 @@ func _on_game_loading_ended():
 	tween.tween_property( $LoadingLabel, "modulate:a", 0, 1.0 )
 	tween.tween_interval( 0.5 )
 	tween.tween_property( $FadeColor, "modulate:a", 0, 0.5 ).set_ease(Tween.EASE_IN)
-	Events.game_ready.emit()
+	#Events.game_ready.emit()
 	self.hide()
 
 
-func splash():
+func _splash():
 	var tween = get_tree().create_tween()
 	$TextureRect.modulate.a = 0
 	$LoadingLabel.modulate.a = 0
