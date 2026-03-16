@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://7nkw8prjgygf" path="res://ui/drawers/drawers.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://dilkkugs2jift" path="res://ui/drawers/distance_pointers.gd" id="12_dg77c"]
 [ext_resource type="Script" uid="uid://c6esopqrg6gom" path="res://ui/drawers/projectile_trail.gd" id="13_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://banrl8c1nk4cw" path="res://world/objects/destructables/loader.tscn" id="14_w48qg"]
+[ext_resource type="PackedScene" uid="uid://banrl8c1nk4cw" path="res://loader.tscn" id="14_w48qg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2u21"]
 bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)

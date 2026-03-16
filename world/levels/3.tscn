@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_nqwey"]
 [ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/objects/ground.gd" id="2_3ysna"]
-[ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/objects/weapons/weapon.tscn" id="3_yb22s"]
-[ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://projectiles/cannon/cannonball.tscn" id="4_6mma6"]
+[ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/weapons/weapon.tscn" id="3_yb22s"]
+[ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://world/projectiles/cannon/cannonball.tscn" id="4_6mma6"]
 [ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="5_uwfm6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_la0sn"]

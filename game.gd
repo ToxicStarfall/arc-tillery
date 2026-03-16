@@ -22,6 +22,7 @@ var save_data = SaveData.new()
 # Toggles
 var splash = false
 var preloader = true
+var dev = true
 
 
 func _ready() -> void:

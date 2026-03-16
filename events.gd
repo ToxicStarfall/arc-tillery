@@ -33,6 +33,9 @@ signal level_ammo_changed (new_ammo_count: int)
 signal level_score_changed (new_score: int)
 signal level_attempts_changed (new_attempt_count: int)
 
+
+signal particles_emitted(particles: Node2D, position: Vector2)
+
 #endregion - - - - #
 
 

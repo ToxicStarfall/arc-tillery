@@ -12,6 +12,8 @@ func _ready() -> void:
 
 	populate_levels()
 
+	if !Game.dev: %LevelContainer.get_child(0).hide()
+
 
 func populate_levels():
 	var level_dir = ResourceLoader.list_directory(Game.LEVEL_DIRECTORY)

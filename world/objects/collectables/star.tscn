@@ -19,6 +19,6 @@ texture = ExtResource("2_fhnr0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_r657h")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-
 [node name="StarPickupParticles" parent="." instance=ExtResource("3_6sp66")]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
