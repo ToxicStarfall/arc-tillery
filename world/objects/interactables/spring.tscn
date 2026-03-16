@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://613p40bwxnvl"]
+
+[ext_resource type="Script" uid="uid://vsgax0wb8yrj" path="res://world/objects/interactables/spring.gd" id="1_duxn5"]
+[ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_4xgwq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbrwa"]
+size = Vector2(128, 128)
+
+[node name="Spring" type="Area2D"]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_duxn5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.59000003, 0.59000003, 1)
+texture = ExtResource("2_4xgwq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lbrwa")
+
+[node name="ForceDirection" type="RayCast2D" parent="."]
+enabled = false
+target_position = Vector2(0, -128)
+collision_mask = 0

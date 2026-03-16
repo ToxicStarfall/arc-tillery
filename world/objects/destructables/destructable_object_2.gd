@@ -8,7 +8,7 @@ class_name DestructableObject2
 
 @export var durability: float = 100.0
 @export var resistance: float = 20.0
-@export var threshhold: float = 1024.0
+@export var threshhold: float = 640.0
 
 var collision_monitor: CollisionMonitor
 var collision_speed_threshold = 256.0
@@ -22,9 +22,10 @@ func _ready():
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	var contact_position = collision_monitor.integrate_forces(state, collision_speed_threshold)
-	if contact_position:
-		particle_effect(contact_position)
+	var collision = collision_monitor.integrate_forces(state, collision_speed_threshold)
+	if collision:
+		damage_force(collision.velocity)
+		particle_effect(collision)
 
 
 func _on_weapon_fired(_projectile: Projectile):
@@ -33,12 +34,25 @@ func _on_weapon_fired(_projectile: Projectile):
 	pass
 
 
-func particle_effect(collision_point: Vector2):
-	#print("patrilaf")
+func damage_force(force: Vector2):
+	var magnitude = force.length()
+	if magnitude * (resistance / 100) > threshhold or durability <= 0:
+	#if force.length() > threshhold:
+		queue_free()
+	else:
+		durability -= magnitude * (resistance / 100)
+
+
+
+func particle_effect(collision: Dictionary):
 	var p = particle_scene.instantiate()
-	#p.amount = 30
-	get_tree().get_root().add_child(p)
-	p.global_position = collision_point
-	#if (p is CPUParticles2D):
-	p.restart()
+	p.amount = 4 + (collision.velocity.length() / Game.PIXELS_PER_METER)
+	p.global_position = collision.position
+
+	#get_tree().get_root().add_child(p)
+	Game.current_level.add_child(p)
+
+	p.emitting = true
+	p.finished.connect( func(): p.queue_free() )
+	#Events.particles_emitted.emit(p, collision.position)
 	pass

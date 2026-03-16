@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5rxgcprihlhu"]
+[gd_scene load_steps=5 format=3 uid="uid://bsc5nhfq1kpyx"]
 
 [ext_resource type="Script" uid="uid://facfqtju7n2y" path="res://world/objects/destructables/destructable_object_2.gd" id="1_8pmv6"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_4pygh"]

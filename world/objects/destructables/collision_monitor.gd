@@ -37,7 +37,8 @@ func setup():
 
 
 func integrate_forces(state: PhysicsDirectBodyState2D, speed_threshold: float):
-	var contact_position: Vector2  # Custom
+	#var contact_position: Vector2  # Custom
+	var collision := {}  # Custom
 
 	if (queue_reset):
 		state.transform = reset_transform
@@ -50,16 +51,19 @@ func integrate_forces(state: PhysicsDirectBodyState2D, speed_threshold: float):
 		#		the body that is collided with. Therefore, it is not useful.
 		var to_collision_point = state.get_contact_collider_position(i) - state.transform.origin
 		var collision_velocity = compute_velocity_at_point(to_collision_point, state, transform_old, velocity_old, angular_velocity_old)
+		#print("Collision speed(%d): %s" % [i, collision_velocity.length()])
 
 		if (collision_velocity.length() >= speed_threshold):
-			#print("Collision speed(%d): %s" % [i, collision_velocity.length()])
 			# Spawn, position and play the particle instance
 			#var p = particle_prefab.instantiate()
 			#get_tree().get_root().add_child(p)
 			#p.global_position = state.get_contact_collider_position(i)
 			#if (p is CPUParticles2D):
 				#p.restart()
-			contact_position = state.get_contact_collider_position(i)  # Custom
+
+			#contact_position = state.get_contact_collider_position(i)  # Custom
+			collision["position"] = state.get_contact_collider_position(i)
+			collision["velocity"] = collision_velocity
 			pass
 
 	# Update the state-history variables
@@ -67,7 +71,7 @@ func integrate_forces(state: PhysicsDirectBodyState2D, speed_threshold: float):
 	velocity_old = state.linear_velocity
 	angular_velocity_old = state.angular_velocity
 
-	return contact_position  # Custom
+	return collision  # Custom
 
 
 func compute_velocity_at_point(local_point: Vector2, state: PhysicsDirectBodyState2D, old_transform: Transform2D, old_velocity: Vector2, old_angular_velocity: float) -> Vector2:
