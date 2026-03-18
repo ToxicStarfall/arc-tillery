@@ -4,6 +4,7 @@ extends Control
 
 func _ready():
 	if Game.splash:
+		self.show()
 		await _splash()
 	else:
 		#Events.game_ready.emit()

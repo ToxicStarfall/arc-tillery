@@ -51,12 +51,12 @@ func _physics_process(_delta: float) -> void:
 
 func _on_body_entered(body: Node):
 	#for body in get_colliding_bodies():
-	if body is Ground:
-		_impact( linear_velocity )
+	#if body is Ground:
+	_impact( linear_velocity, body )
 	pass
 
 
-func _impact(force: Vector2):
+func _impact(force: Vector2, body):
 	var speed: float = force.length() / Game.PIXELS_PER_METER
 	#print("impact force: ", force, "  speed: ", speed, " ")
 
@@ -73,13 +73,23 @@ func _impact(force: Vector2):
 		impact_scaler = speed / 3.0
 
 	#print(int(impact_scaler))
-	if has_node("GrassImpactParticles"):
-		var a = $GrassImpactParticles.duplicate()
-		a.amount = int(a.amount * impact_scaler)
-		if a.amount > 1:
-			self.add_child(a)
-			a.emitting = true
-			a.finished.connect( func(): a.queue_free() )
+	if body is Ground:
+		if has_node("GrassImpactParticles"):
+			var a = $GrassImpactParticles.duplicate()
+			a.amount = int(a.amount * impact_scaler)
+			if a.amount > 1:
+				self.add_child(a)
+				a.emitting = true
+				a.finished.connect( func(): a.queue_free() )
+		if has_node("GrassImpactAudio"):
+			if speed > 1.5:
+				#$GrassImpactAudio.volume_db = linear_to_db(speed)
+				$GrassImpactAudio.play_random()
+	if body is Projectile:
+		if has_node("CannonballImpactAudio"):
+			if speed > 2.0:
+				$CannonballImpactAudio.play_random()
+
 
 
 #func _on_sleeping_state_changed():

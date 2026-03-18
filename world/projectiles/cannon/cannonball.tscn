@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://jy1qvx6j58ti"]
+[gd_scene load_steps=11 format=3 uid="uid://jy1qvx6j58ti"]
 
 [ext_resource type="Script" uid="uid://biglil3dljgo" path="res://world/projectiles/projectile.gd" id="1_gfbpb"]
 [ext_resource type="Texture2D" uid="uid://ce1yh1j0mg46u" path="res://world/projectiles/cannon/cannonball.svg" id="2_gfbpb"]
 [ext_resource type="PackedScene" uid="uid://cqm0nfna84d6h" path="res://effects/particles/grass_impact.tscn" id="3_ooc1k"]
+[ext_resource type="Script" uid="uid://d1t1bykhdgshf" path="res://custom_scripts/random_audio_stream_player_2d.gd" id="4_ga7hg"]
+[ext_resource type="AudioStream" uid="uid://nrs7te6cg0wm" path="res://audio/world/ground/grass/joentnt-walk-on-grass-2-291985.mp3" id="5_j4ba0"]
+[ext_resource type="AudioStream" uid="uid://bsxwih1r5xemy" path="res://audio/world/ground/grass/joentnt-walk-on-grass-3-291986.mp3" id="6_5xvn6"]
+[ext_resource type="AudioStream" uid="uid://ddhou1vp810ou" path="res://audio/world/ground/grass/freesound_community-landing-on-grass-40650.mp3" id="7_wkic2"]
+[ext_resource type="AudioStream" uid="uid://bt4gkyu8845st" path="res://audio/world/ground/freesound_community-soccer-ball-kick-37625.mp3" id="8_wkic2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ighsu"]
 bounce = 0.2
@@ -28,4 +33,16 @@ shape = SubResource("CircleShape2D_qxf0c")
 
 [node name="GrassImpactParticles" parent="." instance=ExtResource("3_ooc1k")]
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="GrassImpactAudio" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 5
+bus = &"SFX"
+script = ExtResource("4_ga7hg")
+audio_streams = Array[AudioStream]([ExtResource("5_j4ba0"), ExtResource("6_5xvn6"), ExtResource("7_wkic2")])
+metadata/_custom_type_script = "uid://d1t1bykhdgshf"
+
+[node name="CannonballImpactAudio" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 5
+bus = &"SFX"
+script = ExtResource("4_ga7hg")
+audio_streams = Array[AudioStream]([ExtResource("8_wkic2")])
+metadata/_custom_type_script = "uid://d1t1bykhdgshf"

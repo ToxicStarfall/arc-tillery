@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://613p40bwxnvl"]
+[gd_scene load_steps=5 format=3 uid="uid://613p40bwxnvl"]
 
 [ext_resource type="Script" uid="uid://vsgax0wb8yrj" path="res://world/objects/interactables/spring.gd" id="1_duxn5"]
-[ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="2_4xgwq"]
+[ext_resource type="Texture2D" uid="uid://762jr7w3egmx" path="res://world/objects/interactables/spring.svg" id="2_duxn5"]
+[ext_resource type="AudioStream" uid="uid://b6od72itbgtsi" path="res://audio/world/objects/spring/freesound_community-boing-spring-mouth-harp-04-20-13-4-103346.mp3" id="3_4xgwq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lbrwa"]
-size = Vector2(128, 128)
+size = Vector2(128, 96)
 
 [node name="Spring" type="Area2D"]
 collision_layer = 0
@@ -12,13 +13,18 @@ collision_mask = 6
 script = ExtResource("1_duxn5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.59000003, 0.59000003, 1)
-texture = ExtResource("2_4xgwq")
+texture = ExtResource("2_duxn5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_lbrwa")
 
 [node name="ForceDirection" type="RayCast2D" parent="."]
 enabled = false
 target_position = Vector2(0, -128)
 collision_mask = 0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_4xgwq")
+volume_db = 10.0
+max_polyphony = 5

@@ -22,13 +22,16 @@ var queue_reset: bool
 var reset_transform: Transform2D
 
 
-#func _ready():
+func _init() -> void:
 	#reset_transform = global_transform
+	Events.weapon_fired.connect( _on_weapon_fired )
 
 
-func setup():
+func _on_weapon_fired(_projectile: Projectile):
+	#queue_reset = true
+	#print("AJNSD")
+	#sleeping = false
 	pass
-
 
 #func _process(_delta):
 	#if Input.is_action_just_pressed("ui_accept"):
@@ -41,7 +44,7 @@ func integrate_forces(state: PhysicsDirectBodyState2D, speed_threshold: float):
 	var collision := {}  # Custom
 
 	if (queue_reset):
-		state.transform = reset_transform
+		#state.transform = reset_transform
 		state.linear_velocity = Vector2.ZERO
 		state.angular_velocity = 0
 		queue_reset = false

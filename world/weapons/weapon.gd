@@ -33,15 +33,18 @@ func _ready() -> void:
 
 # NOTE: Ammo controlled by Level.
 func _on_fire_requested():
-	var projectile: RigidBody2D = projectile_scene.instantiate()
-	projectile.position = $ProjectilePoint.global_position
-	Events.weapon_fired.emit( projectile )
+	if Game.current_level.ammo > 0:
+		var projectile: RigidBody2D = projectile_scene.instantiate()
+		projectile.position = $ProjectilePoint.global_position
+		Events.weapon_fired.emit( projectile )
 
-	var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed
-	vel = vel * (power)
-	#projectile.velocity = vel
-	projectile.apply_central_force( vel * projectile_speed )
-	_emit_fire_particles()
+		var vel = Vector2.from_angle(deg_to_rad(current_angle) * -1) * projectile_speed
+		vel = vel * (power)
+		#projectile.velocity = vel
+
+		projectile.apply_central_force( vel * projectile_speed )
+		if has_node("AudioStreamPlayer2D"): $AudioStreamPlayer2D.play()
+		_emit_fire_particles()
 
 
 func _on_angle_change_requested( new_angle: float ):
@@ -56,7 +59,5 @@ func _on_power_change_requested( new_power: float ):
 
 
 func _emit_fire_particles():
-	%CannonParticles.emitting = true
-	%CannonSmokeParticles.emitting = true
-	#%CannonParticles.restart()
-	pass
+	%WeaponParticles.restart()
+	%WeaponSmokeParticles.restart()

@@ -28,9 +28,6 @@ var dev = true
 func _ready() -> void:
 	_setup()
 
-	#start_level("0")
-	pass
-
 
 func _setup():
 	# Connect Signals

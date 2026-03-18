@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=34 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dqi3sui7bvwb8" path="res://ui/ui.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dy5ts73tim3hq" path="res://ui/screens/main_menu.tscn" id="2_efxa6"]
@@ -9,10 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/drawers/distance_markers.gd" id="5_dg77c"]
+[ext_resource type="PackedScene" uid="uid://tjpleynq2oh2" path="res://ui/screens/settings.tscn" id="6_yaehf"]
 [ext_resource type="PackedScene" uid="uid://borebij22gqym" path="res://ui/screens/pause_menu.tscn" id="8_dg77c"]
 [ext_resource type="PackedScene" uid="uid://b5sfdvqveubaa" path="res://ui/screens/end_banner.tscn" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://7nkw8prjgygf" path="res://ui/drawers/drawers.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://dilkkugs2jift" path="res://ui/drawers/distance_pointers.gd" id="12_dg77c"]
+[ext_resource type="AudioStream" uid="uid://dgt0bk2ihe45r" path="res://audio/ui/floraphonic-casual-click-pop-ui-10-262126.mp3" id="12_yaehf"]
 [ext_resource type="Script" uid="uid://c6esopqrg6gom" path="res://ui/drawers/projectile_trail.gd" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://banrl8c1nk4cw" path="res://loader.tscn" id="14_w48qg"]
 
@@ -105,10 +107,64 @@ process_mode = 3
 layer = 2
 script = ExtResource("1_efxa6")
 
+[node name="SplashScreen" type="Control" parent="UI"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_vivmo")
+
+[node name="FadeColor" type="ColorRect" parent="UI/SplashScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="UI/SplashScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("4_efxa6")
+
+[node name="LoadingLabel" type="Label" parent="UI/SplashScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 84
+text = "LOADING..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MainMenu" parent="UI" instance=ExtResource("2_efxa6")]
 unique_name_in_owner = true
 
 [node name="LevelSelect" parent="UI" instance=ExtResource("3_kek77")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Settings" parent="UI" instance=ExtResource("6_yaehf")]
 unique_name_in_owner = true
 visible = false
 
@@ -458,53 +514,13 @@ offset_bottom = 40.0
 unique_name_in_owner = true
 visible = false
 
-[node name="SplashScreen" type="Control" parent="UI"]
-unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("2_vivmo")
+[node name="Sounds" type="Node" parent="UI"]
 
-[node name="FadeColor" type="ColorRect" parent="UI/SplashScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="UI/Sounds"]
+stream = ExtResource("12_yaehf")
+bus = &"UI"
 
-[node name="TextureRect" type="TextureRect" parent="UI/SplashScreen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-pivot_offset = Vector2(64, 64)
-texture = ExtResource("4_efxa6")
-
-[node name="LoadingLabel" type="Label" parent="UI/SplashScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 84
-text = "LOADING..."
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/Sounds"]
 
 [node name="Drawers" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

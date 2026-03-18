@@ -12,6 +12,7 @@ func _collected():
 	set_deferred("monitoring", false)  # Disable collision detection.
 	$StarPickupParticles.emitting = true
 	$Sprite2D.hide()
+	$AudioStreamPlayer2D.play()
 
 	await $StarPickupParticles.finished
 	self.hide()

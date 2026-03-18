@@ -8,7 +8,6 @@ var SCREENS = {
 }
 
 
-
 func _ready() -> void:
 	#Events.game_ready.connect( _on_game_ready )
 	Events.level_started.connect( _on_level_started )
@@ -16,7 +15,6 @@ func _ready() -> void:
 	Events.level_ended.connect( _on_level_ended )
 
 	%GameScreen.hide()
-
 
 #func _on_game_ready():
 	#%MainMenu.show()

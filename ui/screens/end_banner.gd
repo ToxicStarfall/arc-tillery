@@ -21,5 +21,7 @@ func _ready() -> void:
 func _on_level_completed(level: Level):
 	if level.score > 0:
 		%ResultLabel.text = "LEVEL SUCCESS"
+		%WinAudio.play()
 	else:
 		%ResultLabel.text = "LEVEL FAILURE"
+		%LoseAudio.play()

@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk5t62iale88d"]
+[gd_scene load_steps=7 format=3 uid="uid://dk5t62iale88d"]
 
 [ext_resource type="Script" uid="uid://cx6jxb8wkqt2f" path="res://world/objects/collectables/star.gd" id="1_1lnd1"]
 [ext_resource type="Texture2D" uid="uid://c2f8f6pqxjbnb" path="res://ui/icons/star.svg" id="2_fhnr0"]
 [ext_resource type="PackedScene" uid="uid://cw7r5rusvclye" path="res://effects/particles/star_pickup.tscn" id="3_6sp66"]
+[ext_resource type="AudioStream" uid="uid://cfoui1kf0umpa" path="res://audio/world/objects/u_o8xh7gwsrj-correct_answer_toy_bi-bling-476370.mp3" id="4_pim5o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r657h"]
 radius = 40.0
+
+[sub_resource type="Curve" id="Curve_481si"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 1.0112361), 0.0, 0.8407136, 0, 0, Vector2(0.5801887, 1.3258429), -0.07940116, -0.07940116, 0, 0, Vector2(1, 0.47191024), -4.7640457, 0.0, 0, 0]
+point_count = 3
 
 [node name="Star" type="Area2D"]
 collision_layer = 8
@@ -21,4 +27,22 @@ shape = SubResource("CircleShape2D_r657h")
 
 [node name="StarPickupParticles" parent="." instance=ExtResource("3_6sp66")]
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+texture = ExtResource("2_fhnr0")
+fixed_fps = 30
+draw_order = 1
+spread = 180.0
+gravity = Vector2(0, -9.8)
+initial_velocity_min = 45.0
+initial_velocity_max = 60.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+scale_amount_min = 0.099999994
+scale_amount_max = 0.19999999
+scale_amount_curve = SubResource("Curve_481si")
+color = Color(1, 1, 1, 0.8)
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_pim5o")
+bus = &"SFX"

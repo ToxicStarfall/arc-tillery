@@ -9,6 +9,7 @@ var reset_confirmed = false
 
 
 func _ready() -> void:
+	self.show()
 	%PlayButton.pressed.connect( func():
 		#self.hide()
 		get_parent().get_node("LevelSelect").show()

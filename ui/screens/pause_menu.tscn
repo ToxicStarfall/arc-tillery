@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://borebij22gqym"]
+[gd_scene load_steps=8 format=3 uid="uid://borebij22gqym"]
 
 [ext_resource type="Script" uid="uid://qhnqtvd1wfdj" path="res://ui/screens/pause_menu.gd" id="1_8l2sy"]
 [ext_resource type="PackedScene" uid="uid://dfqesbiffcssm" path="res://ui/components/score_display.tscn" id="2_r5igk"]
+[ext_resource type="Script" uid="uid://7yuuhsv4n32r" path="res://custom_scripts/audio_button.gd" id="3_r5igk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
 bg_color = Color(0.11207495, 0.11207495, 0.11207495, 0.5)
@@ -68,18 +69,24 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 text = "Resume"
+script = ExtResource("3_r5igk")
+metadata/_custom_type_script = "uid://7yuuhsv4n32r"
 
 [node name="RetryButton" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 text = "Retry"
+script = ExtResource("3_r5igk")
+metadata/_custom_type_script = "uid://7yuuhsv4n32r"
 
 [node name="ExitButton" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 text = "Back"
+script = ExtResource("3_r5igk")
+metadata/_custom_type_script = "uid://7yuuhsv4n32r"
 
 [node name="HSpacer2" type="Control" parent="HBoxContainer"]
 layout_mode = 2

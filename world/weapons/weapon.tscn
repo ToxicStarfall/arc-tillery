@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://by7e1tj1gqa6q"]
+[gd_scene load_steps=9 format=3 uid="uid://by7e1tj1gqa6q"]
 
 [ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://world/weapons/weapon.gd" id="1_o2wld"]
 [ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://world/projectiles/cannon/cannonball.tscn" id="2_6ay7h"]
 [ext_resource type="Texture2D" uid="uid://cp8360vhvdu2k" path="res://world/weapons/cannon_base.svg" id="3_6ay7h"]
 [ext_resource type="Texture2D" uid="uid://crob74qfvj85m" path="res://world/weapons/cannon_barrel.svg" id="4_g6ipy"]
+[ext_resource type="AudioStream" uid="uid://d1ps0cmju220l" path="res://audio/world/weapons/universfield-powerful-cannon-shot-02-487887.mp3" id="4_v0phv"]
 [ext_resource type="PackedScene" uid="uid://blylwtxi06nye" path="res://effects/particles/cannon_firing.tscn" id="5_6ay7h"]
 [ext_resource type="PackedScene" uid="uid://7mvau31bdjhg" path="res://effects/particles/cannon_firing_smoke.tscn" id="6_5kefl"]
 
@@ -25,6 +26,8 @@ position = Vector2(-48, 80)
 shape = SubResource("RectangleShape2D_3fy1u")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_v0phv")
+bus = &"SFX"
 
 [node name="PivotPoint" type="Marker2D" parent="."]
 rotation = 1.5707964
@@ -35,10 +38,10 @@ rotation = -1.5707964
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_g6ipy")
 
-[node name="CannonParticles" parent="PivotPoint/Gun" instance=ExtResource("5_6ay7h")]
+[node name="WeaponParticles" parent="PivotPoint/Gun" instance=ExtResource("5_6ay7h")]
 unique_name_in_owner = true
 
-[node name="CannonSmokeParticles" parent="PivotPoint/Gun" instance=ExtResource("6_5kefl")]
+[node name="WeaponSmokeParticles" parent="PivotPoint/Gun" instance=ExtResource("6_5kefl")]
 unique_name_in_owner = true
 
 [node name="ProjectilePoint" type="Marker2D" parent="."]

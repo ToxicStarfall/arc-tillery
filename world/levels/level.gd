@@ -25,8 +25,8 @@ var high_score := 0
 #@export var starting_weapon: Weapon
 #@export var allowed_ammo_types
 
+var active_projectiles: Array[Projectile] = []
 var tracked_projectile: Projectile
-var tracking_countdown := 0.0
 var is_tracking_projectile := false
 
 #var weapons: Array[Weapon] = []
@@ -60,6 +60,7 @@ func _setup():
 	_setup_camera()
 	Drawers = Game.Drawers
 	for drawer in Drawers.get_drawers(): drawer.level = self  # Set the "level" var in each drawer.
+
 
 
 # Initialize Camera into the level.
@@ -113,9 +114,9 @@ func _setup_camera_limits():
 	self.add_child(bounds)
 
 
-func _on_child_entered_tree(node: Node):
-	if node is Star:
-		var star = node
+func _on_child_entered_tree(child: Node):
+	if child is Star:
+		var star = child
 		stars.append(star)
 		star.collected.connect( _on_star_collected )
 
@@ -175,8 +176,9 @@ func _on_weapon_fired(projectile: Projectile):
 		self.add_child(projectile)
 		#if tracked_projectile:  # Disconnect previous tracked projectile.
 			#tracked_projectile.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+		active_projectiles.append(projectile)
 		tracked_projectile = projectile
-		tracked_projectile.sleeping_state_changed.connect( _on_projectile_sleeping.bind(tracked_projectile) )
+		tracked_projectile.sleeping_state_changed.connect( _on_projectile_sleeping_state_changed.bind(tracked_projectile) )
 		is_tracking_projectile = true
 
 		Camera.reparent(tracked_projectile)
@@ -188,19 +190,23 @@ func _on_weapon_fired(projectile: Projectile):
 
 
 # When projectile physics stops running (idle).
-func _on_projectile_sleeping(projectile):
+func _on_projectile_sleeping_state_changed(projectile):
 	if projectile.sleeping:
-		await get_tree().create_timer(3.0).timeout
-		if projectile.sleeping:
+		active_projectiles.erase(projectile)
+		#await get_tree().create_timer(3.0).timeout
+		if projectile.sleeping:  # Check again after 3 seconds.
 			camera_focus_weapon()
 			check_level_completion()
+	else:
+		active_projectiles.append(projectile)
 
 
 # When projectile goes past focused play area.
 func _on_body_exit_bounds(body: PhysicsBody2D):
 	if body is Projectile:
 		# Disconnect to prevent refiring checks.
-		body.sleeping_state_changed.disconnect( _on_projectile_sleeping )
+		active_projectiles.erase(body)
+		body.sleeping_state_changed.disconnect( _on_projectile_sleeping_state_changed )
 
 		await get_tree().create_timer(3.0).timeout
 		camera_focus_weapon()
@@ -216,7 +222,8 @@ func _on_star_collected():
 
 
 func check_level_completion():
-	if ammo == 0 or score == max_score:
+	if active_projectiles.is_empty() and (ammo == 0 or score == max_score):
+	#if ammo == 0 or score == max_score:
 		complete()
 
 

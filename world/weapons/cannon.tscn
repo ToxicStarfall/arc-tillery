@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddjldose848km"]
+
+[ext_resource type="Script" uid="uid://p7iy0xcb6i0q" path="res://world/weapons/weapon.gd" id="1_vbyo6"]
+[ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://world/projectiles/cannon/cannonball.tscn" id="2_t6hw7"]
+[ext_resource type="Texture2D" uid="uid://cp8360vhvdu2k" path="res://world/weapons/cannon_base.svg" id="3_tv62m"]
+[ext_resource type="Texture2D" uid="uid://crob74qfvj85m" path="res://world/weapons/cannon_barrel.svg" id="4_2qts4"]
+[ext_resource type="AudioStream" uid="uid://d1ps0cmju220l" path="res://audio/world/weapons/universfield-powerful-cannon-shot-02-487887.mp3" id="4_t6hw7"]
+[ext_resource type="PackedScene" uid="uid://blylwtxi06nye" path="res://effects/particles/cannon_firing.tscn" id="5_5kb5q"]
+[ext_resource type="PackedScene" uid="uid://7mvau31bdjhg" path="res://effects/particles/cannon_firing_smoke.tscn" id="6_e57ui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fy1u"]
+size = Vector2(288, 32)
+
+[node name="Cannon" type="RigidBody2D"]
+script = ExtResource("1_vbyo6")
+default_power = 50.0
+projectile_scene = ExtResource("2_t6hw7")
+
+[node name="Base" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_tv62m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-48, 80)
+shape = SubResource("RectangleShape2D_3fy1u")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_t6hw7")
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="PivotPoint" type="Marker2D" parent="."]
+rotation = 1.5707964
+
+[node name="Gun" type="Sprite2D" parent="PivotPoint"]
+position = Vector2(0, -79.19595)
+rotation = -1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2qts4")
+
+[node name="WeaponParticles" parent="PivotPoint/Gun" instance=ExtResource("5_5kb5q")]
+unique_name_in_owner = true
+
+[node name="WeaponSmokeParticles" parent="PivotPoint/Gun" instance=ExtResource("6_e57ui")]
+unique_name_in_owner = true
+
+[node name="ProjectilePoint" type="Marker2D" parent="."]
+unique_name_in_owner = true
