@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Arc-tillery"
+config/version="0.1.0"
 run/main_scene="uid://bi5b7j3y3f4wy"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="uid://1e14cqanvr2b"
+
+[audio]
+
+buses/default_bus_layout="uid://cntxqokmtanmb"
 
 [autoload]
 

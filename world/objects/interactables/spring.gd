@@ -1,4 +1,5 @@
 extends Area2D
+class_name Interactable
 
 
 var spring_force = 128.0 * 8.0

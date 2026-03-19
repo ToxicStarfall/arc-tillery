@@ -29,7 +29,7 @@ func _draw_pointers():
 	for star in level.stars:
 		if star.collectable:
 			#text = str((level.current_weapon.global_position - star.global_position).length())
-			text = str(level.get_distance(level.current_weapon, star).x)
+			text = str(snapped(level.get_distance(level.current_weapon, star).x, 0.01))
 			text_position = star.global_position
 			text_position -= Vector2(32, 32)  # half the size of stars
 

@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bms07o587g0ln"]
+
+[ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_ymttd"]
+[ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/objects/ground.gd" id="2_7xl31"]
+[ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/weapons/weapon.tscn" id="3_2tqg4"]
+[ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="4_25duh"]
+[ext_resource type="PackedScene" uid="uid://613p40bwxnvl" path="res://world/objects/interactables/spring.tscn" id="6_7xl31"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_la0sn"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("current_weapon")]
+script = ExtResource("1_ymttd")
+level_name = "Mind the Gap"
+current_weapon = NodePath("Weapon")
+metadata/_custom_type_script = "uid://dynhc2ivouv7a"
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 128)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_la0sn")
+script = ExtResource("2_7xl31")
+metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
+polygon = PackedVector2Array(-649, -126, 1344, -128, 1984, 384, 1920, 512, 1280, 0, -649, 2)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground"]
+color = Color(0.34560004, 0.72, 0.61392003, 1)
+polygon = PackedVector2Array(-649, -126, 1344, -128, 1984, 384, 1920, 512, 1280, 0, -649, 2)
+
+[node name="Ground2" type="StaticBody2D" parent="."]
+position = Vector2(0, 256)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_la0sn")
+script = ExtResource("2_7xl31")
+metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground2"]
+polygon = PackedVector2Array(2240, -256, 3200, -256, 3200, -128, 2240, -128)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground2"]
+color = Color(0.34560004, 0.72, 0.61392003, 1)
+polygon = PackedVector2Array(2240, -256, 3200, -256, 3200, -128, 2240, -128)
+
+[node name="Ground3" type="StaticBody2D" parent="."]
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_la0sn")
+script = ExtResource("2_7xl31")
+metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground3"]
+polygon = PackedVector2Array(960, -192, 960, -768, 0, -768, 0, -896, 1088, -896, 1088, -192)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground3"]
+color = Color(0.34560004, 0.72, 0.61392003, 1)
+polygon = PackedVector2Array(960, -192, 960, -768, 0, -768, 0, -896, 1088, -896, 1088, -192)
+
+[node name="Weapon" parent="." instance=ExtResource("3_2tqg4")]
+position = Vector2(0, -96)
+collision_layer = 0
+
+[node name="Star" parent="." instance=ExtResource("4_25duh")]
+position = Vector2(2560, -64)
+score_amount = 3
+
+[node name="Spring" parent="." instance=ExtResource("6_7xl31")]
+position = Vector2(1216, -64)

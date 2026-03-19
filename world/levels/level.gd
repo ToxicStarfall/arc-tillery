@@ -10,6 +10,7 @@ signal attempts_changed
 signal star_collected
 
 
+@export var level_name := "Level Name"
 @export var max_ammo := 3
 @export var max_score := 3
 var ammo := 3
@@ -218,7 +219,10 @@ func _on_star_collected():
 
 	await get_tree().create_timer(3.0).timeout
 	camera_focus_weapon()
-	check_level_completion()
+	# Hard check after a star is collected
+	if score == max_score or ammo == 0:
+		complete()
+	#check_level_completion()
 
 
 func check_level_completion():
@@ -254,8 +258,8 @@ func get_objects(_include_ground: bool = false) -> Array:
 	var objects = []
 	for child in get_children():
 		#if include_ground == true:
-		if child is Weapon or child is Collectable:
-			objects.append(child)
+		if child is Weapon or child is Collectable or child is Interactable or child is DestructableObject2:
+				objects.append(child)
 	return objects
 
 

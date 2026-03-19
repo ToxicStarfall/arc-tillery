@@ -32,11 +32,11 @@ func _splash():
 	$TextureRect.modulate.a = 0
 	$LoadingLabel.modulate.a = 0
 
-	tween.tween_interval( 1.0 )
-	tween.tween_property( $TextureRect, "modulate:a", 1, 2.0)
-	tween.tween_interval( 1.0 )
-	tween.tween_property( $TextureRect, "modulate:a", 0, 2.0)
-	tween.tween_interval( 1.0 )
+	#tween.tween_interval( 1.0 )
+	#tween.tween_property( $TextureRect, "modulate:a", 1, 2.0)
+	#tween.tween_interval( 1.0 )
+	#tween.tween_property( $TextureRect, "modulate:a", 0, 2.0)
+	#tween.tween_interval( 1.0 )
 	tween.tween_property( $LoadingLabel, "modulate:a", 1, 2.0 )
 	#tween.tween_callback( Events.game_loading.emit )
 	#tween.tween_property( $LoadingLabel, "modulate:a", 0, 2.0 )

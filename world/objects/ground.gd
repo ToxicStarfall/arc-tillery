@@ -12,12 +12,12 @@ extends StaticBody2D
 func _enter_tree() -> void:
 	if Engine.is_editor_hint():
 		#set_notify_transform(true)
-		EditorInterface.get_inspector().property_edited.connect( _on_property_edited )
+		Engine.get_singleton("EditorInterface").get_inspector().property_edited.connect( _on_property_edited )
 
 
 func _exit_tree() -> void:
 	if Engine.is_editor_hint():
-		EditorInterface.get_inspector().property_edited.disconnect( _on_property_edited )
+		Engine.get_singleton("EditorInterface").get_inspector().property_edited.disconnect( _on_property_edited )
 
 
 ## @tool function

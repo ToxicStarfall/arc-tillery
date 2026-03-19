@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=37 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dqi3sui7bvwb8" path="res://ui/ui.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dy5ts73tim3hq" path="res://ui/screens/main_menu.tscn" id="2_efxa6"]
@@ -9,7 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://bdu5squ83keuj" path="res://ui/icons/star_empty.svg" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://bvlrdqs188dct" path="res://ui/drawers/distance_markers.gd" id="5_dg77c"]
+[ext_resource type="Script" uid="uid://cik8jf1h5o3d3" path="res://ui/screens/instructions.gd" id="6_cegan"]
 [ext_resource type="PackedScene" uid="uid://tjpleynq2oh2" path="res://ui/screens/settings.tscn" id="6_yaehf"]
+[ext_resource type="Script" uid="uid://7yuuhsv4n32r" path="res://custom_scripts/audio_button.gd" id="7_82xsv"]
+[ext_resource type="Texture2D" uid="uid://dchnnfq03acx3" path="res://ui/instructions.png" id="8_82xsv"]
 [ext_resource type="PackedScene" uid="uid://borebij22gqym" path="res://ui/screens/pause_menu.tscn" id="8_dg77c"]
 [ext_resource type="PackedScene" uid="uid://b5sfdvqveubaa" path="res://ui/screens/end_banner.tscn" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://7nkw8prjgygf" path="res://ui/drawers/drawers.gd" id="10_efxa6"]
@@ -129,6 +132,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="UI/SplashScreen"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -163,6 +167,123 @@ unique_name_in_owner = true
 [node name="LevelSelect" parent="UI" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 visible = false
+
+[node name="Instructions" type="Control" parent="UI/LevelSelect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_cegan")
+
+[node name="BackgroundColor" type="ColorRect" parent="UI/LevelSelect/Instructions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1479, 0.17, 0.1479, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/LevelSelect/Instructions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/LevelSelect/Instructions/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "BACK"
+script = ExtResource("7_82xsv")
+metadata/_custom_type_script = "uid://7yuuhsv4n32r"
+
+[node name="Label" type="Label" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "INSTRUCTIONS"
+horizontal_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "CONTINUE"
+script = ExtResource("7_82xsv")
+metadata/_custom_type_script = "uid://7yuuhsv4n32r"
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("8_82xsv")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/LevelSelect/Instructions/HBoxContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]1. Info Display[/b]
+This shows the current level's name and score status.
+
+[b]2. Menu Button[/b]
+Press this to pause the game. You may then resume the current level, restart, or go back to the level select menu.
+
+[b]3. Stars[/b]
+This is the goal of each level. You must \"collect\" these stars in order to increase your score.
+
+[b]4. Weapon[/b]
+You must use this weapon to fire projectiles in order collect the stars. Each weapon may not be the same.
+For now, only a cannon is available.
+
+[b]5. Weapon Controls[/b]
+Each weapon will have a power control. In this case, the cannon has a gunpowder slider. You may also set the gunpowder quantity manually using the number input.
+You can use the angle slider to adjust to firing angle of your weapon.
+
+[b]6. Ammunition[/b]
+Each weapon has a certain amount of limited ammunition. The quantity is displayed here.
+Be careful! If you run out before collecting any stars, you'll fail.
+
+[b]7. The Camera[/b]
+You can zoom in or out to get a better view of the objectives and the level. Scroll up or \"=\" to zoom in. Scroll down or \"-\" to zoom out.
+
+Good Luck."
 
 [node name="Settings" parent="UI" instance=ExtResource("6_yaehf")]
 unique_name_in_owner = true
@@ -211,33 +332,43 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ScoreLabel" type="Label" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer"]
+[node name="LevelName" type="Label" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Level Name"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreDisplay" type="HBoxContainer" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/HBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_272bh")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/HBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_272bh")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/HBoxContainer/ScoreDisplay"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("4_272bh")
+expand_mode = 1
+
+[node name="ScoreLabel" type="Label" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "SCORE: 0/3"
 horizontal_alignment = 1
-
-[node name="ScoreDisplay" type="HBoxContainer" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("4_272bh")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("4_272bh")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="UI/GameScreen/ScoreContainer/MarginContainer/VBoxContainer/ScoreDisplay"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture = ExtResource("4_272bh")
-expand_mode = 1
 
 [node name="MenuDisplay" type="PanelContainer" parent="UI/GameScreen"]
 layout_mode = 1
@@ -518,7 +649,6 @@ visible = false
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="UI/Sounds"]
 stream = ExtResource("12_yaehf")
-bus = &"UI"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/Sounds"]
 

@@ -46,8 +46,9 @@ func request_weapon_fire():
 
 #region - - Updater Functions - - - #
 
-func _on_level_started(_level: Level):
+func _on_level_started(level: Level):
 	self.show()
+	%ScoreDisplay/%LevelName.text = "\"" + level.level_name + "\""
 
 
 #func _on_level_completed(level: Level):

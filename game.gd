@@ -20,9 +20,9 @@ var current_weapon: Weapon
 var save_data = SaveData.new()
 
 # Toggles
-var splash = false
+var splash = true
 var preloader = true
-var dev = true
+var dev = false
 
 
 func _ready() -> void:
@@ -95,6 +95,8 @@ func next_level():
 	var level_id = str(str_to_var(current_level.get_level_id()) + 1)
 	if has_level(level_id):
 		start_level(level_id)
+	else:
+		home()
 
 
 # Returns the the level scene associated with level_id.

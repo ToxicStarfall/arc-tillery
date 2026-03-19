@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://ov5xcln71f4"]
+
+[ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_xql43"]
+[ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/objects/ground.gd" id="2_6mefv"]
+[ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/weapons/weapon.tscn" id="3_mshwb"]
+[ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="4_b6rr5"]
+[ext_resource type="PackedScene" uid="uid://7n2p665kbrsd" path="res://world/objects/destructables/box/box.tscn" id="5_wqste"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_la0sn"]
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("current_weapon")]
+script = ExtResource("1_xql43")
+level_name = "Uphill"
+current_weapon = NodePath("Weapon")
+metadata/_custom_type_script = "uid://dynhc2ivouv7a"
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 128)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_la0sn")
+script = ExtResource("2_6mefv")
+metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground"]
+polygon = PackedVector2Array(-649, -126, 320, -128, 1600, -1408, 1600, -1280, 1920, -1280, 1920, -1536, 3200, -1536, 3191, 2, -649, 2)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground"]
+color = Color(0.34560004, 0.72, 0.61392003, 1)
+polygon = PackedVector2Array(-649, -126, 320, -128, 1600, -1408, 1600, -1280, 1920, -1280, 1920, -1536, 3200, -1536, 3191, 2, -649, 2)
+
+[node name="Ground2" type="StaticBody2D" parent="."]
+position = Vector2(0, 130)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_la0sn")
+script = ExtResource("2_6mefv")
+metadata/_custom_type_script = "uid://cpi7ym4cp44xx"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ground2"]
+polygon = PackedVector2Array(0, -450, 1920, -2050, 1920, -2370, -640, -2370, -640, -450)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground2"]
+color = Color(0.34560004, 0.72, 0.61392003, 1)
+polygon = PackedVector2Array(0, -450, 1920, -2050, 1920, -2370, -640, -2370, -640, -450)
+
+[node name="Weapon" parent="." instance=ExtResource("3_mshwb")]
+position = Vector2(0, -96)
+collision_layer = 0
+
+[node name="Star" parent="." instance=ExtResource("4_b6rr5")]
+position = Vector2(1792, -1216)
+
+[node name="Star2" parent="." instance=ExtResource("4_b6rr5")]
+position = Vector2(2880, -1472)
+score_amount = 2
+
+[node name="Box" parent="." instance=ExtResource("5_wqste")]
+position = Vector2(1664, -1216)
+
+[node name="Box2" parent="." instance=ExtResource("5_wqste")]
+position = Vector2(2752, -1472)

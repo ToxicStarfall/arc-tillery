@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsv4v1ikwvkub"]
+[gd_scene load_steps=6 format=3 uid="uid://bsv4v1ikwvkub"]
 
 [ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_abncn"]
 [ext_resource type="PackedScene" uid="uid://by7e1tj1gqa6q" path="res://world/weapons/weapon.tscn" id="2_mir8o"]
 [ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/objects/ground.gd" id="2_wg0e8"]
-[ext_resource type="PackedScene" uid="uid://jy1qvx6j58ti" path="res://world/projectiles/cannon/cannonball.tscn" id="3_wg0e8"]
 [ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="4_f70v7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_la0sn"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("current_weapon")]
 script = ExtResource("1_abncn")
+level_name = "A Small Obstacle"
 current_weapon = NodePath("Weapon")
 metadata/_custom_type_script = "uid://dynhc2ivouv7a"
 
@@ -28,9 +28,8 @@ color = Color(0.34560004, 0.72, 0.61392003, 1)
 polygon = PackedVector2Array(-649, -126, 631, -126, 759, -254, 2551, -254, 2551, 2, -649, 2)
 
 [node name="Weapon" parent="." instance=ExtResource("2_mir8o")]
-position = Vector2(0, 896)
+position = Vector2(0, 832)
 collision_layer = 0
-projectile_scene = ExtResource("3_wg0e8")
 
 [node name="Star" parent="." instance=ExtResource("4_f70v7")]
 position = Vector2(1280, 768)

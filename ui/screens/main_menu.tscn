@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dy5ts73tim3hq"]
+[gd_scene load_steps=9 format=3 uid="uid://dy5ts73tim3hq"]
 
 [ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://ui/styles/theme.tres" id="1_yo8r3"]
 [ext_resource type="Script" uid="uid://ciif6hga2erye" path="res://ui/screens/main_menu.gd" id="2_0qgu1"]
@@ -11,6 +11,18 @@
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_0qgu1"]
 color = Color(0.3, 0.3, 0.3, 1)
 thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhre2"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -153,7 +165,21 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/HSpacer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HSpacer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="AuthorLabel" type="Label" parent="VBoxContainer/HBoxContainer/HSpacer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Made by ToxicStarfall"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/HSpacer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/separator = SubResource("StyleBoxFlat_xhre2")
+
+[node name="VersionLabel" type="Label" parent="VBoxContainer/HBoxContainer/HSpacer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "v0.1.0"
 vertical_alignment = 2
@@ -170,4 +196,4 @@ offset_top = -25.125
 offset_right = 122.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "* Soldiers not included... yet"
+text = "* Enemy combatants not included. yet."
