@@ -31,9 +31,17 @@ func _ready() -> void:
 func populate_levels():
 	var level_dir = ResourceLoader.list_directory(Game.LEVEL_DIRECTORY)
 
+	# Filters non tscn files,
+	# Sorts level files names numerically, and returns as str
+	var a = Array(level_dir).filter( func(elem): if elem.get_slice(".", 1) == "tscn": return elem )
+	a = a.map( func(elem): return int(elem.get_slice(".", 0)) )
+	a.sort()
+	#level_dir = a.map( func(elem): return str(elem, ".tscn") )
+	level_dir = a.map( func(elem): return str(elem) )
+
 	for file in level_dir:
-		if ResourceLoader.exists(Game.LEVEL_DIRECTORY + file):
-			if file.get_slice(".", 1) == "tscn":
+		#if ResourceLoader.exists(Game.LEVEL_DIRECTORY + file):
+			#if file.get_slice(".", 1) == "tscn":
 				var level_id = file.get_slice(".", 0)
 
 				var level_button = level_button_scene.instantiate()

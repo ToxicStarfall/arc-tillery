@@ -49,7 +49,12 @@ func _on_game_loading_started():
 
 func _preloader():
 	var Loader = get_tree().root.get_node("Main/Loader")
-	var queue = Loader.get_child_count()
+	#var queue = Loader.get_child_count()
+	var particles_scenes = ResourceLoader.list_directory("res://effects/particles")
+	var queue = particles_scenes.size()
+	for file in particles_scenes:
+		var Particle = ResourceLoader.load("res://effects/particles/" + file).instantiate()
+		Loader.add_child( Particle )
 
 	for child in Loader.get_children():
 		child.emitting = true
@@ -57,13 +62,9 @@ func _preloader():
 		queue -= 1
 	if queue == 0:
 		#print("queue ended")
+		#Loader.queue_free()
 		return
 
-	for file in ResourceLoader.list_directory("res://effects/particles"):
-		var Particle = ResourceLoader.load(file).instantiate()
-		Loader.add_child( Particle )
-		Particle.emitting = true
-	Loader.queue_free()
 
 
 func start_level(level_id: String):
