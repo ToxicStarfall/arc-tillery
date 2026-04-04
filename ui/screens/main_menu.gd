@@ -10,6 +10,8 @@ var reset_confirmed = false
 
 func _ready() -> void:
 	self.show()
+	%VersionLabel.text = "v" + ProjectSettings.get_setting("application/config/version")
+	#ProjectSettings
 	%PlayButton.pressed.connect( func():
 		#self.hide()
 		get_parent().get_node("LevelSelect").show()
