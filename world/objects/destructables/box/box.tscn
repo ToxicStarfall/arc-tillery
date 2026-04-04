@@ -29,8 +29,9 @@ continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_f86tc")
-particle_scene = ExtResource("2_rdjlf")
+impact_particle_scene = ExtResource("2_rdjlf")
 durability = 200.0
+resistance = 40.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

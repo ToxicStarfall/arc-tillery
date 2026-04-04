@@ -13,6 +13,15 @@ extends AudioStreamPlayer2D
 @export_dir var audio_streams_dir: String
 
 
+func _ready() -> void:
+	# Automatically adds AudioStream(s) in dir to audio_streams array.
+	if !audio_streams_dir.is_empty():
+		for file in ResourceLoader.list_directory(audio_streams_dir):
+			if !file.ends_with("/"):
+				var res = ResourceLoader.load(audio_streams_dir + "/" + file)
+				if !audio_streams.has(res):
+					audio_streams.append(res)
+
 
 func play_random(from_position: float = 0.0) -> void:
 	var random = audio_streams.pick_random()

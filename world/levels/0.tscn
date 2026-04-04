@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://1pun5g3lvwf5"]
+[gd_scene load_steps=9 format=3 uid="uid://1pun5g3lvwf5"]
 
 [ext_resource type="Script" uid="uid://dynhc2ivouv7a" path="res://world/levels/level.gd" id="1_71in7"]
 [ext_resource type="Script" uid="uid://cpi7ym4cp44xx" path="res://world/objects/ground.gd" id="2_fdjeg"]
 [ext_resource type="PackedScene" uid="uid://ddjldose848km" path="res://world/weapons/cannon.tscn" id="3_fdjeg"]
 [ext_resource type="PackedScene" uid="uid://dk5t62iale88d" path="res://world/objects/collectables/star.tscn" id="4_u2p4m"]
 [ext_resource type="PackedScene" uid="uid://613p40bwxnvl" path="res://world/objects/interactables/spring.tscn" id="6_fdjeg"]
+[ext_resource type="PackedScene" uid="uid://cgqihg10jdjpt" path="res://world/objects/destructables/explosive.tscn" id="7_gt02p"]
 [ext_resource type="PackedScene" uid="uid://7n2p665kbrsd" path="res://world/objects/destructables/box/box.tscn" id="7_u2p4m"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_la0sn"]
@@ -33,18 +34,35 @@ polygon = PackedVector2Array(-649, -126, 1591, -126, 1591, -254, 1655, -254, 165
 position = Vector2(0, -32)
 
 [node name="Star" parent="." instance=ExtResource("4_u2p4m")]
-position = Vector2(1920, 0)
+position = Vector2(1152, -960)
 score_amount = 3
 
 [node name="Box" parent="." instance=ExtResource("7_u2p4m")]
-position = Vector2(960, 0)
+position = Vector2(1068, -128)
 
 [node name="Box2" parent="." instance=ExtResource("7_u2p4m")]
-position = Vector2(1472, 0)
+position = Vector2(1264, 0)
+
+[node name="Box3" parent="." instance=ExtResource("7_u2p4m")]
+position = Vector2(1507, 0)
+
+[node name="Box4" parent="." instance=ExtResource("7_u2p4m")]
+position = Vector2(1482, -256)
 
 [node name="Spring" parent="." instance=ExtResource("6_fdjeg")]
-position = Vector2(1280, 0)
+position = Vector2(1152, -832)
 
 [node name="Spring2" parent="." instance=ExtResource("6_fdjeg")]
-position = Vector2(576, 0)
+position = Vector2(832, -768)
 rotation = -1.5707964
+
+[node name="Explosive" parent="." instance=ExtResource("7_gt02p")]
+position = Vector2(1102, 0)
+
+[node name="Explosive2" parent="." instance=ExtResource("7_gt02p")]
+position = Vector2(1216, -128)
+resistance = 80.0
+
+[node name="Explosive3" parent="." instance=ExtResource("7_gt02p")]
+position = Vector2(1507, -128)
+resistance = 80.0

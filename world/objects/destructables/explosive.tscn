@@ -1,23 +1,58 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgqihg10jdjpt"]
+[gd_scene load_steps=11 format=3 uid="uid://cgqihg10jdjpt"]
 
-[ext_resource type="Texture2D" uid="uid://bo3oviax17up3" path="res://icon.svg" id="1_mq1b1"]
 [ext_resource type="Script" uid="uid://bt33nveaa6h48" path="res://world/objects/destructables/explosive.gd" id="1_mu47r"]
+[ext_resource type="PackedScene" uid="uid://blg4cbp3mtjy0" path="res://effects/particles/explosion.tscn" id="2_vq1jo"]
+[ext_resource type="Texture2D" uid="uid://dudwakgqcakbu" path="res://world/objects/destructables/explosive.svg" id="3_2r28k"]
+[ext_resource type="Script" uid="uid://d1t1bykhdgshf" path="res://custom_scripts/random_audio_stream_player_2d.gd" id="4_2r28k"]
+[ext_resource type="AudioStream" uid="uid://lfn2lbmen3iy" path="res://audio/world/objects/explosive/freesound_community-setting-down-a-keg-98821.mp3" id="5_vq1jo"]
+[ext_resource type="AudioStream" uid="uid://b5ftwpoems8ck" path="res://audio/world/objects/explosive/destroyed/dragon-studio-explosion-sfx-405455.mp3" id="6_1sose"]
+[ext_resource type="AudioStream" uid="uid://bm1bffdx4t1fo" path="res://audio/world/objects/explosive/destroyed/dragon-studio-explosion-sound-effect-425455.mp3" id="7_2r28k"]
+[ext_resource type="AudioStream" uid="uid://doyhhxpormcpp" path="res://audio/world/objects/explosive/destroyed/universfield-epic-cinematic-explosion-454857.mp3" id="8_e4vn8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mu47r"]
+size = Vector2(128, 128)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7qxlw"]
 
 [node name="Explosive" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 7
+mass = 5.0
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("1_mu47r")
+impact_particle_scene = ExtResource("2_vq1jo")
+destruction_particle_scene = ExtResource("2_vq1jo")
+durability = 150.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_mq1b1")
+texture = ExtResource("3_2r28k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mu47r")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_7qxlw")
 disabled = true
+
+[node name="ImpactAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+volume_db = 10.0
+max_polyphony = 5
+bus = &"SFX"
+script = ExtResource("4_2r28k")
+audio_streams = Array[AudioStream]([ExtResource("5_vq1jo")])
+audio_streams_dir = "res://audio/world/objects/explosive"
+metadata/_custom_type_script = "uid://d1t1bykhdgshf"
+
+[node name="DestructionAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 5
+bus = &"SFX"
+script = ExtResource("4_2r28k")
+audio_streams = Array[AudioStream]([ExtResource("6_1sose"), ExtResource("7_2r28k"), ExtResource("8_e4vn8")])
+audio_streams_dir = "res://audio/world/objects/explosive/destroyed"
+metadata/_custom_type_script = "uid://d1t1bykhdgshf"

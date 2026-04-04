@@ -22,7 +22,7 @@ var save_data = SaveData.new()
 # Toggles
 var splash = true  # Shows splash screen (+ loading screen)
 var preloader = true  # Preloads resources and particles
-var dev = false
+var dev = true
 
 
 func _ready() -> void:
@@ -56,9 +56,14 @@ func _preloader():
 		#await child.finished
 		queue -= 1
 	if queue == 0:
-		return
 		#print("queue ended")
-		#pass
+		return
+
+	for file in ResourceLoader.list_directory("res://effects/particles"):
+		var Particle = ResourceLoader.load(file).instantiate()
+		Loader.add_child( Particle )
+		Particle.emitting = true
+	Loader.queue_free()
 
 
 func start_level(level_id: String):

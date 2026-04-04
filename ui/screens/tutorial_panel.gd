@@ -24,7 +24,7 @@ You can set the gunpowder quantity manually using the number input.",
 When you are done, press FIRE (Mouse Click or SPACE) to shoot.",
 	"Be careful! Each weapon has a certain amount of limited ammunition. Keep track of your remaining ammunition.
 If you run out before finishing a goal, then you'll fail.",
-	"Good luck",
+	"Good luck.",
 ]
 
 var dialogue_index = 0

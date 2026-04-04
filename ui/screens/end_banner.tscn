@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bbdy5vd7vewcr" path="res://ui/screens/end_banner.gd" id="1_vir7l"]
 [ext_resource type="PackedScene" uid="uid://dfqesbiffcssm" path="res://ui/components/score_display.tscn" id="1_vt8yu"]
 [ext_resource type="Script" uid="uid://7yuuhsv4n32r" path="res://custom_scripts/audio_button.gd" id="3_6pjwo"]
-[ext_resource type="AudioStream" uid="uid://cr86uai7o6l6c" path="res://audio/floraphonic-silly-trumpet-2-187807.mp3" id="3_telbs"]
-[ext_resource type="AudioStream" uid="uid://domffq120qkud" path="res://audio/universfield-cartoon-fail-trumpet-278822.mp3" id="4_6pjwo"]
+[ext_resource type="AudioStream" uid="uid://cr86uai7o6l6c" path="res://audio/levels/floraphonic-silly-trumpet-2-187807.mp3" id="3_telbs"]
+[ext_resource type="AudioStream" uid="uid://domffq120qkud" path="res://audio/levels/universfield-cartoon-fail-trumpet-278822.mp3" id="4_6pjwo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
 bg_color = Color(0.11207495, 0.11207495, 0.11207495, 0.5)

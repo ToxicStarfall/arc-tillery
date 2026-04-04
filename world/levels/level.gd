@@ -184,6 +184,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_camera_lock_changed():
+	get_viewport().gui_release_focus()
 	camera_locked = !camera_locked
 	Camera.limit_enabled = camera_locked
 	Camera.drag_horizontal_enabled = camera_locked
