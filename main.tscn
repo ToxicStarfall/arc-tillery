@@ -1,8 +1,7 @@
-[gd_scene load_steps=37 format=3 uid="uid://bi5b7j3y3f4wy"]
+[gd_scene load_steps=48 format=3 uid="uid://bi5b7j3y3f4wy"]
 
 [ext_resource type="Script" uid="uid://dqi3sui7bvwb8" path="res://ui/ui.gd" id="1_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dy5ts73tim3hq" path="res://ui/screens/main_menu.tscn" id="2_efxa6"]
-[ext_resource type="Theme" uid="uid://i3vbv3fax5ab" path="res://ui/styles/theme.tres" id="2_kek77"]
 [ext_resource type="Script" uid="uid://imwna151w7pg" path="res://ui/screens/splash_screen.gd" id="2_vivmo"]
 [ext_resource type="Script" uid="uid://djijp1pbptio4" path="res://ui/screens/game_screen.gd" id="3_4c57u"]
 [ext_resource type="PackedScene" uid="uid://1c5lr7oterih" path="res://ui/screens/level_select.tscn" id="3_kek77"]
@@ -17,7 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://b5sfdvqveubaa" path="res://ui/screens/end_banner.tscn" id="9_4c57u"]
 [ext_resource type="Script" uid="uid://7nkw8prjgygf" path="res://ui/drawers/drawers.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://dilkkugs2jift" path="res://ui/drawers/distance_pointers.gd" id="12_dg77c"]
+[ext_resource type="Texture2D" uid="uid://d2b37fg4746rx" path="res://ui/icons/Camera.svg" id="12_getpj"]
 [ext_resource type="AudioStream" uid="uid://dgt0bk2ihe45r" path="res://audio/ui/floraphonic-casual-click-pop-ui-10-262126.mp3" id="12_yaehf"]
+[ext_resource type="Script" uid="uid://do50f11oqey7t" path="res://ui/screens/tutorial_panel.gd" id="13_ryguw"]
 [ext_resource type="Script" uid="uid://c6esopqrg6gom" path="res://ui/drawers/projectile_trail.gd" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://banrl8c1nk4cw" path="res://loader.tscn" id="14_w48qg"]
 
@@ -85,15 +86,82 @@ corner_radius_top_right = 30
 corner_detail = 1
 expand_margin_right = 16.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycdy4"]
+content_margin_right = 8.0
 bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
 border_width_right = 4
 border_width_bottom = 4
-corner_radius_bottom_right = 30
+corner_radius_bottom_right = 28
 corner_detail = 1
-expand_margin_right = 16.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_82xsv"]
+bg_color = Color(0.21176471, 0.23921569, 0.32156864, 1)
+corner_radius_top_left = 16
+corner_radius_bottom_right = 16
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_getpj"]
+bg_color = Color(0.26860002, 0.34, 0.33048, 1)
+corner_radius_bottom_right = 20
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ryguw"]
+bg_color = Color(0.26860002, 0.34, 0.33048, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.32941177, 0.5803922, 0.4509804, 1)
+corner_radius_bottom_right = 20
+corner_detail = 1
+shadow_offset = Vector2(0, -4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d13ii"]
+bg_color = Color(0.312, 0.4, 0.38680002, 1)
+corner_radius_bottom_right = 20
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1u8w0"]
+bg_color = Color(0.312, 0.4, 0.38680002, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.32941177, 0.5803922, 0.4509804, 1)
+corner_radius_bottom_right = 20
+corner_detail = 1
+shadow_offset = Vector2(0, -4)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_82xsv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0odxb"]
+bg_color = Color(0, 0, 0, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvktn"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1x85"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+corner_detail = 1
+
+[sub_resource type="Theme" id="Theme_getpj"]
+default_font_size = 24
+BoxContainer/constants/separation = 8
+HBoxContainer/constants/separation = 8
+MarginContainer/constants/margin_bottom = 16
+MarginContainer/constants/margin_left = 16
+MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_top = 16
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_wvktn")
+PanelContainer/styles/panel2 = SubResource("StyleBoxFlat_e1x85")
+VBoxContainer/constants/separation = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2q8x"]
 
 [sub_resource type="Gradient" id="Gradient_5vw27"]
 colors = PackedColorArray(0.53940004, 0.7347, 0.93, 1, 0.42745098, 0.7137255, 1, 1)
@@ -163,6 +231,7 @@ vertical_alignment = 1
 
 [node name="MainMenu" parent="UI" instance=ExtResource("2_efxa6")]
 unique_name_in_owner = true
+visible = false
 
 [node name="LevelSelect" parent="UI" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
@@ -291,7 +360,6 @@ visible = false
 
 [node name="GameScreen" type="Control" parent="UI"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -532,85 +600,121 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "3/3"
 
-[node name="DialoguePanelMargin" type="MarginContainer" parent="UI/GameScreen"]
-visible = false
+[node name="CameraControls" type="PanelContainer" parent="UI/GameScreen"]
+unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+offset_right = 112.0
+offset_bottom = 92.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ycdy4")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/CameraControls"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/CameraControls/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/GameScreen/CameraControls/MarginContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Camera Controls :"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/CameraControls/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="FocusWeaponButton" type="Button" parent="UI/GameScreen/CameraControls/MarginContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_82xsv")
+expand_icon = true
+
+[node name="FollowProjectileButton" type="Button" parent="UI/GameScreen/CameraControls/MarginContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_82xsv")
+expand_icon = true
+
+[node name="CameraLockButton" type="Button" parent="UI/GameScreen/CameraControls/MarginContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 64)
+layout_mode = 2
+tooltip_text = "Toggle Camera Lock (AWSD or Arrow Keys to pan)"
+theme_override_styles/normal = SubResource("StyleBoxFlat_getpj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ryguw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_d13ii")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1u8w0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_82xsv")
+toggle_mode = true
+icon = ExtResource("12_getpj")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TutorialPanel" type="PanelContainer" parent="UI/GameScreen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -128.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0odxb")
+script = ExtResource("13_ryguw")
+
+[node name="DialoguePanelMargin" type="MarginContainer" parent="UI/GameScreen/TutorialPanel"]
+layout_mode = 2
 theme_override_constants/margin_left = 64
 theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
-[node name="DialoguePanel" type="PanelContainer" parent="UI/GameScreen/DialoguePanelMargin"]
+[node name="DialoguePanel" type="PanelContainer" parent="UI/GameScreen/TutorialPanel/DialoguePanelMargin"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(800, 100)
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameScreen/TutorialPanel/DialoguePanelMargin/DialoguePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel/MarginContainer"]
-visible = false
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameScreen/TutorialPanel/DialoguePanelMargin/DialoguePanel/MarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/GameScreen/TutorialPanel/DialoguePanelMargin/DialoguePanel/MarginContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 texture = ExtResource("4_efxa6")
 stretch_mode = 2
 
-[node name="DialogueOutput" type="RichTextLabel" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel/MarginContainer/HBoxContainer"]
+[node name="DialogueOutput" type="RichTextLabel" parent="UI/GameScreen/TutorialPanel/DialoguePanelMargin/DialoguePanel/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("2_kek77")
+theme = SubResource("Theme_getpj")
 bbcode_enabled = true
 text = "Some dialogue output"
+fit_content = true
 
-[node name="DialogueButton" type="Button" parent="UI/GameScreen/DialoguePanelMargin/DialoguePanel"]
+[node name="DialogueButton" type="Button" parent="UI/GameScreen/TutorialPanel/DialoguePanelMargin/DialoguePanel"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_j2q8x")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_j2q8x")
-
-[node name="CameraControls" type="PanelContainer" parent="UI"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(200, 80)
-offset_right = 293.0
-offset_bottom = 80.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ycdy4")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/CameraControls"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/CameraControls/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/CameraControls/MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "Camera Controls :"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/CameraControls/MarginContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="UI/CameraControls/MarginContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-icon = ExtResource("4_efxa6")
-expand_icon = true
+script = ExtResource("7_82xsv")
+metadata/_custom_type_script = "uid://7yuuhsv4n32r"
 
 [node name="WeaponControls" type="Control" parent="UI"]
 visible = false

@@ -9,11 +9,23 @@ func _ready() -> void:
 	%BackButton.pressed.connect( func(): self.hide() )
 	%HelpButton.pressed.connect( func(): %Instructions.show() )
 
-	Events.game_reset.connect( func(): refresh() )
+	Events.game_reset.connect( func():
+		refresh()
+		if Game.save_data.config.get_value("", "instructions") == false:
+			%Instructions.show()
+		else:
+			%Instructions.hide()
+		)
 
 	populate_levels()
 
 	if !Game.dev: %LevelContainer.get_child(0).hide()
+
+	await Events.game_ready
+	if Game.save_data.config.get_value("", "instructions") == false:
+		%Instructions.show()
+	else:
+		%Instructions.hide()
 
 
 func populate_levels():

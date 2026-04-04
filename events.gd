@@ -14,8 +14,6 @@ signal game_reset
 
 
 #region - - LEVEL SIGNALS - - - #
-#signal level_start_request
-#signal level_end_request
 signal level_pause_request
 signal level_unpause_request
 
@@ -26,15 +24,13 @@ signal level_completed
 signal level_paused
 signal level_unpaused
 
-#signal score_incremented(increment_amount: int)
-#signal level_score_changed_requested( new_score: int )
-
 signal level_ammo_changed (new_ammo_count: int)
 signal level_score_changed (new_score: int)
 signal level_attempts_changed (new_attempt_count: int)
 
+signal camera_lock_changed ()
 
-signal particles_emitted(particles: Node2D, position: Vector2)
+signal particles_emitted (particles: Node2D, position: Vector2)
 
 #endregion - - - - #
 

@@ -28,7 +28,10 @@ var high_score := 0
 
 var active_projectiles: Array[Projectile] = []
 var tracked_projectile: Projectile
-var is_tracking_projectile := false
+
+var camera_tracked_node: Node
+var camera_locked: bool = true
+var camera_pan_velocity: Vector2
 
 #var weapons: Array[Weapon] = []
 var stars: Array[Star] = []
@@ -56,6 +59,7 @@ func _setup():
 	# Updater Signals
 	Events.level_score_changed.emit( score )  # Initialize UI to starting score value
 	Events.level_ammo_changed.emit( max_ammo )  # Initialize UI to starting ammo value
+	Events.camera_lock_changed.connect( _on_camera_lock_changed )
 	Events.weapon_fired.connect( _on_weapon_fired )
 
 	_setup_camera()
@@ -93,6 +97,7 @@ func _setup_camera_limits():
 	Camera.limit_right = x[-1] + HORIZONTAL_LIMIT
 	#Camera.limit_top = y[1] - TOP_LIMIT
 	Camera.limit_bottom = y[-1] + BOTTOM_LIMIT
+	Camera.limit_smoothed = true
 
 	var bounds = Area2D.new()
 	bounds.name = "LevelBounds"
@@ -164,12 +169,39 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("zoom_out"):
 		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.1)
 		Drawers.queue_redraw()
+	if event.is_action_pressed("restart"):
+		Game.retry_level()
+
+	if !camera_locked:
+		var pan_x = Input.get_axis("camera_pan_left", "camera_pan_right")
+		var pan_y = Input.get_axis("camera_pan_up", "camera_pan_down")
+		camera_pan_velocity = Vector2(pan_x, pan_y).normalized() * (512 + 256)
 
 
-#func _physics_process(delta: float) -> void:
-	#if !paused:
-		#elapsed_time += delta
-		#total_time += delta
+func _physics_process(delta: float) -> void:
+	if !camera_locked:
+		Camera.position += camera_pan_velocity * delta
+
+
+func _on_camera_lock_changed():
+	camera_locked = !camera_locked
+	Camera.limit_enabled = camera_locked
+	Camera.drag_horizontal_enabled = camera_locked
+	Camera.drag_vertical_enabled = camera_locked
+
+	if camera_locked:
+		Camera.position = Vector2.ZERO
+		Camera.position_smoothing_speed = 5.0
+		#Camera.drag_top_margin = 0.2
+		#Camera.drag_bottom_margin = 0.2
+		#Camera.drag_left_margin = 0.2
+		#Camera.drag_right_margin = 0.2
+	else:
+		Camera.position_smoothing_speed = 10.0
+		#Camera.drag_top_margin = 0.05
+		#Camera.drag_bottom_margin = 0.05
+		#Camera.drag_left_margin = 0.05
+		#Camera.drag_right_margin = 0.05
 
 
 func _on_weapon_fired(projectile: Projectile):
@@ -180,7 +212,7 @@ func _on_weapon_fired(projectile: Projectile):
 		active_projectiles.append(projectile)
 		tracked_projectile = projectile
 		tracked_projectile.sleeping_state_changed.connect( _on_projectile_sleeping_state_changed.bind(tracked_projectile) )
-		is_tracking_projectile = true
+		#is_tracking_projectile = true
 
 		Camera.reparent(tracked_projectile)
 		Camera.position = Vector2.ZERO  # Re-center camera onto projectile
@@ -236,17 +268,23 @@ func add_score(score_amount: int):
 	Events.level_score_changed.emit( score )
 
 
-func camera_focus_projectile():
-	pass
+
+func camera_focus_node(node: Node, time: float = 0.0):
+	Camera.reparent(node)
+	#is_tracking_projectile = false
+	#Camera.position_smoothing_enabled = false
+	#Camera.position = projectile.global_position
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(Camera, "position", Vector2.ZERO, time)
+	await tween.finished
 
 
 func camera_focus_weapon():
 	#Camera.position_smoothing_enabled = false
-	#Camera.reparent(current_weapon, true)
-	Camera.reparent(current_weapon)
 	#Camera.position = projectile.global_position
-
-	is_tracking_projectile = false
+	Camera.reparent(current_weapon)
+	#is_tracking_projectile = false
 
 	var tween = get_tree().create_tween()
 	tween.tween_property(Camera, "position", Vector2.ZERO, 3)

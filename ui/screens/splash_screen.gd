@@ -21,9 +21,10 @@ func _ready():
 func _on_game_loading_ended():
 	var tween = get_tree().create_tween()
 	tween.tween_property( $LoadingLabel, "modulate:a", 0, 1.0 )
-	tween.tween_interval( 0.5 )
-	tween.tween_property( $FadeColor, "modulate:a", 0, 0.5 ).set_ease(Tween.EASE_IN)
+	tween.tween_interval( 0.25 )
+	tween.tween_property( $FadeColor, "modulate:a", 0, 0.5 ).set_trans(Tween.TRANS_EXPO)
 	#Events.game_ready.emit()
+	await tween.finished
 	self.hide()
 
 

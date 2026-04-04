@@ -33,6 +33,9 @@ func load_data():
 				level_data.set("id", level_id)
 				level_data.set("high_score", 0)
 				config.set_value("levels", level_id, level_data)
+
+		config.set_value("", "instructions", false)
+
 		save()
 	else:
 		push_error("Error while loading save data: ", err)

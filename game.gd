@@ -20,8 +20,8 @@ var current_weapon: Weapon
 var save_data = SaveData.new()
 
 # Toggles
-var splash = true
-var preloader = true
+var splash = true  # Shows splash screen (+ loading screen)
+var preloader = true  # Preloads resources and particles
 var dev = false
 
 

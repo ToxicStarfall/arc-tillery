@@ -28,6 +28,7 @@ func _init_misc():
 	Events.level_started.connect( _on_level_started )
 
 	%MenuButton.pressed.connect( func(): Events.level_pause_request.emit() )
+	%CameraLockButton.pressed.connect( Events.camera_lock_changed.emit )
 
 
 func request_weapon_angle_change(value):
@@ -49,6 +50,10 @@ func request_weapon_fire():
 func _on_level_started(level: Level):
 	self.show()
 	%ScoreDisplay/%LevelName.text = "\"" + level.level_name + "\""
+
+	if level.get_level_id() == "1":
+		%TutorialPanel.show()
+		%TutorialPanel.start_tutorial()
 
 
 #func _on_level_completed(level: Level):

@@ -9,8 +9,8 @@ extends AudioStreamPlayer2D
 
 ## Selectively choose audio streams from
 @export var audio_streams: Array[AudioStream]
-## (WIP) Choose all audio streams in the dir
-@export var audio_streams_dir: String
+## Choose all audio streams in the dir
+@export_dir var audio_streams_dir: String
 
 
 

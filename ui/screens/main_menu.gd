@@ -18,6 +18,11 @@ func _ready() -> void:
 		exit_confirmed = false
 		%ResetButton.text = "RESET"
 		reset_confirmed = false
+
+		if Game.save_data.config.get_value("", "instructions") == false:
+			UI.get_node("%Instructions").show()
+		else:
+			UI.get_node("%Instructions").hide()
 	)
 
 	%ExitButton.pressed.connect( func():
